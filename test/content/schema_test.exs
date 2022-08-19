@@ -33,7 +33,7 @@ defmodule Content.SchemaTest do
       )
 
       contentful_field(:long_text_field, :long_text,
-        id: :custom_short_text_id,
+        id: :custom_long_text_id,
         name: "Custom Long Text Name",
         localized: true,
         required: true,
@@ -57,7 +57,7 @@ defmodule Content.SchemaTest do
              __long_text_field__: %{
                cardinality: :one,
                contentful_type: "Text",
-               id: "",
+               id: "long_text_field",
                localized: false,
                name: "Long Text Field",
                required: false,
@@ -67,7 +67,7 @@ defmodule Content.SchemaTest do
              __short_text_field__: %{
                cardinality: :one,
                contentful_type: "Symbol",
-               id: "",
+               id: "short_text_field",
                localized: false,
                name: "Short Text Field",
                required: false,
@@ -77,7 +77,7 @@ defmodule Content.SchemaTest do
              __array_of_short_text__: %{
                cardinality: :many,
                contentful_type: "Symbol",
-               id: "",
+               id: "array_of_short_text",
                localized: false,
                name: "Array Of Short Text",
                required: false,
@@ -87,7 +87,7 @@ defmodule Content.SchemaTest do
              __array_of_long_text__: %{
                cardinality: :many,
                contentful_type: "Text",
-               id: "",
+               id: "array_of_long_text",
                localized: false,
                name: "Array Of Long Text",
                required: false,
@@ -108,7 +108,7 @@ defmodule Content.SchemaTest do
              __long_text_field__: %{
                cardinality: :one,
                contentful_type: "Text",
-               id: "",
+               id: :custom_long_text_id,
                localized: true,
                name: "Custom Long Text Name",
                required: true,
@@ -118,7 +118,7 @@ defmodule Content.SchemaTest do
              __short_text_field__: %{
                cardinality: :one,
                contentful_type: "Symbol",
-               id: "",
+               id: :custom_short_text_id,
                localized: true,
                name: "Custom Short Text Name",
                required: true,
@@ -128,7 +128,7 @@ defmodule Content.SchemaTest do
              __array_of_short_text__: %{
                cardinality: :many,
                contentful_type: "Symbol",
-               id: "",
+               id: :custom_array_id,
                localized: true,
                name: "Custom Array Name",
                required: true,
@@ -138,7 +138,7 @@ defmodule Content.SchemaTest do
              __array_of_long_text__: %{
                cardinality: :many,
                contentful_type: "Text",
-               id: "",
+               id: :custom_array_id,
                localized: true,
                name: "Custom Array Name",
                required: true,

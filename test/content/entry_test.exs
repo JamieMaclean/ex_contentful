@@ -19,18 +19,21 @@ defmodule Content.EntryTest do
              name: "My Content Type",
              fields: [
                %{
+                 id: "array_of_long_text",
                  items: %{type: "Text"},
                  name: "Array Of Long Text",
                  omitted: false,
                  type: "Array"
                },
                %{
+                 id: "array_of_short_text",
                  items: %{type: "Symbol"},
                  name: "Array Of Short Text",
                  omitted: false,
                  type: "Array"
                },
                %{
+                 id: "long_text_field",
                  localized: false,
                  name: "Long Text Field",
                  omitted: false,
@@ -38,6 +41,7 @@ defmodule Content.EntryTest do
                  type: "Text"
                },
                %{
+                 id: "short_text_field",
                  localized: false,
                  name: "Short Text Field",
                  omitted: false,
