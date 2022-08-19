@@ -51,4 +51,17 @@ defmodule Content.EntryTest do
              ]
            }
   end
+
+  test "Correctly transforms short_text to be sent as an entry" do
+    assert Entry.to_contentful_entry(%MyDefaultContentType{
+             long_text_field: "A long piece of text"
+           }) == %{
+             fields: %{
+               "array_of_long_text" => %{"en-US" => []},
+               "array_of_short_text" => %{"en-US" => []},
+               "long_text_field" => %{"en-US" => "A long piece of text"},
+               "short_text_field" => %{"en-US" => ""}
+             }
+           }
+  end
 end

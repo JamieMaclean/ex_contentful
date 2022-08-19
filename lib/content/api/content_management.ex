@@ -10,8 +10,7 @@ defmodule Content.Api.ContentManagement do
   @base_url "https://api.contentful.com"
 
   def access_token(),
-    do:
-      Application.get_env(:content, :content_management_token)
+    do: Application.get_env(:content, :content_management_token)
 
   def update_content_type(content_type_module, version, space_id, environment_id) do
     content_type = struct(content_type_module)
@@ -19,8 +18,9 @@ defmodule Content.Api.ContentManagement do
     url =
       "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type.__id__}"
 
-    body = Entry.to_contentful_schema(content_type)
-           |> Jason.encode!()
+    body =
+      Entry.to_contentful_schema(content_type)
+      |> Jason.encode!()
 
     {:ok, %{body: _body}} =
       url
@@ -36,7 +36,7 @@ defmodule Content.Api.ContentManagement do
 
     {:ok, %{body: _body}} =
       url
-      |> HTTPoison.post(body, headers(entry, version), HTTP.local_request_opts())
+      |> HTTPoison.post(body, headers(entry, version), hackney: [:insecure])
   end
 
   def headers(entry, version) do

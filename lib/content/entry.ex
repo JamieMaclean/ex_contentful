@@ -27,28 +27,12 @@ defmodule Content.Entry do
   end
 
   def to_contentful_entry(entry) do
-    struct = entry.__struct__
-
     fields =
-      struct.__schema__(:fields)
-      |> Enum.map(fn field -> {field, struct.__schema__(:type, field)} end)
-      |> Enum.filter(fn {_name, type} ->
-        case type do
-          {_, Ecto.Embedded, _} -> true
-          _ -> false
-        end
-      end)
-      |> Enum.map(fn {name, _} ->
-        [_, value_name, _] =
-          Atom.to_string(name)
-          |> String.split("__")
-
-        field = Map.get(entry, name)
-        value = Map.get(entry, String.to_existing_atom(value_name))
-        {field.id, %{"en-US" => value}}
-      end)
+      Map.keys(entry)
+      |> Enum.filter(fn key -> !is_prop?(key) end)
+      |> Enum.map(&Field.to_contentful_entry(entry, &1))
       |> Enum.into(%{})
 
-    %{"fields" => fields}
+    %{fields: fields}
   end
 end
