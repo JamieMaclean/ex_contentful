@@ -1,0 +1,101 @@
+defmodule Content.Schema do
+  @field_modules %{
+    short_text: Content.Field.ShortText,
+    long_text: Content.Field.LongText
+  }
+  defmacro __using__(_) do
+    quote do
+      use Ecto.Schema
+      import Ecto.Changeset
+      import Content.Schema
+
+      alias Content.Field.ShortText
+
+      Module.register_attribute(__MODULE__, :contentful_field, accumulate: true)
+    end
+  end
+
+  defmacro contentful_type(name, props \\ [], do: block) when is_atom(name) do
+    id = props[:id] || Atom.to_string(name)
+    display_name = props[:name] || get_default_display_name(name)
+
+    quote do
+      @primary_key false
+      embedded_schema do
+        field(:__id__, :string, default: unquote(id))
+        field(:__name__, :string, default: unquote(display_name))
+        unquote(block)
+      end
+    end
+  end
+
+  defmacro contentful_field(name, type, opts \\ []) do
+    props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
+
+    default_value = get_default_value(props_field[:props].type)
+
+    quote do
+      Module.put_attribute(
+        __MODULE__,
+        :contentful_field,
+        {unquote(props_field[:name]), unquote(type), unquote(opts[:contentful_props])}
+      )
+
+      field(unquote(props_field[:name]), :map, default: unquote(Macro.escape(props_field[:props])))
+
+      field(unquote(name), unquote(props_field[:props].type), default: unquote(default_value))
+    end
+  end
+
+  defmacro contentful_fields(name, type, opts \\ []) do
+    props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
+
+    quote do
+      Module.put_attribute(
+        __MODULE__,
+        :contentful_field,
+        {unquote(props_field[:name]), unquote(type), unquote(opts[:contentful_props])}
+      )
+
+      field(unquote(props_field[:name]), :map, default: unquote(Macro.escape(props_field[:props])))
+
+      field(unquote(name), {:array, unquote(props_field[:props].type)}, default: [])
+    end
+  end
+
+  def prepare_props_field(name, type, opts) do
+    opts =
+      opts
+      |> Keyword.delete(:type)
+      |> Keyword.delete(:contentful_type)
+      |> Keyword.put_new(:name, get_default_display_name(name))
+      |> Keyword.put_new(:id, Atom.to_string(name))
+
+    props_name =
+      ("__" <> Atom.to_string(name) <> "__")
+      |> String.to_atom()
+
+    field_module = Map.get(@field_modules, type)
+    props = struct(field_module, opts) |> Map.from_struct()
+
+    [name: props_name, props: props]
+  end
+
+  defp get_default_value(type) do
+    Map.get(
+      %{
+        string: "",
+        map: %{}
+      },
+      type
+    )
+  end
+
+  defp get_default_display_name(name) do
+    name
+    |> Atom.to_string()
+    |> String.split("_")
+    |> Enum.map(&String.capitalize(&1))
+    |> Enum.join(" ")
+  end
+end
