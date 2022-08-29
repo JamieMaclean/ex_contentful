@@ -6,6 +6,22 @@ Content is a library that can be used to manage both the structure of your data 
 
 This library is in fact a simple wrapper around Ecto with specific added functionality to integrate it with the Contentful API.
 
+## Quick Start
+
+### Define your content
+
+Defining your data is as easy as defining a `contentful_type` with all of the nesesry fields using `contentful_field` for individual fields or `contentful_fields` for an array or fields.
+
+```elixir
+contentful_type :blog_post do
+  contentful_field :title, :short_text
+  contentful_fields :authors, :short_text
+  contentful_field :content, :long_text
+  contentful_fields :tags, :short_text
+end
+```
+
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
