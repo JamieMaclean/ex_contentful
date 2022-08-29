@@ -52,48 +52,6 @@ defmodule Content.SchemaTest do
 
   test "Schema defaults are correctly assigned" do
     assert %MyDefaultContentType{} == %MyDefaultContentType{
-             __id__: "my_content_type",
-             __name__: "My Content Type",
-             __long_text_field__: %{
-               cardinality: :one,
-               contentful_type: "Text",
-               id: "long_text_field",
-               localized: false,
-               name: "Long Text Field",
-               required: false,
-               type: :string,
-               omitted: false
-             },
-             __short_text_field__: %{
-               cardinality: :one,
-               contentful_type: "Symbol",
-               id: "short_text_field",
-               localized: false,
-               name: "Short Text Field",
-               required: false,
-               type: :string,
-               omitted: false
-             },
-             __array_of_short_text__: %{
-               cardinality: :many,
-               contentful_type: "Symbol",
-               id: "array_of_short_text",
-               localized: false,
-               name: "Array Of Short Text",
-               required: false,
-               type: :string,
-               omitted: false
-             },
-             __array_of_long_text__: %{
-               cardinality: :many,
-               contentful_type: "Text",
-               id: "array_of_long_text",
-               localized: false,
-               name: "Array Of Long Text",
-               required: false,
-               type: :string,
-               omitted: false
-             },
              short_text_field: "",
              long_text_field: "",
              array_of_short_text: [],
@@ -103,48 +61,6 @@ defmodule Content.SchemaTest do
 
   test "Schema defaults are overwritten correctly" do
     assert %MyCustomContentType{} == %MyCustomContentType{
-             __id__: "a_custom_id",
-             __name__: "A Custom Name",
-             __long_text_field__: %{
-               cardinality: :one,
-               contentful_type: "Text",
-               id: :custom_long_text_id,
-               localized: true,
-               name: "Custom Long Text Name",
-               required: true,
-               type: :string,
-               omitted: true
-             },
-             __short_text_field__: %{
-               cardinality: :one,
-               contentful_type: "Symbol",
-               id: :custom_short_text_id,
-               localized: true,
-               name: "Custom Short Text Name",
-               required: true,
-               type: :string,
-               omitted: true
-             },
-             __array_of_short_text__: %{
-               cardinality: :many,
-               contentful_type: "Symbol",
-               id: :custom_array_id,
-               localized: true,
-               name: "Custom Array Name",
-               required: true,
-               type: :string,
-               omitted: true
-             },
-             __array_of_long_text__: %{
-               cardinality: :many,
-               contentful_type: "Text",
-               id: :custom_array_id,
-               localized: true,
-               name: "Custom Array Name",
-               required: true,
-               type: :string,
-               omitted: true
-             },
              short_text_field: "",
              array_of_short_text: [],
              array_of_long_text: []

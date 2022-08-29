@@ -1,6 +1,5 @@
 defmodule Content.Api.ContentManagement do
   alias Content.Entry
-  alias Content.HTTP
 
   @moduledoc """
   The Content Management API is used to create and update content on
@@ -37,6 +36,14 @@ defmodule Content.Api.ContentManagement do
     {:ok, %{body: _body}} =
       url
       |> HTTPoison.post(body, headers(entry, version), hackney: [:insecure])
+  end
+
+  def get_entry(entry_id, space_id, environment_id) do
+    url = "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/entries/#{entry_id}"
+
+    {:ok, %{body: _body}} =
+      url
+      |> HTTPoison.get([{"Authorization", "Bearer #{access_token()}"}], hackney: [:insecure])
   end
 
   def headers(entry, version) do

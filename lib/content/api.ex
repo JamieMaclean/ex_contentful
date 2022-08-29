@@ -14,4 +14,9 @@ defmodule Content.Api do
 
   def update_content_type(content_type, version),
     do: CMApi.update_content_type(content_type, version, space_id(), environment_id())
+
+  def get_entry(entry_id) do
+    CMApi.get_entry(entry_id, space_id(), environment_id())
+    |> IO.inspect()
+  end
 end

@@ -3,15 +3,32 @@ defmodule Content.Schema do
     short_text: Content.Field.ShortText,
     long_text: Content.Field.LongText
   }
+
   defmacro __using__(_) do
     quote do
       use Ecto.Schema
       import Ecto.Changeset
       import Content.Schema
 
-      alias Content.Field.ShortText
-
       Module.register_attribute(__MODULE__, :contentful_field, accumulate: true)
+      Module.register_attribute(__MODULE__, :content_type_name, accumulate: false)
+      Module.register_attribute(__MODULE__, :content_type_id, accumulate: false)
+
+      def __contentful_schema__(), do: true
+
+      @before_compile {Content.Schema, :add_schema}
+    end
+  end
+
+  defmacro add_schema(_) do
+    quote do
+      def contentful_schema() do
+        %{
+          name: @content_type_name,
+          id: @content_type_id,
+          fields: @contentful_field |> Enum.into(%{})
+        }
+      end
     end
   end
 
@@ -20,10 +37,19 @@ defmodule Content.Schema do
     display_name = props[:name] || get_default_display_name(name)
 
     quote do
+      Module.put_attribute(
+        __MODULE__,
+        :content_type_id,
+        unquote(id)
+      )
+      Module.put_attribute(
+        __MODULE__,
+        :content_type_name,
+        unquote(display_name)
+      )
+
       @primary_key false
       embedded_schema do
-        field(:__id__, :string, default: unquote(id))
-        field(:__name__, :string, default: unquote(display_name))
         unquote(block)
       end
     end
@@ -32,18 +58,16 @@ defmodule Content.Schema do
   defmacro contentful_field(name, type, opts \\ []) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
 
-    default_value = get_default_value(props_field[:props].type)
+    default_value = get_default_value(props_field.type)
 
     quote do
       Module.put_attribute(
         __MODULE__,
         :contentful_field,
-        {unquote(props_field[:name]), unquote(type), unquote(opts[:contentful_props])}
+        {unquote(name), unquote(Macro.escape(props_field))}
       )
 
-      field(unquote(props_field[:name]), :map, default: unquote(Macro.escape(props_field[:props])))
-
-      field(unquote(name), unquote(props_field[:props].type), default: unquote(default_value))
+      field(unquote(name), unquote(props_field.type), default: unquote(default_value))
     end
   end
 
@@ -54,12 +78,10 @@ defmodule Content.Schema do
       Module.put_attribute(
         __MODULE__,
         :contentful_field,
-        {unquote(props_field[:name]), unquote(type), unquote(opts[:contentful_props])}
+        {unquote(name), unquote(Macro.escape(props_field))}
       )
 
-      field(unquote(props_field[:name]), :map, default: unquote(Macro.escape(props_field[:props])))
-
-      field(unquote(name), {:array, unquote(props_field[:props].type)}, default: [])
+      field(unquote(name), {:array, unquote(props_field.type)}, default: [])
     end
   end
 
@@ -71,14 +93,10 @@ defmodule Content.Schema do
       |> Keyword.put_new(:name, get_default_display_name(name))
       |> Keyword.put_new(:id, Atom.to_string(name))
 
-    props_name =
-      ("__" <> Atom.to_string(name) <> "__")
-      |> String.to_atom()
-
     field_module = Map.get(@field_modules, type)
     props = struct(field_module, opts) |> Map.from_struct()
 
-    [name: props_name, props: props]
+    props
   end
 
   defp get_default_value(type) do
