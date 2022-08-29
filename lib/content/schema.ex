@@ -42,6 +42,7 @@ defmodule Content.Schema do
         :content_type_id,
         unquote(id)
       )
+
       Module.put_attribute(
         __MODULE__,
         :content_type_name,
