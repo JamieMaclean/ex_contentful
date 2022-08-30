@@ -12,18 +12,15 @@ defmodule Content.Api.ContentManagement do
     do: Application.get_env(:content, :content_management_token)
 
   def update_content_type(content_type_module, version, space_id, environment_id) do
-    content_type = struct(content_type_module)
-
     url =
-      "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type.__id__}"
+      "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.contentful_schema.id}"
 
-    body =
-      Entry.to_contentful_schema(content_type)
+    body = content_type_module.contentful_schema
       |> Jason.encode!()
 
     {:ok, %{body: _body}} =
       url
-      |> HTTPoison.put(body, headers(content_type, version), hackney: [:insecure])
+      |> HTTPoison.put(body, headers(content_type_module, version), hackney: [:insecure])
   end
 
   def upsert_entry(entry, version, space_id, environment_id) do
@@ -46,11 +43,11 @@ defmodule Content.Api.ContentManagement do
       |> HTTPoison.get([{"Authorization", "Bearer #{access_token()}"}], hackney: [:insecure])
   end
 
-  def headers(entry, version) do
+  def headers(entry_type, version) do
     headers = [
       {"Authorization", "Bearer #{access_token()}"},
       {"Content-Type", "application/vnd.contentful.management.v1+json"},
-      {"X-Contentful-Content-Type", entry.__id__}
+      {"X-Contentful-Content-Type", entry_type.contentful_schema.id}
     ]
 
     case version do
