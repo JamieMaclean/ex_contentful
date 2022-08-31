@@ -15,7 +15,8 @@ defmodule Content.Api.ContentManagement do
     url =
       "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.contentful_schema.id}"
 
-    body = content_type_module.contentful_schema
+    body =
+      content_type_module.contentful_schema
       |> Jason.encode!()
 
     {:ok, %{body: _body}} =
