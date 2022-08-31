@@ -14,10 +14,6 @@ defmodule Content.EntryTest do
     end
   end
 
-  test "Correctly transforms short_text to be sent to contentful" do
-    assert true
-  end
-
   test "Correctly transforms short_text to be sent as an entry" do
     assert Entry.to_contentful_entry(%MyDefaultContentType{
              long_text_field: "A long piece of text"
