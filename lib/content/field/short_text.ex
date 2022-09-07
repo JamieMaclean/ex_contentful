@@ -3,6 +3,7 @@ defmodule Content.Field.ShortText do
     :cardinality,
     :name,
     id: "",
+    available_options: [],
     localized: false,
     required: false,
     type: :string,

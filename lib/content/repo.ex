@@ -1,18 +1,16 @@
 defmodule Content.Repo do
   defmacro __using__(_opts) do
-    IO.inspect(__CALLER__)
-    IO.inspect(:application.get_key(:content, :modules))
-
     quote do
-      def get_all_content_types() do
-        {:ok, modules} =
-          Application.get_application(__MODULE__)
-          |> :application.get_key(:modules)
+      def child_spec(opts) do
+        %{
+          id: __MODULE__,
+          start: {__MODULE__, :start_link, [opts]},
+          type: :supervisor
+        }
+      end
 
-        Enum.filter(modules, fn module ->
-          :application.get_key(:funtions)
-          Module.g()
-        end)
+      def start_link(opts \\ []) do
+        Content.Repo.Supervisor.start_link(opts)
       end
     end
   end

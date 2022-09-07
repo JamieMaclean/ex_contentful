@@ -45,7 +45,8 @@ defmodule Content.SchemaTest do
         name: "Custom Array Name",
         localized: true,
         required: true,
-        omitted: true
+        omitted: true,
+        available_options: ["asdf"]
       )
     end
   end
