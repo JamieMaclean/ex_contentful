@@ -32,7 +32,7 @@ defmodule Content.Schema do
     end
   end
 
-  defmacro contentful_type(name, props \\ [], do: block) when is_atom(name) do
+  defmacro content_type(name, props \\ [], do: block) when is_atom(name) do
     id = props[:id] || Atom.to_string(name)
     display_name = props[:name] || get_default_display_name(name)
 
@@ -56,7 +56,7 @@ defmodule Content.Schema do
     end
   end
 
-  defmacro contentful_field(name, type, opts \\ []) do
+  defmacro content_field(name, type, opts \\ []) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
 
     default_value = get_default_value(props_field.type)
@@ -72,7 +72,7 @@ defmodule Content.Schema do
     end
   end
 
-  defmacro contentful_fields(name, type, opts \\ []) do
+  defmacro content_field_array(name, type, opts \\ []) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
 
     quote do

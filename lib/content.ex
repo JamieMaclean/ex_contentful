@@ -18,8 +18,6 @@ defmodule Content do
   def get_entry(entry_id) do
     {:ok, %{body: body}} = CMApi.get_entry(entry_id, space_id(), environment_id())
 
-    entry = Jason.decode!(body)
-    entry_type_id = get_in(entry, ["sys", "contentType", "sys", "id"])
-    IO.inspect(:application.get_key(:content, :modules))
+    Jason.decode!(body)
   end
 end
