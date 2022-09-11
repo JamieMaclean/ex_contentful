@@ -1,5 +1,6 @@
 defmodule Content.Api.ContentManagement do
   alias Content.Entry
+  alias Content.Api.HTTP
 
   @moduledoc """
   The Content Management API is used to create and update content on
@@ -8,20 +9,46 @@ defmodule Content.Api.ContentManagement do
 
   @base_url "https://api.contentful.com"
 
-  def access_token(),
-    do: Application.get_env(:content, :content_management_token)
+  def all_content_types(space_id, environment_id) do
+    url = "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types"
+
+    url
+    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
+    |> HTTP.process_response()
+  end
 
   def update_content_type(content_type_module, version, space_id, environment_id) do
     url =
-      "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.contentful_schema.id}"
+      "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.__contentful_schema__.id}"
+
+    %{fields: fields} = schema = content_type_module.__contentful_schema__
+
+    fields =
+      Enum.map(fields, fn %{contentful_type: type} = field ->
+        Map.delete(field, :cardinality)
+        |> Map.delete(:available_options)
+        |> Map.delete(:contentful_type)
+        |> Map.put(:type, type)
+      end)
+
+    schema = Map.put(schema, :fields, fields)
 
     body =
-      content_type_module.contentful_schema
+      schema
+      |> Map.delete(:id)
       |> Jason.encode!()
+      |> IO.inspect(pretty: true)
 
-    {:ok, %{body: _body}} =
-      url
-      |> HTTPoison.put(body, headers(content_type_module, version), hackney: [:insecure])
+    url
+    |> HTTPoison.put(
+      body,
+      HTTP.headers([:auth, :contentful_type, :version],
+        contentful_type: content_type_module,
+        version: version
+      ),
+      hackney: [:insecure]
+    )
+    |> HTTP.process_response()
   end
 
   def upsert_entry(entry, version, space_id, environment_id) do
@@ -33,7 +60,11 @@ defmodule Content.Api.ContentManagement do
 
     {:ok, %{body: _body}} =
       url
-      |> HTTPoison.post(body, headers(entry, version), hackney: [:insecure])
+      |> HTTPoison.post(
+        body,
+        HTTP.headers([:auth, :contentful_type, :version], contentful_type: entry, version: version),
+        hackney: [:insecure]
+      )
   end
 
   def get_entry(entry_id, space_id, environment_id) do
@@ -41,19 +72,6 @@ defmodule Content.Api.ContentManagement do
 
     {:ok, %{body: _body}} =
       url
-      |> HTTPoison.get([{"Authorization", "Bearer #{access_token()}"}], hackney: [:insecure])
-  end
-
-  def headers(entry_type, version) do
-    headers = [
-      {"Authorization", "Bearer #{access_token()}"},
-      {"Content-Type", "application/vnd.contentful.management.v1+json"},
-      {"X-Contentful-Content-Type", entry_type.contentful_schema.id}
-    ]
-
-    case version do
-      1 -> headers
-      _ -> [{"X-Contentful-Version", version} | headers]
-    end
+      |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
   end
 end

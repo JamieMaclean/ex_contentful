@@ -4,10 +4,21 @@ defmodule Content.Integration.SchemaTest do
   alias Content.Integration.BlogPost
 
   test "Correctly transforms short_text to be sent as an entry" do
-    assert BlogPost.contentful_schema() ==
+    assert BlogPost.__contentful_schema__() ==
              %{
-               fields: %{
-                 authors: %{
+               fields: [
+                 %{
+                   available_options: [],
+                   cardinality: :one,
+                   contentful_type: "Symbol",
+                   id: "legacy_field",
+                   localized: true,
+                   name: "An unused legacy field",
+                   omitted: true,
+                   required: true,
+                   type: :string
+                 },
+                 %{
                    available_options: [],
                    cardinality: :many,
                    contentful_type: "Symbol",
@@ -18,7 +29,7 @@ defmodule Content.Integration.SchemaTest do
                    required: false,
                    type: :string
                  },
-                 content: %{
+                 %{
                    cardinality: :one,
                    contentful_type: "Text",
                    id: "content",
@@ -28,7 +39,7 @@ defmodule Content.Integration.SchemaTest do
                    required: false,
                    type: :string
                  },
-                 title: %{
+                 %{
                    available_options: [],
                    cardinality: :one,
                    contentful_type: "Symbol",
@@ -38,19 +49,8 @@ defmodule Content.Integration.SchemaTest do
                    omitted: false,
                    required: false,
                    type: :string
-                 },
-                 legacy_field: %{
-                   available_options: [],
-                   cardinality: :one,
-                   contentful_type: "Symbol",
-                   id: "legacy_field",
-                   localized: true,
-                   name: "An unused legacy field",
-                   omitted: true,
-                   required: true,
-                   type: :string
                  }
-               },
+               ],
                id: "blog_post",
                name: "Blog Post"
              }

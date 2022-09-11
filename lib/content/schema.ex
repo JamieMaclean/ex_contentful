@@ -14,19 +14,17 @@ defmodule Content.Schema do
       Module.register_attribute(__MODULE__, :content_type_name, accumulate: false)
       Module.register_attribute(__MODULE__, :content_type_id, accumulate: false)
 
-      def __contentful_schema__(), do: true
-
       @before_compile {Content.Schema, :add_schema}
     end
   end
 
   defmacro add_schema(_) do
     quote do
-      def contentful_schema() do
+      def __contentful_schema__() do
         %{
           name: @content_type_name,
           id: @content_type_id,
-          fields: @contentful_field |> Enum.into(%{})
+          fields: @contentful_field
         }
       end
     end
@@ -65,7 +63,7 @@ defmodule Content.Schema do
       Module.put_attribute(
         __MODULE__,
         :contentful_field,
-        {unquote(name), unquote(Macro.escape(props_field))}
+        unquote(Macro.escape(props_field))
       )
 
       field(unquote(name), unquote(props_field.type), default: unquote(default_value))
@@ -79,7 +77,7 @@ defmodule Content.Schema do
       Module.put_attribute(
         __MODULE__,
         :contentful_field,
-        {unquote(name), unquote(Macro.escape(props_field))}
+        unquote(Macro.escape(props_field))
       )
 
       field(unquote(name), {:array, unquote(props_field.type)}, default: [])
