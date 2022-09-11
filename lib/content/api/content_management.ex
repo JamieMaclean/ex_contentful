@@ -37,7 +37,6 @@ defmodule Content.Api.ContentManagement do
       schema
       |> Map.delete(:id)
       |> Jason.encode!()
-      |> IO.inspect(pretty: true)
 
     url
     |> HTTPoison.put(

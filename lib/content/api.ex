@@ -13,11 +13,13 @@ defmodule Content.Api do
   def migrate_content_model(application) do
     app_content_types = Entry.all(application)
     %{"items" => items} = CMApi.all_content_types(space_id(), environment_id())
+    IO.inspect(items)
+
 
     Enum.each(app_content_types, fn content_type ->
-      case Enum.find(items, fn item -> item.id == content_type.__contentful_schema__.id end) do
+      case Enum.find(items, fn item -> item["sys"]["id"] == content_type.__contentful_schema__.id end) do
         nil -> create_content_type(content_type)
-        item -> update_content_type(content_type, item.version)
+        item -> update_content_type(content_type, item["sys"]["version"])
       end
     end)
   end
