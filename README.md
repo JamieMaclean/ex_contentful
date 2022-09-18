@@ -6,6 +6,10 @@ Content is a library that can be used to manage both the structure of your data 
 
 This library is in fact a simple wrapper around Ecto with specific added functionality to integrate it with the Contentful API. As we're interfacing with an API and not any type of database we decided to wrap Ecto rather than create an adapter.
 
+# Warning
+
+Not ready for use. There are still lots of missing parts.
+
 ## Quick Start
 
 ### Define your content
