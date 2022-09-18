@@ -1,5 +1,6 @@
 defmodule Content do
   alias Content.Api.ContentManagement, as: CMApi
+  alias Content.Api, as: Api
 
   def space_id(), do: Application.get_env(:content, :space_id)
   def environment_id(), do: Application.get_env(:content, :environment_id)
@@ -19,5 +20,9 @@ defmodule Content do
     {:ok, %{body: body}} = CMApi.get_entry(entry_id, space_id(), environment_id())
 
     Jason.decode!(body)
+  end
+
+  def migrate_content_model(application) do
+    Api.migrate_content_model(application)
   end
 end
