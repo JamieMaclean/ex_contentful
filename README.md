@@ -17,13 +17,15 @@ Not ready for use. There are still lots of missing parts.
 Defining your data is as easy as defining a `contentful_type` with all of the nesesry fields using `contentful_field` for individual fields or `contentful_fields` for an array or fields.
 
 ```elixir
-use Content.Schema
+defmodule MyApp.BlogPost do
+  use Content.Schema
 
-contentful_type :blog_post do
-  contentful_field :title, :short_text
-  contentful_field_array :authors, :short_text
-  contentful_field :content, :long_text
-  contentful_field_array :tags, :short_text
+  contentful_type :blog_post do
+    contentful_field :title, :short_text
+    contentful_field_array :authors, :short_text
+    contentful_field :content, :long_text
+    contentful_field_array :tags, :short_text
+  end
 end
 ```
 
