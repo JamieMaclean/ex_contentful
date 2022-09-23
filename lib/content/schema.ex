@@ -3,6 +3,7 @@ defmodule Content.Schema do
     short_text: Content.Field.ShortText,
     long_text: Content.Field.LongText
   }
+  alias Content.Schema.FieldArray
 
   defmacro __using__(_) do
     quote do
@@ -56,8 +57,10 @@ defmodule Content.Schema do
 
   defmacro content_field(name, type, opts \\ []) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
+    field_module = Map.get(@field_modules, type)
+    struct = struct(field_module)
 
-    default_value = get_default_value(props_field.type)
+    default_value = get_default_value(struct.ecto_type)
 
     quote do
       Module.put_attribute(
@@ -66,12 +69,14 @@ defmodule Content.Schema do
         unquote(Macro.escape(props_field))
       )
 
-      field(unquote(name), unquote(props_field.type), default: unquote(default_value))
+      field(unquote(name), unquote(struct.ecto_type), default: unquote(default_value))
     end
   end
 
   defmacro content_field_array(name, type, opts \\ []) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
+    field_module = Map.get(@field_modules, type)
+    struct = struct(field_module)
 
     quote do
       Module.put_attribute(
@@ -80,22 +85,37 @@ defmodule Content.Schema do
         unquote(Macro.escape(props_field))
       )
 
-      field(unquote(name), {:array, unquote(props_field.type)}, default: [])
+      field(unquote(name), {:array, unquote(struct.ecto_type)}, default: [])
     end
   end
 
   def prepare_props_field(name, type, opts) do
-    opts =
-      opts
-      |> Keyword.delete(:type)
-      |> Keyword.delete(:contentful_type)
-      |> Keyword.put_new(:name, get_default_display_name(name))
-      |> Keyword.put_new(:id, Atom.to_string(name))
+    case Keyword.get(opts, :cardinality) do
+      :one ->
+        field_module = Map.get(@field_modules, type)
+        props = struct(field_module, opts) 
+        props
+        |> Map.from_struct()
+        |> Map.delete(:type)
+        |> Map.delete(:cardinality)
+        |> Map.delete(:items)
+        |> Map.delete(:contentful_type)
+        |> Map.delete(:ecto_type)
+        |> Map.delete(:available_options)
+        |> Map.put(:type, props.contentful_type)
+        |> Map.put(:name, get_default_display_name(name))
+        |> Map.put(:id, Atom.to_string(name))
 
-    field_module = Map.get(@field_modules, type)
-    props = struct(field_module, opts) |> Map.from_struct()
-
-    props
+      :many ->
+        struct(FieldArray, opts) 
+        |> Map.from_struct()
+        |> Map.delete(:type)
+        |> Map.delete(:contentful_type)
+        |> Map.delete(:cardinality)
+        |> Map.put(:name, get_default_display_name(name))
+        |> Map.put(:id, Atom.to_string(name))
+        |> Map.put(:items, %{type: "Symbol", validations: []})
+    end
   end
 
   defp get_default_value(type) do

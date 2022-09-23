@@ -21,17 +21,7 @@ defmodule Content.Api.ContentManagement do
     url =
       "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.__contentful_schema__.id}"
 
-    %{fields: fields} = schema = content_type_module.__contentful_schema__
-
-    fields =
-      Enum.map(fields, fn %{contentful_type: type} = field ->
-        Map.delete(field, :cardinality)
-        |> Map.delete(:available_options)
-        |> Map.delete(:contentful_type)
-        |> Map.put(:type, type)
-      end)
-
-    schema = Map.put(schema, :fields, fields)
+    schema = content_type_module.__contentful_schema__ |> IO.inspect()
 
     body =
       schema
