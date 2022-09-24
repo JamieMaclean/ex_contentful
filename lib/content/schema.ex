@@ -48,9 +48,26 @@ defmodule Content.Schema do
         unquote(display_name)
       )
 
-      @primary_key {:id, :binary_id, autogenerate: true}
+      @primary_key false
       embedded_schema do
+        field :id, :string
         unquote(block)
+      end
+
+      def create(params \\ %{}) do
+        changeset(%__MODULE__{}, params)
+      end
+
+      defp changeset(content_type, params \\ %{}) do
+        all_fields = Enum.map(@contentful_field, fn %{id: id} -> String.to_existing_atom(id) end)
+        required_fields = Enum.filter(@contentful_field, fn %{required: required, omitted: omitted} -> required && !omitted end)
+                          |> Enum.map(fn %{id: id} -> String.to_existing_atom(id) end)
+
+        content_type
+        |> cast(params, [:id | all_fields])
+        |> validate_length(:id, max: 64)
+        |> validate_required(required_fields)
+        |> apply_action(:update)
       end
     end
   end
