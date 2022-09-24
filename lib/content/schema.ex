@@ -48,7 +48,7 @@ defmodule Content.Schema do
         unquote(display_name)
       )
 
-      @primary_key false
+      @primary_key {:id, :binary_id, autogenerate: true}
       embedded_schema do
         unquote(block)
       end

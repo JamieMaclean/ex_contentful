@@ -21,10 +21,8 @@ defmodule Content.Api.ContentManagement do
     url =
       "#{@base_url}/spaces/#{space_id}/environments/#{environment_id}/content_types/#{content_type_module.__contentful_schema__.id}"
 
-    schema = content_type_module.__contentful_schema__ |> IO.inspect()
-
     body =
-      schema
+      content_type_module.__contentful_schema__
       |> Map.delete(:id)
       |> Jason.encode!()
 
@@ -51,7 +49,10 @@ defmodule Content.Api.ContentManagement do
       url
       |> HTTPoison.post(
         body,
-        HTTP.headers([:auth, :contentful_type, :version], contentful_type: entry, version: version),
+        HTTP.headers([:auth, :contentful_type, :version],
+          contentful_type: entry.__struct__,
+          version: version
+        ),
         hackney: [:insecure]
       )
   end
