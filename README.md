@@ -40,6 +40,14 @@ defmodule MyApp.BlogPost do
 end
 ```
 
+### Push your content model to Contentful
+
+After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
+
+  ```elixir
+Content.Api.migrate_content_model(:my_app)
+  ```
+
 ### Create and Upload Entries to Contentful
 
 After defining all of your content types you can use them just as you would any other struct. The `create/1` function is injected into every content type module for easy creation and validation of your entries before they are sent to the Contentful API.
@@ -79,15 +87,6 @@ Entries are automatically validated after being created, so if you do something 
    valid?: false
  >}
 ```
-
-### Push your content model to Contentful
-
-After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
-
-  ```elixir
-Content.Api.migrate_content_model(:my_app)
-  ```
-
 
 ## Installation
 
