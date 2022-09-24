@@ -63,10 +63,10 @@ BlogPost.create(%{
 })
 ```
 
-Which returns a `BlogPost` struct.
+Which returns the tuple `{:ok, %BlogPost{}}`.
 
 ```elixir
-%BlogPost{
+{:ok, %BlogPost{
   authors: ["Me"],
   content: "Content is a great way to manage your data on Contentful!",
   id: nil,

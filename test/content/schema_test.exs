@@ -16,6 +16,22 @@ defmodule Content.Integration.SchemaTest do
                    required: true
                  },
                  %{
+                   type: "Integer",
+                   id: "views",
+                   localized: false,
+                   name: "Views",
+                   omitted: false,
+                   required: true
+                 },
+                 %{
+                   type: "Number",
+                   id: "rating",
+                   localized: false,
+                   name: "Rating",
+                   omitted: false,
+                   required: false
+                 },
+                 %{
                    id: "authors",
                    localized: false,
                    name: "Authors",
@@ -30,7 +46,7 @@ defmodule Content.Integration.SchemaTest do
                    localized: false,
                    name: "Content",
                    omitted: false,
-                   required: false
+                   required: true
                  },
                  %{
                    type: "Symbol",

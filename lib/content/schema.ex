@@ -1,7 +1,9 @@
 defmodule Content.Schema do
   @field_modules %{
     short_text: Content.Field.ShortText,
-    long_text: Content.Field.LongText
+    long_text: Content.Field.LongText,
+    number: Content.Field.Number,
+    integer: Content.Field.Integer
   }
   alias Content.Schema.FieldArray
 
@@ -56,6 +58,10 @@ defmodule Content.Schema do
 
       def create(params \\ %{}) do
         changeset(%__MODULE__{}, params)
+      end
+
+      def update(%__MODULE__{} = entry, params \\ %{}) do
+        changeset(entry, params)
       end
 
       defp changeset(content_type, params \\ %{}) do
