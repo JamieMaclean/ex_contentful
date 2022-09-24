@@ -12,6 +12,7 @@ defmodule Content.Field.ShortText do
 
   @type t :: %Content.Field.ShortText{
           id: String.t(),
+          available_options: list(String.t()),
           contentful_type: String.t(),
           name: String.t(),
           ecto_type: :string,

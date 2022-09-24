@@ -10,6 +10,19 @@ Not ready for use. There are still lots of missing parts.
 
 ## Quick Start
 
+### Application Configuration
+
+First add the following in your application config.
+
+```elixir
+config :content,
+  space_id: "g8l7lpiniu90",
+  environment_id: "integration",
+  content_management_token: "CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
+  content_preview_token: "hx7xZQjRw0gX4PJCPGoM8zpzxd0W8FvBeKmc-XZBsk4",
+  content_delivery_token: "S7Qe5OTySNRWsoHIUD_FLHs0qoVczNCt3_fuO0W3bjw"
+```
+
 ### Define your content
 
 Defining your data is as easy as defining a `contentful_type` with all of the necessary fields using `contentful_field`.

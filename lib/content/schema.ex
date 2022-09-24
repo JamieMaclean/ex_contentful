@@ -33,7 +33,7 @@ defmodule Content.Schema do
 
   defmacro content_type(name, props \\ [], do: block) when is_atom(name) do
     id = props[:id] || Atom.to_string(name)
-    display_name = props[:name] || get_default_display_name(name)
+    display_name = get_default_display_name(name, props)
 
     quote do
       Module.put_attribute(
@@ -106,7 +106,7 @@ defmodule Content.Schema do
         |> Map.delete(:ecto_type)
         |> Map.delete(:available_options)
         |> Map.put(:type, props.contentful_type)
-        |> Map.put(:name, get_default_display_name(name))
+        |> Map.put(:name, get_default_display_name(name, opts))
         |> Map.put(:id, Atom.to_string(name))
 
       :many ->
@@ -114,7 +114,8 @@ defmodule Content.Schema do
         |> Map.from_struct()
         |> Map.delete(:contentful_type)
         |> Map.delete(:cardinality)
-        |> Map.put(:name, get_default_display_name(name))
+        |> Map.delete(:available_options)
+        |> Map.put(:name, get_default_display_name(name, opts))
         |> Map.put(:id, Atom.to_string(name))
         |> Map.put(:items, %{type: "Symbol", validations: []})
     end
@@ -128,6 +129,13 @@ defmodule Content.Schema do
       },
       type
     )
+  end
+
+  defp get_default_display_name(name, opts) do
+    case Keyword.get(opts, :name) do
+      name when is_binary(name) -> name
+      _ -> get_default_display_name(name)
+    end
   end
 
   defp get_default_display_name(name) do

@@ -2,6 +2,7 @@ defmodule Content.Field.LongText do
   defstruct [
     :name,
     id: "",
+    available_options: [],
     localized: false,
     required: false,
     type: :string,

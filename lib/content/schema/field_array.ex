@@ -3,6 +3,7 @@ defmodule Content.Schema.FieldArray do
     :name,
     type: "Array",
     id: "",
+    available_options: [],
     items: %{
       type: "",
       validations: []
