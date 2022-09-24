@@ -109,7 +109,6 @@ defmodule Content.Schema do
       :many ->
         struct(FieldArray, opts) 
         |> Map.from_struct()
-        |> Map.delete(:type)
         |> Map.delete(:contentful_type)
         |> Map.delete(:cardinality)
         |> Map.put(:name, get_default_display_name(name))
