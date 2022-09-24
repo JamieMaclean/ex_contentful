@@ -22,7 +22,7 @@ defmodule MyApp.BlogPost do
 
   contentful_type :blog_post do
     contentful_field :title, :short_text
-    contentful_field_array :authors, :short_text
+    contentful_field_array :authors, {:array, :short_text}
     contentful_field :content, :long_text
     contentful_field_array :tags, :short_text
   end
