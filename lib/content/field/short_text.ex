@@ -11,12 +11,12 @@ defmodule Content.Field.ShortText do
   ]
 
   @type t :: %Content.Field.ShortText{
-    id: String.t(),
-    contentful_type: String.t(),
-    name: String.t(),
-    ecto_type: :string,
-    localized: boolean(),
-    required: boolean(),
-    omitted: boolean(),
-  }
+          id: String.t(),
+          contentful_type: String.t(),
+          name: String.t(),
+          ecto_type: :string,
+          localized: boolean(),
+          required: boolean(),
+          omitted: boolean()
+        }
 end

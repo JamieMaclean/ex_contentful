@@ -11,12 +11,12 @@ defmodule Content.Field.LongText do
   ]
 
   @type t :: %Content.Field.LongText{
-    id: String.t(),
-    contentful_type: String.t(),
-    name: String.t(),
-    ecto_type: :text,
-    localized: boolean(),
-    required: boolean(),
-    omitted: boolean(),
-  }
+          id: String.t(),
+          contentful_type: String.t(),
+          name: String.t(),
+          ecto_type: :text,
+          localized: boolean(),
+          required: boolean(),
+          omitted: boolean()
+        }
 end

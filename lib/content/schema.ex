@@ -55,7 +55,25 @@ defmodule Content.Schema do
     end
   end
 
-  defmacro content_field(name, type, opts \\ []) do
+  defmacro content_field(name, type, opts \\ [])
+
+  defmacro content_field(name, {:array, type}, opts) do
+    props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
+    field_module = Map.get(@field_modules, type)
+    struct = struct(field_module)
+
+    quote do
+      Module.put_attribute(
+        __MODULE__,
+        :contentful_field,
+        unquote(Macro.escape(props_field))
+      )
+
+      field(unquote(name), {:array, unquote(struct.ecto_type)}, default: [])
+    end
+  end
+
+  defmacro content_field(name, type, opts) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
     field_module = Map.get(@field_modules, type)
     struct = struct(field_module)
@@ -73,27 +91,12 @@ defmodule Content.Schema do
     end
   end
 
-  defmacro content_field_array(name, type, opts \\ []) do
-    props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
-    field_module = Map.get(@field_modules, type)
-    struct = struct(field_module)
-
-    quote do
-      Module.put_attribute(
-        __MODULE__,
-        :contentful_field,
-        unquote(Macro.escape(props_field))
-      )
-
-      field(unquote(name), {:array, unquote(struct.ecto_type)}, default: [])
-    end
-  end
-
   def prepare_props_field(name, type, opts) do
     case Keyword.get(opts, :cardinality) do
       :one ->
         field_module = Map.get(@field_modules, type)
-        props = struct(field_module, opts) 
+        props = struct(field_module, opts)
+
         props
         |> Map.from_struct()
         |> Map.delete(:type)
@@ -107,7 +110,7 @@ defmodule Content.Schema do
         |> Map.put(:id, Atom.to_string(name))
 
       :many ->
-        struct(FieldArray, opts) 
+        struct(FieldArray, opts)
         |> Map.from_struct()
         |> Map.delete(:contentful_type)
         |> Map.delete(:cardinality)

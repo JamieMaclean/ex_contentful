@@ -9,13 +9,13 @@ defmodule Content.Schema.Field do
   ]
 
   @type t :: %Content.Schema.Field{
-    name: String.t(),
-    type: String.t(),
-    id: String.t(),
-    localized: boolean(),
-    required: boolean(),
-    omitted: boolean(),
-  }
+          name: String.t(),
+          type: String.t(),
+          id: String.t(),
+          localized: boolean(),
+          required: boolean(),
+          omitted: boolean()
+        }
 
   alias __MODULE__
   alias Content.Field.ShortText
