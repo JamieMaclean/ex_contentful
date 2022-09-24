@@ -88,6 +88,12 @@ Entries are automatically validated after being created, so if you do something 
  >}
 ```
 
+The final step is to send the Entry to Contentful. 
+
+```elixir
+Content.Api.update_entry(blog_post, version) # Version is 0 for new entry
+```
+
 ## Installation
 
   Very experimental! Not yet available on Hex.
