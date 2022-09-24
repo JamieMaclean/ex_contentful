@@ -52,3 +52,9 @@ Content.Api.migrate_content_model(:my_app)
 ## Installation
 
 Very experimental! Not yet available on Hex.
+
+### Copyright and License
+
+Copyright (c) 2022, Jamie Maclean.
+
+Content source code is licensed under the [MIT License](LICENSE.md).
