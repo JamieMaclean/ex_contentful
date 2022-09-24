@@ -55,7 +55,7 @@ BlogPost.create(%{
 })
 ```
 
-Which returns a struct `BlogPost` struct.
+Which returns a `BlogPost` struct.
 
 ```elixir
 %BlogPost{
@@ -67,7 +67,7 @@ Which returns a struct `BlogPost` struct.
 }}
 ```
 
-Entries are automatically validated after being created, so if you do something wrong e.g. leaving :content blank from the BlogPost content type:
+Entries are automatically validated after being created, so if you do something wrong e.g. leaving `:content` blank from the `BlogPost` content type:
 
 ```elixir
 {:error,
