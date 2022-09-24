@@ -4,6 +4,7 @@ defmodule Content.Entry do
   def to_contentful_entry(entry) do
     fields =
       Map.from_struct(entry)
+      |> Map.delete(:id)
       |> Map.delete(:__struct__)
       |> Map.keys()
       |> Enum.map(&Field.to_contentful_entry(entry, &1))
@@ -17,6 +18,5 @@ defmodule Content.Entry do
 
     modules
     |> Enum.filter(&({:__contentful_schema__, 0} in &1.__info__(:functions)))
-    |> IO.inspect()
   end
 end
