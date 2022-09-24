@@ -15,7 +15,9 @@ defmodule Content.Api do
     %{"items" => items} = CMApi.all_content_types(space_id(), environment_id())
 
     Enum.each(app_content_types, fn content_type ->
-      case Enum.find(items, fn item -> item["sys"]["id"] == content_type.__contentful_schema__.id end) do
+      case Enum.find(items, fn item ->
+             item["sys"]["id"] == content_type.__contentful_schema__.id
+           end) do
         nil -> create_content_type(content_type)
         item -> update_content_type(content_type, item["sys"]["version"])
       end

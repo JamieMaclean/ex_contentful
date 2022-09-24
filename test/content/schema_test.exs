@@ -8,47 +8,37 @@ defmodule Content.Integration.SchemaTest do
              %{
                fields: [
                  %{
-                   available_options: [],
-                   cardinality: :one,
-                   contentful_type: "Symbol",
+                   type: "Symbol",
                    id: "legacy_field",
                    localized: true,
                    name: "An unused legacy field",
                    omitted: true,
-                   required: true,
-                   type: :string
+                   required: true
                  },
                  %{
-                   available_options: [],
-                   cardinality: :many,
-                   contentful_type: "Symbol",
                    id: "authors",
                    localized: false,
                    name: "Authors",
                    omitted: false,
                    required: false,
-                   type: :string
+                   type: "Array",
+                   items: %{type: "Symbol", validations: []}
                  },
                  %{
-                   cardinality: :one,
-                   contentful_type: "Text",
+                   type: "Text",
                    id: "content",
                    localized: false,
                    name: "Content",
                    omitted: false,
-                   required: false,
-                   type: :string
+                   required: false
                  },
                  %{
-                   available_options: [],
-                   cardinality: :one,
-                   contentful_type: "Symbol",
+                   type: "Symbol",
                    id: "title",
                    localized: false,
                    name: "Title",
                    omitted: false,
-                   required: false,
-                   type: :string
+                   required: false
                  }
                ],
                id: "blog_post",
