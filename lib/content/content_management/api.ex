@@ -1,6 +1,6 @@
-defmodule Content.Api.ContentManagement do
+defmodule Content.ContentManagement.Api do
   alias Content.Entry
-  alias Content.Api.HTTP
+  alias Content.HTTP
 
   @moduledoc """
   The Content Management API is used to create and update content on

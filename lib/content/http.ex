@@ -1,4 +1,4 @@
-defmodule Content.Api.HTTP do
+defmodule Content.HTTP do
   def access_token(),
     do: Application.get_env(:content, :content_management_token)
 

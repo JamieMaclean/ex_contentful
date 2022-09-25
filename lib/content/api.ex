@@ -1,5 +1,5 @@
 defmodule Content.Api do
-  alias Content.Api.ContentManagement, as: CMApi
+  alias Content.ContentManagement.Api, as: CMApi
   alias Content.Entry
 
   def space_id(), do: Application.get_env(:content, :space_id)
