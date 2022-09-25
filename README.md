@@ -8,6 +8,19 @@ Content is a library that can be used to manage both the structure of your data 
 
 Not ready for use. There are still lots of missing parts.
 
+## Current Functionality
+
+1. Define, create, and update content types with the following field types: `short_text`, `long_text`, `integer`, `number`, `array`.
+2. Create an entry of a defined content type.
+
+## Coming Soon
+
+1. Upsert entry without having to define version.
+2. More field types e.g. `rich_text` etc.
+3. Publish content types and entries.
+4. Get content types and entries.
+5. Much more!
+
 ## Quick Start
 
 ### Application Configuration
