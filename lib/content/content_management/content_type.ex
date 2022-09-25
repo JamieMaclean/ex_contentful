@@ -6,10 +6,8 @@ defmodule Content.ContentManagement.ContentType do
   The Content Management API is used to create and update content on
   Contentful.
   """
-  def space_id(), do: Application.get_env(:content, :space_id)
-  def environment_id(), do: Application.get_env(:content, :environment_id)
 
-  @base_url Content.ContentManagement.url() <> "/content_types"
+  defp base_url, do: Content.ContentManagement.url() <> "/content_types"
 
   def migrate_content_model(application) do
     app_content_types = Entry.all(application)
@@ -26,7 +24,7 @@ defmodule Content.ContentManagement.ContentType do
   end
 
   def all_content_types() do
-    url = @base_url
+    url = base_url()
 
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
@@ -34,7 +32,7 @@ defmodule Content.ContentManagement.ContentType do
   end
 
   def update_content_type(content_type_module, version) do
-    url = "#{@base_url}/#{content_type_module.__contentful_schema__.id}"
+    url = "#{base_url()}/#{content_type_module.__contentful_schema__.id}"
 
     body =
       content_type_module.__contentful_schema__

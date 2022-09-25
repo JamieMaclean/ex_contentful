@@ -6,13 +6,11 @@ defmodule Content.ContentManagement.Entry do
   The Content Management API is used to create and update content on
   Contentful.
   """
-  def space_id(), do: Application.get_env(:content, :space_id)
-  def environment_id(), do: Application.get_env(:content, :environment_id)
 
-  @base_url Content.ContentManagement.url() <> "/entries"
+  def base_url, do: Content.ContentManagement.url() <> "/entries"
 
   def upsert_entry(entry, version) do
-    url = @base_url
+    url = base_url()
 
     body =
       Entry.to_contentful_entry(entry)
@@ -31,7 +29,7 @@ defmodule Content.ContentManagement.Entry do
   end
 
   def get_entry(entry_id) do
-    url = "#{@base_url}//#{entry_id}"
+    url = "#{base_url()}/#{entry_id}"
 
     {:ok, %{body: _body}} =
       url
