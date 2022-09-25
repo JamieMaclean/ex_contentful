@@ -52,7 +52,7 @@ defmodule Content.Schema do
 
       @primary_key false
       embedded_schema do
-        field :id, :string
+        field(:id, :string)
         unquote(block)
       end
 
@@ -66,8 +66,12 @@ defmodule Content.Schema do
 
       defp changeset(content_type, params \\ %{}) do
         all_fields = Enum.map(@contentful_field, fn %{id: id} -> String.to_existing_atom(id) end)
-        required_fields = Enum.filter(@contentful_field, fn %{required: required, omitted: omitted} -> required && !omitted end)
-                          |> Enum.map(fn %{id: id} -> String.to_existing_atom(id) end)
+
+        required_fields =
+          Enum.filter(@contentful_field, fn %{required: required, omitted: omitted} ->
+            required && !omitted
+          end)
+          |> Enum.map(fn %{id: id} -> String.to_existing_atom(id) end)
 
         content_type
         |> cast(params, [:id | all_fields])
