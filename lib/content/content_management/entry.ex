@@ -14,6 +14,7 @@ defmodule Content.ContentManagement.Entry do
 
     body =
       Entry.to_contentful_entry(entry)
+      |> Map.delete(:id)
       |> Jason.encode!()
 
     {:ok, %{body: _body}} =
