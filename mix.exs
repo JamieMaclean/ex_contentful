@@ -8,7 +8,7 @@ defmodule Content.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      docs: docs(),
+      docs: docs()
     ]
   end
 
@@ -32,21 +32,21 @@ defmodule Content.MixProject do
     [
       formatters: ["html", "epub"],
       extras: extras(),
-      groups_for_extras: groups_for_extras(),
+      groups_for_extras: groups_for_extras()
     ]
   end
 
   defp extras do
     [
       "docs/introduction.md",
-      "docs/quickstart/content_model.md",
-      ]
+      "docs/quickstart/content_model.md"
+    ]
   end
 
   defp groups_for_extras do
     [
       Introduction: ~r/guides\/introduction\/.?/,
-      Quickstart: ~r/docs\/quickstart\/[^\/]+\.md/,
+      Quickstart: ~r/docs\/quickstart\/[^\/]+\.md/
     ]
   end
 end
