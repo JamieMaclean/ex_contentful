@@ -9,8 +9,7 @@ defmodule Content.ContentManagement.ContentType do
 
   defp base_url, do: Content.ContentManagement.url() <> "/content_types"
 
-  def migrate_content_model(application) do
-    app_content_types = Entry.all(application)
+  def migrate_content_model(app_content_types) do
     %{"items" => items} = all_content_types()
 
     Enum.each(app_content_types, fn content_type ->
