@@ -11,8 +11,8 @@ defmodule Content do
         GenServer.start_link(__MODULE__, default, name: __MODULE__)
       end
 
-      def get_content_type(content_type) do
-        GenServer.call(__MODULE__, {:get_type, content_type})
+      def get_content_type(content_type_id) do
+        GenServer.call(__MODULE__, {:get_type, content_type_id})
       end
 
       def get_all_content_types() do

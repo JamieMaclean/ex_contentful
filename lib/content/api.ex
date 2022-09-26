@@ -2,13 +2,19 @@ defmodule Content.Api do
   alias Content.Resource.Entry
   alias Content.Resource.Link
 
-  def parse_response(%{"sys" => %{"type" => "Entry"}} = entry) do
+  def to_entry(%{"sys" => %{"type" => "Entry"}} = entry, content_type_module) do
     {:ok, created_at, _} = DateTime.from_iso8601(entry["sys"]["createdAt"])
     {:ok, updated_at, _} = DateTime.from_iso8601(entry["sys"]["updatedAt"])
 
+    {:ok, fields} =
+      Enum.into(entry["fields"], [])
+      |> Enum.map(fn {key, %{"en-US" => value}} -> {String.to_existing_atom(key), value} end)
+      |> Enum.into(%{})
+      |> content_type_module.create()
+
     %Entry{
-      entry: "asdfjh",
-      metadata: "asdfjh",
+      entry: fields,
+      metadata: %{tags: []},
       sys: %{
         id: entry["sys"]["id"],
         created_at: created_at,

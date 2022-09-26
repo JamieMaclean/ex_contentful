@@ -9,9 +9,20 @@ defmodule Content.ContentManagement do
 
     quote do
       defmodule __MODULE__.ContentManagement do
+        @gen_server unquote(parent)
+
         def migrate_content_model() do
-          content_types = unquote(parent).get_all_content_types()
+          content_types = @gen_server.get_all_content_types()
           Content.ContentManagement.ContentType.migrate_content_model(content_types)
+        end
+
+        def get_entry(entry_id) do
+          {:ok, entry} = Content.ContentManagement.Entry.get_entry(entry_id)
+
+          case @gen_server.get_content_type(entry["sys"]["contentType"]["sys"]["id"]) do
+            nil -> raise "content_type not recognised"
+            content_type -> Content.Api.to_entry(entry, content_type)
+          end
         end
       end
     end

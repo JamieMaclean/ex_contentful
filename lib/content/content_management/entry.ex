@@ -35,7 +35,7 @@ defmodule Content.ContentManagement.Entry do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> {:ok, Jason.decode!(body) |> Content.Api.parse_response()}
+      {:ok, %{body: body}} -> {:ok, Jason.decode!(body)}
       {:error, error} -> {:error, error}
     end
   end
