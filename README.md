@@ -42,7 +42,7 @@ Create a module as follows and ensure it is added as a child to your Application
 
 ```elixir
 defmodule MyApp.Content do 
-  use Content
+  use Content, otp_app: :my_app
 end
 ```
 
