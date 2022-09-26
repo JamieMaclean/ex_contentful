@@ -36,6 +36,30 @@ config :content,
   content_delivery_token: "content_delivery_token"
 ```
 
+### Add Content to the Application Supervision Tree
+
+Create a module as follows and ensure it is added as a child to your Application supervision tree.
+
+```elixir
+defmodule MyApp.Content do 
+  use Content
+end
+```
+
+```elixir
+defmodule MyApp do
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      MyApp.Content
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
+end
+```
+
 ### Define your content
 
 Defining your data is as easy as defining a `contentful_type` with all of the necessary fields using `contentful_field`.
@@ -58,7 +82,7 @@ end
 After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
 
   ```elixir
-Content.Api.migrate_content_model(:my_app)
+MyApp.Content.migrate_content_model()
   ```
 
 ### Create and Upload Entries to Contentful
