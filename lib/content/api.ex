@@ -1,6 +1,6 @@
 defmodule Content.Api do
   alias Content.Resource.Entry
-  alias Content.Field.Link
+  alias Content.Resource.Link
 
   def parse_response(%{"sys" => %{"type" => "Entry"}} = entry) do
     {:ok, created_at, _} = DateTime.from_iso8601(entry["sys"]["createdAt"])
