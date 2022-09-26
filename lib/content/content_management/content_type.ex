@@ -1,5 +1,4 @@
 defmodule Content.ContentManagement.ContentType do
-  alias Content.Entry
   alias Content.HTTP
 
   @moduledoc """
@@ -9,16 +8,15 @@ defmodule Content.ContentManagement.ContentType do
 
   defp base_url, do: Content.ContentManagement.url() <> "/content_types"
 
-  def migrate_content_model(application) do
-    app_content_types = Entry.all(application)
+  def migrate_content_model(app_content_types) do
     %{"items" => items} = all_content_types()
 
     Enum.each(app_content_types, fn content_type ->
       case Enum.find(items, fn item ->
              item["sys"]["id"] == content_type.__contentful_schema__.id
            end) do
-        nil -> update_content_type(content_type, 1)
-        item -> update_content_type(content_type, item["sys"]["version"])
+        nil -> upsert_content_type(content_type, 1)
+        item -> upsert_content_type(content_type, item["sys"]["version"])
       end
     end)
   end
@@ -31,7 +29,7 @@ defmodule Content.ContentManagement.ContentType do
     |> HTTP.process_response()
   end
 
-  def update_content_type(content_type_module, version) do
+  def upsert_content_type(content_type_module, version) do
     url = "#{base_url()}/#{content_type_module.__contentful_schema__.id}"
 
     body =

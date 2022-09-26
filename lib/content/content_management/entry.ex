@@ -32,8 +32,11 @@ defmodule Content.ContentManagement.Entry do
   def get_entry(entry_id) do
     url = "#{base_url()}/#{entry_id}"
 
-    {:ok, %{body: _body}} =
-      url
-      |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
+    url
+    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
+    |> case do
+      {:ok, %{body: body}} -> {:ok, Jason.decode!(body) |> Content.Api.parse_response()}
+      {:error, error} -> {:error, error}
+    end
   end
 end
