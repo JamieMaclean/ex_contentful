@@ -49,7 +49,6 @@ defmodule Content do
         modules
         |> Enum.filter(&({:__contentful_schema__, 0} in &1.__info__(:functions)))
       end
-
     end
   end
 end

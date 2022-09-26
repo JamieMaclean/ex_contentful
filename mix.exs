@@ -21,6 +21,7 @@ defmodule Content.MixProject do
 
   defp deps do
     [
+      {:exvcr, "~> 0.11", runtime: false},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},

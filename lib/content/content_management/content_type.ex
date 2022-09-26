@@ -1,5 +1,4 @@
 defmodule Content.ContentManagement.ContentType do
-  alias Content.Entry
   alias Content.HTTP
 
   @moduledoc """
