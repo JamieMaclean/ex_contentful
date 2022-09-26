@@ -18,4 +18,10 @@ defmodule Content.ContentTest do
       ContentManagement.migrate_content_model()
     end
   end
+
+  test "Migrates the entire content model" do
+    use_cassette "content_type" do
+      assert :ok == ContentManagement.migrate_content_model()
+    end
+  end
 end
