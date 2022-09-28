@@ -21,14 +21,6 @@ defmodule Content.ContentManagement.ContentType do
     end)
   end
 
-  def all_content_types() do
-    url = base_url()
-
-    url
-    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
-    |> HTTP.process_response()
-  end
-
   def upsert_content_type(content_type_module, version) do
     url = "#{base_url()}/#{content_type_module.__contentful_schema__.id}"
 
