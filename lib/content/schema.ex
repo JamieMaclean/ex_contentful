@@ -30,6 +30,12 @@ defmodule Content.Schema do
           fields: @contentful_field
         }
       end
+
+      defimpl Content.Resource do
+        def base_url(_content_type, :content_management) do
+          Content.ContentManagement.url() <> "/entries"
+        end
+      end
     end
   end
 
@@ -54,6 +60,16 @@ defmodule Content.Schema do
       embedded_schema do
         field(:id, :string)
         unquote(block)
+      end
+
+      def build_from_response(response) do
+        __MODULE__.__contentful_schema__.fields
+        |> Enum.map(fn field -> {field[:id], nil} end)
+        |> Enum.map(fn {id, _} -> {id, response["fields"][id]["en-US"]} end)
+        |> Enum.map(fn {id, value} -> {String.to_existing_atom(id), value} end)
+        |> Enum.filter(fn {_id, value} -> !is_nil(value) end)
+        |> Enum.into(%{})
+        |> create()
       end
 
       def create(params \\ %{}) do
