@@ -1,5 +1,7 @@
 defmodule Content.ContentManagement.ContentType do
+  alias Content.ContentManagement.Query
   alias Content.HTTP
+  alias Content.Resource.ContentType
 
   @moduledoc """
   The Content Management API is used to create and update content on
@@ -9,7 +11,7 @@ defmodule Content.ContentManagement.ContentType do
   defp base_url, do: Content.ContentManagement.url() <> "/content_types"
 
   def migrate_content_model(app_content_types) do
-    %{"items" => items} = all_content_types()
+    {:ok, %{"items" => items}} = Query.get_all(%ContentType{})
 
     Enum.each(app_content_types, fn content_type ->
       case Enum.find(items, fn item ->
@@ -38,14 +40,6 @@ defmodule Content.ContentManagement.ContentType do
       ),
       hackney: [:insecure]
     )
-    |> HTTP.process_response()
-  end
-
-  def all_content_types() do
-    url = base_url()
-
-    url
-    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> HTTP.process_response()
   end
 end
