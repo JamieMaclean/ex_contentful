@@ -1,4 +1,5 @@
 defmodule Content.Integration.BlogPost do
+  @moduledoc false
   use Content.Schema
 
   content_type :blog_post do

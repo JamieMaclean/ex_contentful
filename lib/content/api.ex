@@ -1,4 +1,5 @@
 defmodule Content.Api do
+  @moduledoc false
   alias Content.Resource.Entry
   alias Content.Resource.Link
 

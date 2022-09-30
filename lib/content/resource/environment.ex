@@ -1,4 +1,7 @@
 defmodule Content.Resource.Environment do
+  @moduledoc """
+  Environment is one of the Contentful base resources. This struct can be used in conjunction with any of the `Query` modules to access and update any of your Environments in Contentful
+  """
   defstruct [:id, :sys]
 
   @type t :: %Content.Resource.Environment{

@@ -1,4 +1,5 @@
 defmodule Content.HTTP do
+  @moduledoc false
   def access_token(),
     do: Application.get_env(:content, :content_management_token)
 

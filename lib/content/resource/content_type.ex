@@ -1,4 +1,7 @@
 defmodule Content.Resource.ContentType do
+  @moduledoc """
+  ContentType is one of the Contentful base resources. This struct can be used in conjunction with any of the `Query` modules to access and update any of your ContentTypes in Contentful
+  """
   defstruct [:fields, :sys, :metadata]
 
   @type t :: %Content.Resource.ContentType{
@@ -10,6 +13,7 @@ defmodule Content.Resource.ContentType do
   alias Content.Resource.ContentType
   alias Content.Resource.Link
 
+  @doc false
   def build_from_response(response) do
     {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
     {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])

@@ -1,4 +1,5 @@
 defmodule Content.Integration.Comment do
+  @moduledoc false
   use Content.Schema
 
   content_type :comment do

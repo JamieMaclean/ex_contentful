@@ -1,4 +1,36 @@
 defmodule Content.Schema do
+  @moduledoc """
+  This module provides all of the basic building blocks required to create different content types on Contentful.
+
+  The first step when you start using Contentful is to define your Content Model i.e. define all of the building blocks that make up your application. For example if you are creating a blog you will for sure want to define a `blog_post` content type. Perhaps you also allow people to comment on blog posts, in this case you may also want to create a `comment` content type. We are going to stick with this example for now to demonstrate how you can do this using `Content`
+
+  So lets start by defining our `blog_post` content type to begin with.
+
+  ```elixir
+  defmodule MyApp.BlogPost
+    content_type "blog_post" do
+      content_field :title, :short_text, required: true
+      content_field :author, :short_text, required: true
+      content_field :content, :rich_text
+    end
+  end
+  ```
+
+  So our `blog_post` has three fields: `title`, `author`, and `content`. In reality, you would probably want to make your `content` mandatory as well, but we're not doing that for now for demonstration purposes.
+
+  Next up... our `comment` content type:
+
+  ```elixir
+  defmodule MyApp.Comment
+    content_type "comment" do
+      content_field :blog_post, {:link, MyApp.BlogPost}
+      content_field :content, :short_text
+    end
+  end
+  ```
+
+  You can see that this one is a little different. Contentful manages relationships between its `Entries` with `Links`. A link is essentially a pointer to the appropriate resource. Relationships between content types should always be defined using `Links` as demonstrated above.
+  """
   @field_modules %{
     short_text: Content.Field.ShortText,
     long_text: Content.Field.LongText,
@@ -21,6 +53,7 @@ defmodule Content.Schema do
     end
   end
 
+  @doc false
   defmacro add_schema(_) do
     quote do
       def __contentful_schema__() do
@@ -39,6 +72,9 @@ defmodule Content.Schema do
     end
   end
 
+  @doc """
+  Used in conjuntion with content_field/3 to define a ContentType in Contentful
+  """
   defmacro content_type(name, props \\ [], do: block) when is_atom(name) do
     id = props[:id] || Atom.to_string(name)
     display_name = get_default_display_name(name, props)
@@ -141,6 +177,9 @@ defmodule Content.Schema do
     end
   end
 
+  @doc """
+  Used in conjuntion with content_type/3 to define a ContentType in Contentful
+  """
   defmacro content_field(name, type, opts \\ [])
 
   defmacro content_field(name, {:array, type}, opts) do
@@ -177,6 +216,7 @@ defmodule Content.Schema do
     end
   end
 
+  @doc false
   def prepare_props_field(name, type, opts) do
     case Keyword.get(opts, :cardinality) do
       :one ->

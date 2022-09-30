@@ -40,7 +40,8 @@ defmodule Content.MixProject do
   defp extras do
     [
       "docs/introduction.md",
-      "docs/quickstart/content_model.md"
+      "docs/quickstart/content_model.md",
+      "docs/quickstart/api.md"
     ]
   end
 
