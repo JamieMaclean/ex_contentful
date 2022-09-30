@@ -40,4 +40,12 @@ defmodule Content.ContentManagement.ContentType do
     )
     |> HTTP.process_response()
   end
+
+  def all_content_types() do
+    url = base_url()
+
+    url
+    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
+    |> HTTP.process_response()
+  end
 end
