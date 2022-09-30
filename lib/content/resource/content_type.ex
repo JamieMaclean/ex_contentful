@@ -48,7 +48,7 @@ defmodule Content.Resource.ContentType do
           link_type: response["sys"]["space"]["sys"]["linkType"],
           type: response["sys"]["space"]["sys"]["type"]
         },
-        type: "Entry",
+        type: "ContentType",
         updated_at: updated_at,
         updated_by: %Link{
           id: response["sys"]["updatedBy"]["sys"]["id"],

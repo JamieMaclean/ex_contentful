@@ -10,7 +10,7 @@ defmodule Content.ContentManagemnet.ContentTest do
   end
 
   test "Correctly retrieves the correct content type from an id" do
-    use_cassette "content_type" do
+    use_cassette "content_type_migration" do
       ContentManagement.migrate_content_model()
     end
   end
