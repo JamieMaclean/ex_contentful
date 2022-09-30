@@ -5,6 +5,8 @@ defmodule Content.Entry do
     fields =
       Map.from_struct(entry)
       |> Map.delete(:id)
+      |> Map.delete(:metadata)
+      |> Map.delete(:sys)
       |> Map.delete(:__struct__)
       |> Map.keys()
       |> Enum.map(&Field.to_contentful_entry(entry, &1))

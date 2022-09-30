@@ -28,15 +28,4 @@ defmodule Content.ContentManagement.Entry do
         hackney: [:insecure]
       )
   end
-
-  def get_entry(entry_id) do
-    url = "#{base_url()}/#{entry_id}"
-
-    url
-    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
-    |> case do
-      {:ok, %{body: body}} -> {:ok, Jason.decode!(body)}
-      {:error, error} -> {:error, error}
-    end
-  end
 end

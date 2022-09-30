@@ -44,6 +44,8 @@ defmodule Content.Schema do
     display_name = get_default_display_name(name, props)
 
     quote do
+      alias Content.Resource.Link
+
       Module.put_attribute(
         __MODULE__,
         :content_type_id,
@@ -59,16 +61,57 @@ defmodule Content.Schema do
       @primary_key false
       embedded_schema do
         field(:id, :string)
+        field(:metadata, :map, default: %{tags: []})
+        field(:sys, :map, default: %{})
         unquote(block)
       end
 
       def build_from_response(response) do
-        __MODULE__.__contentful_schema__.fields
+        {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
+        {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])
+
+        __MODULE__.__contentful_schema__().fields
         |> Enum.map(fn field -> {field[:id], nil} end)
         |> Enum.map(fn {id, _} -> {id, response["fields"][id]["en-US"]} end)
         |> Enum.map(fn {id, value} -> {String.to_existing_atom(id), value} end)
         |> Enum.filter(fn {_id, value} -> !is_nil(value) end)
         |> Enum.into(%{})
+        |> Map.merge(%{
+          metadata: %{tags: []},
+          sys: %{
+            id: response["sys"]["id"],
+            created_at: created_at,
+            content_type: %Link{
+              id: response["sys"]["contentType"]["sys"]["id"],
+              link_type: response["sys"]["contentType"]["sys"]["linkType"],
+              type: response["sys"]["contentType"]["sys"]["type"]
+            },
+            created_by: %Link{
+              id: response["sys"]["createdBy"]["sys"]["id"],
+              link_type: response["sys"]["createdBy"]["sys"]["linkType"],
+              type: response["sys"]["createdBy"]["sys"]["type"]
+            },
+            environment: %Link{
+              id: response["sys"]["environment"]["sys"]["id"],
+              link_type: response["sys"]["environment"]["sys"]["linkType"],
+              type: response["sys"]["environment"]["sys"]["type"]
+            },
+            published_counter: response["sys"]["publishedCounter"],
+            space: %Link{
+              id: response["sys"]["space"]["sys"]["id"],
+              link_type: response["sys"]["space"]["sys"]["linkType"],
+              type: response["sys"]["space"]["sys"]["type"]
+            },
+            type: "Entry",
+            updated_at: updated_at,
+            updated_by: %Link{
+              id: response["sys"]["updatedBy"]["sys"]["id"],
+              link_type: response["sys"]["updatedBy"]["sys"]["linkType"],
+              type: response["sys"]["updatedBy"]["sys"]["type"]
+            },
+            version: response["sys"]["version"]
+          }
+        })
         |> create()
       end
 
@@ -90,7 +133,7 @@ defmodule Content.Schema do
           |> Enum.map(fn %{id: id} -> String.to_existing_atom(id) end)
 
         content_type
-        |> cast(params, [:id | all_fields])
+        |> cast(params, [:id, :metadata, :sys] ++ all_fields)
         |> validate_length(:id, max: 64)
         |> validate_required(required_fields)
         |> apply_action(:update)

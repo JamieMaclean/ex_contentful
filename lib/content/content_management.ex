@@ -15,15 +15,6 @@ defmodule Content.ContentManagement do
           content_types = @gen_server.get_all_content_types()
           Content.ContentManagement.ContentType.migrate_content_model(content_types)
         end
-
-        def get_entry(entry_id) do
-          {:ok, entry} = Content.ContentManagement.Entry.get_entry(entry_id)
-
-          case @gen_server.get_content_type(entry["sys"]["contentType"]["sys"]["id"]) do
-            nil -> raise "content_type not recognised"
-            content_type -> Content.Api.to_entry(entry, content_type)
-          end
-        end
       end
     end
   end
