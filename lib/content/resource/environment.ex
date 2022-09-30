@@ -3,7 +3,7 @@ defmodule Content.Resource.Environment do
 
   @type t :: %Content.Resource.Environment{
           id: String.t(),
-          sys: map(),
+          sys: map()
         }
 
   defimpl Content.Resource do

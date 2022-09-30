@@ -3,7 +3,7 @@ defmodule Content.Resource.Space do
 
   @type t :: %Content.Resource.Space{
           id: String.t(),
-          sys: map(),
+          sys: map()
         }
 
   defimpl Content.Resource do

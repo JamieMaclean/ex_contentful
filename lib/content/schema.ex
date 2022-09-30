@@ -62,6 +62,16 @@ defmodule Content.Schema do
         unquote(block)
       end
 
+      def build_from_response(response) do
+        __MODULE__.__contentful_schema__.fields
+        |> Enum.map(fn field -> {field[:id], nil} end)
+        |> Enum.map(fn {id, _} -> {id, response["fields"][id]["en-US"]} end)
+        |> Enum.map(fn {id, value} -> {String.to_existing_atom(id), value} end)
+        |> Enum.filter(fn {_id, value} -> !is_nil(value) end)
+        |> Enum.into(%{})
+        |> create()
+      end
+
       def create(params \\ %{}) do
         changeset(%__MODULE__{}, params)
       end
