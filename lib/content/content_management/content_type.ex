@@ -11,14 +11,14 @@ defmodule Content.ContentManagement.ContentType do
   defp base_url, do: Content.ContentManagement.url() <> "/content_types"
 
   def migrate_content_model(app_content_types) do
-    {:ok, %{"items" => items}} = Query.get_all(%ContentType{})
+    {:ok, items} = Query.get_all(%ContentType{})
 
     Enum.each(app_content_types, fn content_type ->
       case Enum.find(items, fn item ->
-             item["sys"]["id"] == content_type.__contentful_schema__.id
+             item.sys.id == content_type.__contentful_schema__.id
            end) do
         nil -> upsert_content_type(content_type, 1)
-        item -> upsert_content_type(content_type, item["sys"]["version"])
+        item -> upsert_content_type(content_type, item.sys.version)
       end
     end)
   end
