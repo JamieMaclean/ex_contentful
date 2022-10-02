@@ -49,16 +49,20 @@ defmodule Content.MixProject do
 
   defp extras do
     [
-      "docs/introduction.md",
-      "docs/quickstart/content_model.md",
-      "docs/quickstart/api.md"
+      "docs/introduction/overview.md",
+      "docs/introduction/getting_started.md",
+      "docs/introduction/content_model.md",
+      "docs/introduction/create_update_content.md",
+      "docs/introduction/api.md",
+      "docs/introduction/errors.md",
+      "docs/advanced/content_model_1.md"
     ]
   end
 
   defp groups_for_extras do
     [
-      Introduction: ~r/guides\/introduction\/.?/,
-      Quickstart: ~r/docs\/quickstart\/[^\/]+\.md/
+      Introduction: ~r/docs\/introduction\/[^\/]+\.md/,
+      Advanced: ~r/docs\/advanced\/[^\/]+\.md/
     ]
   end
 end
