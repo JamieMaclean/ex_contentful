@@ -119,7 +119,6 @@ defmodule Content.Schema do
       end
 
       def build_from_response(response) do
-        response = Jason.decode!(response)
         {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
         {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])
 

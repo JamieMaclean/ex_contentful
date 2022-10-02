@@ -40,7 +40,7 @@ defmodule Content.ContentManagement.Query do
       hackney: [:insecure]
     )
     |> case do
-      {:ok, %{body: body}} -> resource.__struct__.build_from_response(body)
+      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -98,7 +98,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, body)
+      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -109,7 +109,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> {:ok, process_response(resource, body)}
+      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -129,7 +129,7 @@ defmodule Content.ContentManagement.Query do
          expected_type,
          %{"items" => items}
        ) do
-    Enum.map(items, &process_response(expected_type, &1))
+    {:ok, Enum.map(items, &process_response(expected_type, &1))}
   end
 
   defp process_response(

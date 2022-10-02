@@ -1,11 +1,11 @@
-defmodule Content.EntryTest do
+defmodule Content.ResourceTest do
   use ExUnit.Case
 
-  alias Content.Entry
+  alias Content.Resource
   alias Content.Integration.BlogPost
 
   test "Correctly transforms an entry to be sent to contentful" do
-    assert Entry.to_contentful_entry(%BlogPost{
+    assert Resource.prepare_for_contentful(%BlogPost{
              title: "A long piece of text",
              content: "Some long content",
              authors: ["Jim", "Dave", "Fred"],
