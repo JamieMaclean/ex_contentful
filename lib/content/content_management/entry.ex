@@ -1,5 +1,5 @@
 defmodule Content.ContentManagement.Entry do
-  alias Content.Entry
+  alias Content.Resource
   alias Content.HTTP
 
   @moduledoc """
@@ -13,7 +13,7 @@ defmodule Content.ContentManagement.Entry do
     url = base_url()
 
     body =
-      Entry.to_contentful_entry(entry)
+      Resource.prepare_for_contentful(entry)
       |> Map.delete(:id)
       |> Jason.encode!()
 

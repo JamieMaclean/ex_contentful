@@ -65,8 +65,24 @@ defmodule Content.Schema do
       end
 
       defimpl Content.Resource do
+        alias Content.Field
+
         def base_url(_content_type, :content_management) do
           Content.ContentManagement.url() <> "/entries"
+        end
+
+        def prepare_for_contentful(resource) do
+          fields =
+            Map.from_struct(resource)
+            |> Map.delete(:id)
+            |> Map.delete(:metadata)
+            |> Map.delete(:sys)
+            |> Map.delete(:__struct__)
+            |> Map.keys()
+            |> Enum.map(&Field.to_contentful_entry(resource, &1))
+            |> Enum.into(%{})
+
+          %{fields: fields}
         end
       end
     end
@@ -103,6 +119,7 @@ defmodule Content.Schema do
       end
 
       def build_from_response(response) do
+        response = Jason.decode!(response)
         {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
         {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])
 

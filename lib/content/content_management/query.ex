@@ -11,6 +11,41 @@ defmodule Content.ContentManagement.Query do
   alias Content.Error
 
   @doc """
+  Used to create an instance of a resource on Contentful.
+
+  The function accepts a struct of a valid contentful resource and returns the resource that was created, or an error.
+
+  Note that the `create/1` function is distinct from the `upsert/2` function because you cannot define the `id` of the resource that you are creating. This function will always create a new resource with a automatically generated `id`. If you would like to define the `id` of the resource that you are creating, see the `upsert/2` function.
+
+  ```elixir
+  alias Content.ContentManagement.Query
+  alias MyApp.BlogPost
+
+  Query.create(%BlogPost{})
+  {:ok, %BlogPost{}}
+  ```
+  """
+  def create(resource) do
+    url = Resource.base_url(resource, :content_management)
+
+    body =
+      Resource.prepare_for_contentful(resource)
+      |> Map.delete(:id)
+      |> Jason.encode!()
+
+    url
+    |> HTTPoison.post(
+      body,
+      HTTP.headers([:auth, :content_type, :contentful_type], contentful_type: resource.__struct__),
+      hackney: [:insecure]
+    )
+    |> case do
+      {:ok, %{body: body}} -> resource.__struct__.build_from_response(body)
+      {:error, error} -> {:error, error}
+    end
+  end
+
+  @doc """
   Used to get a single Contentful resource.
 
   This is a composable function where the first parameter defined the type of resource that you would like to query and the `id` of that resource.
@@ -56,8 +91,6 @@ defmodule Content.ContentManagement.Query do
   Query.get(%Entry{}, "the_id_of_my_blog_post") # will return {:ok, %BlogPost{}}
   Query.get(%Entry{}, "the_id_of_my_comment") # will return {:ok, %Comment{}}
   ```
-
-
   """
   def get(resource, id) do
     url = Resource.base_url(resource, :content_management) <> "/#{id}"
@@ -65,7 +98,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:ok, %{body: body}} -> process_response(resource, body)
       {:error, error} -> {:error, error}
     end
   end
@@ -76,7 +109,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> {:ok, process_response(resource, Jason.decode!(body))}
+      {:ok, %{body: body}} -> {:ok, process_response(resource, body)}
       {:error, error} -> {:error, error}
     end
   end
