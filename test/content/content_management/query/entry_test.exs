@@ -12,6 +12,60 @@ defmodule Content.ContentManagement.Query.EntryTest do
     :ok
   end
 
+  describe "create/1" do
+    test "creates an entry" do
+      use_cassette "create_entry" do
+        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
+
+        assert Query.create(blog_post) ==
+                 {:ok,
+                  %Content.Integration.BlogPost{
+                    authors: [],
+                    content: "some content",
+                    id: nil,
+                    legacy_field: "",
+                    rating: nil,
+                    title: "",
+                    views: 123,
+                    metadata: %{tags: []},
+                    sys: %{
+                      content_type: %Content.Resource.Link{
+                        id: "blog_post",
+                        link_type: "ContentType",
+                        type: "Link"
+                      },
+                      created_at: ~U[2022-10-02 22:01:54.712Z],
+                      created_by: %Content.Resource.Link{
+                        id: "5J5TUlcInAPSw6zfv557d7",
+                        link_type: "User",
+                        type: "Link"
+                      },
+                      environment: %Content.Resource.Link{
+                        id: "integration",
+                        link_type: "Environment",
+                        type: "Link"
+                      },
+                      id: "3rpnMzTbz5WaWrotEHqkms",
+                      published_counter: 0,
+                      space: %Content.Resource.Link{
+                        id: "g8l7lpiniu90",
+                        link_type: "Space",
+                        type: "Link"
+                      },
+                      type: "Entry",
+                      updated_at: ~U[2022-10-02 22:01:54.712Z],
+                      updated_by: %Content.Resource.Link{
+                        id: "5J5TUlcInAPSw6zfv557d7",
+                        link_type: "User",
+                        type: "Link"
+                      },
+                      version: 1
+                    }
+                  }}
+      end
+    end
+  end
+
   describe "get/2" do
     test "gets an entry" do
       use_cassette "entry" do
