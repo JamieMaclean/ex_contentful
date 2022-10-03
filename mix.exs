@@ -7,8 +7,15 @@ defmodule Content.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
       deps: deps(),
-      docs: docs()
+      docs: docs(),
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -25,6 +32,7 @@ defmodule Content.MixProject do
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},
+      {:excoveralls, "~> 0.10", only: :test},
       {:ecto, "~> 3.8"}
     ]
   end
