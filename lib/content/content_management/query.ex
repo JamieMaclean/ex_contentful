@@ -175,6 +175,13 @@ defmodule Content.ContentManagement.Query do
   end
 
   defp process_response(
+         _expected_type,
+         %{"sys" => %{"id" => "VersionMismatch"}}
+       ) do
+    {:error, :version_mismatch}
+  end
+
+  defp process_response(
          expected_type,
          %{"items" => items}
        ) do
