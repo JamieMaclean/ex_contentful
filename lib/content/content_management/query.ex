@@ -125,6 +125,55 @@ defmodule Content.ContentManagement.Query do
     end
   end
 
+  @doc """
+  Used to upsert an instance of a resource on Contentful.
+
+  The function accepts a struct of a valid contentful resource and returns the resource that was created, or an error.
+
+  Note that the srtuct passed to `upsert/2` must have a non `nil` id to identify the entry that is to be upserted. If an entry exists with that id and the version provided matches the version on Contentfu, the entry will be updated. If no extry exists with that id, a new one will be created.
+
+  You may also provide the `force` option to force an update. In the case of a forced update, two api calls are made. The first to `get` the entry that is being updated and identify the current version, and the second to make the update. Therefore it should be noted that `force` is a feature of this library rather than one provided by Contentful.
+
+  ```elixir
+  alias Content.ContentManagement.Query
+  alias MyApp.BlogPost
+
+  Query.upsert(%BlogPost{}, "entry_id")
+  {:ok, %BlogPost{}} # If nothing eixists with that id a new entry is created
+
+  Query.upsert(%BlogPost{}, "entry_id")
+  {:error, :version_mismatch} # As an entry exists a version number must be provided
+
+  Query.upsert(%BlogPost{}, "enrty_id",  version: 1)
+  {:ok, %BlogPost{}} # The version provided matches the version on Contentful -> :ok
+
+  Query.upsert(%BlogPost{}, "enrty_id", force: true)
+  {:ok, %BlogPost{}} # Version is not checked and entry is force updated
+  ```
+  """
+  def upsert(resource, id, opts \\ []) do
+    url = Resource.base_url(resource, :content_management) <> "/#{id}"
+
+    body =
+      Resource.prepare_for_contentful(resource)
+      |> Map.delete(:id)
+      |> Jason.encode!()
+
+    url
+    |> HTTPoison.put(
+      body,
+      HTTP.headers([:auth, :content_type, :contentful_type, :version],
+        contentful_type: resource.__struct__,
+        version: opts[:version]
+      ),
+      hackney: [:insecure]
+    )
+    |> case do
+      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:error, error} -> {:error, error}
+    end
+  end
+
   defp process_response(
          expected_type,
          %{"items" => items}
