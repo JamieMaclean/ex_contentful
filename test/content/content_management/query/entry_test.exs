@@ -197,12 +197,10 @@ defmodule Content.ContentManagement.EntryTest do
     test "updates an new entry when the id exists" do
       use_cassette "upsert_as_update_entry" do
         {:ok, blog_post} =
-          BlogPost.create(
-            %{
-              views: 1,
-              content: "Some updated content"
-            }
-          )
+          BlogPost.create(%{
+            views: 1,
+            content: "Some updated content"
+          })
 
         assert ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
                  version: 1
