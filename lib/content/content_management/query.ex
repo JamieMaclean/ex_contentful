@@ -41,7 +41,7 @@ defmodule Content.ContentManagement.Query do
       hackney: [:insecure]
     )
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:ok, %{body: body}} -> {:ok, process_response!(resource, Jason.decode!(body))}
       {:error, error} -> {:error, error}
     end
   end
@@ -99,7 +99,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -110,7 +110,7 @@ defmodule Content.ContentManagement.Query do
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -170,26 +170,31 @@ defmodule Content.ContentManagement.Query do
       hackney: [:insecure]
     )
     |> case do
-      {:ok, %{body: body}} -> process_response(resource, Jason.decode!(body))
+      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
 
-  defp process_response(
+  defp process_response!(
          _expected_type,
-         %{"sys" => %{"id" => "VersionMismatch"}}
+         %{"sys" => %{"id" => "VersionMismatch"}} = body
        ) do
-    {:error, :version_mismatch}
+    %Error{
+      type: :version_mismatch,
+      details: %{
+        response: body
+      }
+    }
   end
 
-  defp process_response(
+  defp process_response!(
          expected_type,
          %{"items" => items}
        ) do
-    {:ok, Enum.map(items, &process_response(expected_type, &1))}
+    {:ok, Enum.map(items, &process_response!(expected_type, &1))}
   end
 
-  defp process_response(
+  defp process_response!(
          %Entry{},
          %{"sys" => %{"contentType" => %{"sys" => %{"id" => content_type_id}}, "type" => "Entry"}} =
            body
@@ -202,7 +207,7 @@ defmodule Content.ContentManagement.Query do
     end
   end
 
-  defp process_response(
+  defp process_response!(
          expected_type,
          %{"sys" => %{"contentType" => %{"sys" => %{"id" => content_type_id}}, "type" => "Entry"}} =
            body
@@ -210,19 +215,18 @@ defmodule Content.ContentManagement.Query do
     if expected_type.__struct__.__contentful_schema__.id == content_type_id do
       expected_type.__struct__.build_from_response(body)
     else
-      {:error,
-       %Error{
-         type: :content_type_missmatch,
-         details: %{
-           expected: expected_type.__struct__.__contentful_schema__.id,
-           received: content_type_id,
-           response: body
-         }
-       }}
+      %Error{
+        type: :content_type_missmatch,
+        details: %{
+          expected: expected_type.__struct__.__contentful_schema__.id,
+          received: content_type_id,
+          response: body
+        }
+      }
     end
   end
 
-  defp process_response(
+  defp process_response!(
          _expected_type,
          %{"sys" => %{"type" => "ContentType"}} = body
        ) do
