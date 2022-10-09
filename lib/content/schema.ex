@@ -39,6 +39,7 @@ defmodule Content.Schema do
   }
   alias Content.Schema.FieldArray
 
+  # coveralls-ignore-start
   defmacro __using__(_) do
     quote do
       use Ecto.Schema
@@ -301,4 +302,6 @@ defmodule Content.Schema do
     |> String.split("_")
     |> Enum.map_join(" ", &String.capitalize(&1))
   end
+  
+  # coveralls-ignore-end
 end
