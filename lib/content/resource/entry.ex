@@ -5,10 +5,10 @@ defmodule Content.Resource.Entry do
   defstruct [:entry, :sys, :metadata]
 
   @type t :: %Content.Resource.Entry{
-    entry: struct(),
-    sys: map(),
-    metadata: map()
-  }
+          entry: struct(),
+          sys: map(),
+          metadata: map()
+        }
 
   alias Content.Resource.Link
 
@@ -51,8 +51,8 @@ defmodule Content.Resource.Entry do
           type: response["sys"]["updatedBy"]["sys"]["type"]
         },
         version: response["sys"]["version"]
-        }
-      })
+      }
+    })
   end
 
   defimpl Content.Resource do
