@@ -1,0 +1,52 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
+        "X-Contentful-Version": "2"
+      },
+      "method": "delete",
+      "options": {
+        "insecure": "true"
+      },
+      "request_body": "",
+      "url": "https://api.contentful.com/spaces/g8l7lpiniu90/environments/integration/entries/3abade73-5615-4b1e-92a2-ce5b3b2bdf7f"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"sys\": {\n    \"type\": \"Error\",\n    \"id\": \"NotFound\"\n  },\n  \"message\": \"The resource could not be found.\",\n  \"details\": {\n    \"type\": \"Entry\",\n    \"id\": \"3abade73-5615-4b1e-92a2-ce5b3b2bdf7f\",\n    \"environment\": \"integration\",\n    \"space\": \"g8l7lpiniu90\"\n  },\n  \"requestId\": \"75ddada7-8ca1-4d92-bd0f-59421ee11eb3\"\n}\n",
+      "headers": {
+        "Connection": "keep-alive",
+        "Content-Length": "318",
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-RateLimit-Hour-Remaining": "35999",
+        "X-Contentful-RateLimit-Second-Remaining": "9",
+        "X-Contentful-RateLimit-Hour-Limit": "36000",
+        "X-Contentful-RateLimit-Second-Limit": "10",
+        "X-Contentful-RateLimit-Reset": "0",
+        "accept-patch": "application/json-patch+json",
+        "cf-environment-id": "integration",
+        "cf-environment-uuid": "integration",
+        "cf-space-id": "g8l7lpiniu90",
+        "etag": "\"3145189961224700167\"",
+        "x-contentful-route": "/spaces/:space/environments/:environment/entries/:id",
+        "Strict-Transport-Security": "max-age=15768000",
+        "X-Content-Type-Options": "nosniff",
+        "Contentful-Api": "cma",
+        "Server": "Contentful",
+        "Contentful-Upstream": "content-api",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-Tag-Visibility,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Source-Environment,X-Contentful-Team,X-Contentful-Parent-Id,x-contentful-validate-only,X-Contentful-Skip-UI-Draft-Validation,X-Contentful-Marketplace,X-Contentful-UI-Content-Auto-Save,cf-trace",
+        "Access-Control-Expose-Headers": "Etag",
+        "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
+        "Access-Control-Max-Age": "1728000",
+        "Accept-Ranges": "bytes",
+        "Date": "Sun, 09 Oct 2022 13:31:36 GMT",
+        "x-contentful-request-id": "75ddada7-8ca1-4d92-bd0f-59421ee11eb3"
+      },
+      "status_code": 404,
+      "type": "ok"
+    }
+  }
+]

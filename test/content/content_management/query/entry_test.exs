@@ -16,7 +16,7 @@ defmodule Content.ContentManagement.EntryTest do
 
         assert ContentManagement.create(blog_post) ==
                  {:ok,
-                  %Content.Integration.BlogPost{
+                  %BlogPost{
                     authors: [],
                     content: "some content",
                     id: nil,
@@ -26,32 +26,32 @@ defmodule Content.ContentManagement.EntryTest do
                     views: 123,
                     metadata: %{tags: []},
                     sys: %{
-                      content_type: %Content.Resource.Link{
+                      content_type: %Link{
                         id: "blog_post",
                         link_type: "ContentType",
                         type: "Link"
                       },
                       created_at: ~U[2022-10-02 22:01:54.712Z],
-                      created_by: %Content.Resource.Link{
+                      created_by: %Link{
                         id: "5J5TUlcInAPSw6zfv557d7",
                         link_type: "User",
                         type: "Link"
                       },
-                      environment: %Content.Resource.Link{
+                      environment: %Link{
                         id: "integration",
                         link_type: "Environment",
                         type: "Link"
                       },
                       id: "3rpnMzTbz5WaWrotEHqkms",
                       published_counter: 0,
-                      space: %Content.Resource.Link{
+                      space: %Link{
                         id: "g8l7lpiniu90",
                         link_type: "Space",
                         type: "Link"
                       },
                       type: "Entry",
                       updated_at: ~U[2022-10-02 22:01:54.712Z],
-                      updated_by: %Content.Resource.Link{
+                      updated_by: %Link{
                         id: "5J5TUlcInAPSw6zfv557d7",
                         link_type: "User",
                         type: "Link"
@@ -67,7 +67,7 @@ defmodule Content.ContentManagement.EntryTest do
     test "gets an entry" do
       use_cassette "entry" do
         assert ContentManagement.get(%BlogPost{}, "1ovcGJESEykRotOaKuTRtE") ==
-                 %Content.Integration.BlogPost{
+                 %BlogPost{
                    authors: [],
                    content: "asdfasdf",
                    id: nil,
@@ -77,32 +77,32 @@ defmodule Content.ContentManagement.EntryTest do
                    views: 123,
                    metadata: %{tags: []},
                    sys: %{
-                     content_type: %Content.Resource.Link{
+                     content_type: %Link{
                        id: "blog_post",
                        link_type: "ContentType",
                        type: "Link"
                      },
                      created_at: ~U[2022-09-25 18:16:18.350Z],
-                     created_by: %Content.Resource.Link{
+                     created_by: %Link{
                        id: "5J5TUlcInAPSw6zfv557d7",
                        link_type: "User",
                        type: "Link"
                      },
-                     environment: %Content.Resource.Link{
+                     environment: %Link{
                        id: "integration",
                        link_type: "Environment",
                        type: "Link"
                      },
                      id: "1ovcGJESEykRotOaKuTRtE",
                      published_counter: 0,
-                     space: %Content.Resource.Link{
+                     space: %Link{
                        id: "g8l7lpiniu90",
                        link_type: "Space",
                        type: "Link"
                      },
                      type: "Entry",
                      updated_at: ~U[2022-09-25 18:16:18.350Z],
-                     updated_by: %Content.Resource.Link{
+                     updated_by: %Link{
                        id: "5J5TUlcInAPSw6zfv557d7",
                        link_type: "User",
                        type: "Link"
@@ -143,7 +143,7 @@ defmodule Content.ContentManagement.EntryTest do
       use_cassette "upsert_as_create_entry" do
         {:ok, blog_post} =
           BlogPost.create(%{
-            views: 12345,
+            views: 12_345,
             content: "some changed content"
           })
 
@@ -189,7 +189,7 @@ defmodule Content.ContentManagement.EntryTest do
                      version: 1
                    },
                    title: "",
-                   views: 12345
+                   views: 12_345
                  }
       end
     end
@@ -251,7 +251,7 @@ defmodule Content.ContentManagement.EntryTest do
       end
     end
 
-    test "returs version mismatch error when the version is wrong" do
+    test "returns version mismatch error when the version is wrong" do
       use_cassette "upsert_as_update_fail" do
         {:ok, blog_post} =
           BlogPost.create(%{
@@ -271,6 +271,41 @@ defmodule Content.ContentManagement.EntryTest do
                  ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
                    version: 100
                  )
+      end
+    end
+  end
+
+  describe "delete/1" do
+    test "returns not found error when the id does not exist" do
+      use_cassette "delete_entry_not_found" do
+        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
+
+        assert ContentManagement.delete(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                 version: 2
+               ) == %Error{
+                 details: %{
+                   response: %{
+                     "details" => %{
+                       "environment" => "integration",
+                       "id" => "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                       "space" => "g8l7lpiniu90",
+                       "type" => "Entry"
+                     },
+                     "message" => "The resource could not be found.",
+                     "requestId" => "75ddada7-8ca1-4d92-bd0f-59421ee11eb3",
+                     "sys" => %{"id" => "NotFound", "type" => "Error"}
+                   }
+                 },
+                 type: :resource_not_found
+               }
+      end
+    end
+
+    test "deletes an entry" do
+      use_cassette "delete_entry" do
+        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
+
+        assert ContentManagement.delete(blog_post, "5nGIcgPywsB0qBjzrI1sUX", version: 2) == :ok
       end
     end
   end

@@ -1,0 +1,50 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
+        "X-Contentful-Version": "2"
+      },
+      "method": "delete",
+      "options": {
+        "insecure": "true"
+      },
+      "request_body": "",
+      "url": "https://api.contentful.com/spaces/g8l7lpiniu90/environments/integration/entries/5nGIcgPywsB0qBjzrI1sUX"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "Connection": "keep-alive",
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-RateLimit-Hour-Limit": "36000",
+        "X-Contentful-RateLimit-Second-Limit": "10",
+        "X-Contentful-RateLimit-Reset": "0",
+        "X-Contentful-RateLimit-Hour-Remaining": "35999",
+        "X-Contentful-RateLimit-Second-Remaining": "9",
+        "accept-patch": "application/json-patch+json",
+        "cf-environment-id": "integration",
+        "cf-environment-uuid": "integration",
+        "cf-space-id": "g8l7lpiniu90",
+        "x-contentful-route": "/spaces/:space/environments/:environment/entries/:id",
+        "Strict-Transport-Security": "max-age=15768000",
+        "X-Content-Type-Options": "nosniff",
+        "Contentful-Api": "cma",
+        "Server": "Contentful",
+        "Contentful-Upstream": "content-api",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-Tag-Visibility,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Source-Environment,X-Contentful-Team,X-Contentful-Parent-Id,x-contentful-validate-only,X-Contentful-Skip-UI-Draft-Validation,X-Contentful-Marketplace,X-Contentful-UI-Content-Auto-Save,cf-trace",
+        "Access-Control-Expose-Headers": "Etag",
+        "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
+        "Access-Control-Max-Age": "1728000",
+        "Accept-Ranges": "bytes",
+        "Date": "Sun, 09 Oct 2022 13:35:34 GMT",
+        "x-contentful-request-id": "f8487b95-3ed6-4c9f-9713-bad01765de2b"
+      },
+      "status_code": 204,
+      "type": "ok"
+    }
+  }
+]

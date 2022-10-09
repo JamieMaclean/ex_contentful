@@ -161,7 +161,8 @@ defmodule Content.ContentManagement do
     url
     |> HTTPoison.delete(HTTP.headers([:auth, :version], version: version), hackney: [:insecure])
     |> case do
-      {:ok, %{body: body}} -> {:ok, Jason.decode!(body)}
+      {:ok, %{status_code: 204}} -> :ok
+      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
     end
   end
@@ -221,6 +222,18 @@ defmodule Content.ContentManagement do
        ) do
     %Error{
       type: :version_mismatch,
+      details: %{
+        response: body
+      }
+    }
+  end
+
+  defp process_response!(
+         _expected_type,
+         %{"sys" => %{"id" => "NotFound", "type" => "Error"}} = body
+       ) do
+    %Error{
+      type: :resource_not_found,
       details: %{
         response: body
       }
