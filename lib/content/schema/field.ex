@@ -1,4 +1,6 @@
 defmodule Content.Schema.Field do
+  @moduledoc false
+
   defstruct [
     :name,
     :type,

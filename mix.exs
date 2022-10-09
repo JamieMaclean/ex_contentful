@@ -33,7 +33,8 @@ defmodule Content.MixProject do
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},
       {:excoveralls, "~> 0.10", only: :test},
-      {:ecto, "~> 3.8"}
+      {:ecto, "~> 3.8"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 

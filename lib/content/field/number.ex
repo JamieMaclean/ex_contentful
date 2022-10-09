@@ -1,4 +1,6 @@
 defmodule Content.Field.Number do
+  @moduledoc false
+
   defstruct [
     :name,
     id: "",

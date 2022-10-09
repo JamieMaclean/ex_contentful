@@ -1,4 +1,6 @@
 defmodule Content.Field.LongText do
+  @moduledoc false
+
   defstruct [
     :name,
     id: "",

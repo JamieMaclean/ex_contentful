@@ -1,4 +1,6 @@
 defmodule Content.Schema.FieldArray do
+  @moduledoc false
+
   defstruct [
     :name,
     type: "Array",

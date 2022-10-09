@@ -1,4 +1,6 @@
 defmodule Content.Field.ShortText do
+  @moduledoc false
+
   defstruct [
     :name,
     id: "",
