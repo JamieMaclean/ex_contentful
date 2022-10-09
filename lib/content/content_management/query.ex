@@ -8,6 +8,7 @@ defmodule Content.ContentManagement.Query do
   alias Content.HTTP
   alias Content.Resource
   alias Content.Resource.ContentType
+  alias Content.Resource.Entry
   alias Content.Error
 
   @doc """
@@ -186,6 +187,19 @@ defmodule Content.ContentManagement.Query do
          %{"items" => items}
        ) do
     {:ok, Enum.map(items, &process_response(expected_type, &1))}
+  end
+
+  defp process_response(
+         %Entry{},
+         %{"sys" => %{"contentType" => %{"sys" => %{"id" => content_type_id}}, "type" => "Entry"}} =
+           body
+       ) do
+    Content.content_types()
+    |> Enum.find(fn content_type -> content_type.__contentful_schema__.id == content_type_id end)
+    |> case do
+      nil -> Entry.build_from_response(body)
+      content_type -> content_type.build_from_response(body)
+    end
   end
 
   defp process_response(

@@ -164,7 +164,11 @@ defmodule Content.Schema do
             version: response["sys"]["version"]
           }
         })
-        |> create()
+        |> create_from_response()
+      end
+
+      defp create_from_response(params \\ %{}) do
+        from_response_changeset(%__MODULE__{}, params)
       end
 
       def create(params \\ %{}) do
@@ -188,6 +192,14 @@ defmodule Content.Schema do
         |> cast(params, [:id, :metadata, :sys] ++ all_fields)
         |> validate_length(:id, max: 64)
         |> validate_required(required_fields)
+        |> apply_action(:update)
+      end
+
+      defp from_response_changeset(content_type, params \\ %{}) do
+        all_fields = Enum.map(@contentful_field, fn %{id: id} -> String.to_existing_atom(id) end)
+
+        content_type
+        |> cast(params, [:id, :metadata, :sys] ++ all_fields)
         |> apply_action(:update)
       end
     end

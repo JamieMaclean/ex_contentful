@@ -5,11 +5,6 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
   alias Content.Resource.ContentType
   alias Content.ContentManagement.Query
 
-  setup_all do
-    start_supervised!(Content.Integration.Content)
-    :ok
-  end
-
   describe "get/2" do
     test "get a content type from an id" do
       use_cassette "content_type_get" do

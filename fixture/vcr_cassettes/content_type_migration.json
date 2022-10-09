@@ -14,10 +14,10 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"g8l7lpiniu90\"\n          }\n        },\n        \"id\": \"comment\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2022-09-30T15:38:42.726Z\",\n        \"updatedAt\": \"2022-09-30T19:15:18.524Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"integration\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"createdBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"updatedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"publishedCounter\": 0,\n        \"version\": 4\n      },\n      \"displayField\": null,\n      \"name\": \"Comment\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"comment\",\n          \"name\": \"Comment\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"blog_post_id\",\n          \"name\": \"Blog Post Id\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"g8l7lpiniu90\"\n          }\n        },\n        \"id\": \"blog_post\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2022-09-11T08:55:33.224Z\",\n        \"updatedAt\": \"2022-09-30T19:15:18.264Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"integration\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"publishedVersion\": 36,\n        \"publishedAt\": \"2022-09-25T20:53:07.469Z\",\n        \"firstPublishedAt\": \"2022-09-11T19:50:24.778Z\",\n        \"createdBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"updatedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"publishedCounter\": 9,\n        \"version\": 44,\n        \"publishedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        }\n      },\n      \"displayField\": null,\n      \"name\": \"Blog Post\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"legacy_field\",\n          \"name\": \"An unused legacy field\",\n          \"type\": \"Symbol\",\n          \"localized\": true,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": true\n        },\n        {\n          \"id\": \"views\",\n          \"name\": \"Views\",\n          \"type\": \"Integer\",\n          \"localized\": false,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"rating\",\n          \"name\": \"Rating\",\n          \"type\": \"Number\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"authors\",\n          \"name\": \"Authors\",\n          \"type\": \"Array\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false,\n          \"items\": {\n            \"type\": \"Symbol\",\n            \"validations\": []\n          }\n        },\n        {\n          \"id\": \"content\",\n          \"name\": \"Content\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"title\",\n          \"name\": \"Title\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    }\n  ]\n}\n",
+      "body": "{\n  \"sys\": {\n    \"type\": \"Array\"\n  },\n  \"total\": 2,\n  \"skip\": 0,\n  \"limit\": 100,\n  \"items\": [\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"g8l7lpiniu90\"\n          }\n        },\n        \"id\": \"comment\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2022-09-30T15:38:42.726Z\",\n        \"updatedAt\": \"2022-10-09T10:37:54.646Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"integration\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"createdBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"updatedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"publishedCounter\": 0,\n        \"version\": 13\n      },\n      \"displayField\": null,\n      \"name\": \"Comment\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"comment\",\n          \"name\": \"Comment\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"blog_post_id\",\n          \"name\": \"Blog Post Id\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    },\n    {\n      \"sys\": {\n        \"space\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"Space\",\n            \"id\": \"g8l7lpiniu90\"\n          }\n        },\n        \"id\": \"blog_post\",\n        \"type\": \"ContentType\",\n        \"createdAt\": \"2022-09-11T08:55:33.224Z\",\n        \"updatedAt\": \"2022-10-09T10:37:54.338Z\",\n        \"environment\": {\n          \"sys\": {\n            \"id\": \"integration\",\n            \"type\": \"Link\",\n            \"linkType\": \"Environment\"\n          }\n        },\n        \"publishedVersion\": 46,\n        \"publishedAt\": \"2022-10-09T10:27:30.702Z\",\n        \"firstPublishedAt\": \"2022-09-11T19:50:24.778Z\",\n        \"createdBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"updatedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        },\n        \"publishedCounter\": 10,\n        \"version\": 55,\n        \"publishedBy\": {\n          \"sys\": {\n            \"type\": \"Link\",\n            \"linkType\": \"User\",\n            \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n          }\n        }\n      },\n      \"displayField\": null,\n      \"name\": \"Blog Post\",\n      \"description\": null,\n      \"fields\": [\n        {\n          \"id\": \"legacy_field\",\n          \"name\": \"An unused legacy field\",\n          \"type\": \"Symbol\",\n          \"localized\": true,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": true\n        },\n        {\n          \"id\": \"views\",\n          \"name\": \"Views\",\n          \"type\": \"Integer\",\n          \"localized\": false,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"rating\",\n          \"name\": \"Rating\",\n          \"type\": \"Number\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"authors\",\n          \"name\": \"Authors\",\n          \"type\": \"Array\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false,\n          \"items\": {\n            \"type\": \"Symbol\",\n            \"validations\": []\n          }\n        },\n        {\n          \"id\": \"content\",\n          \"name\": \"Content\",\n          \"type\": \"Text\",\n          \"localized\": false,\n          \"required\": true,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        },\n        {\n          \"id\": \"title\",\n          \"name\": \"Title\",\n          \"type\": \"Symbol\",\n          \"localized\": false,\n          \"required\": false,\n          \"validations\": [],\n          \"disabled\": false,\n          \"omitted\": false\n        }\n      ]\n    }\n  ]\n}\n",
       "headers": {
         "Connection": "keep-alive",
-        "Content-Length": "4520",
+        "Content-Length": "4522",
         "Content-Type": "application/vnd.contentful.management.v1+json",
         "X-Contentful-RateLimit-Hour-Remaining": "35999",
         "X-Contentful-RateLimit-Second-Remaining": "9",
@@ -27,7 +27,7 @@
         "cf-environment-id": "integration",
         "cf-environment-uuid": "integration",
         "cf-space-id": "g8l7lpiniu90",
-        "etag": "\"3574049962120779518\"",
+        "etag": "\"11220523550998034726\"",
         "x-contentful-route": "/spaces/:space/environments/:environment/content_types",
         "Strict-Transport-Security": "max-age=15768000",
         "X-Content-Type-Options": "nosniff",
@@ -40,8 +40,8 @@
         "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
         "Access-Control-Max-Age": "1728000",
         "Accept-Ranges": "bytes",
-        "Date": "Fri, 30 Sep 2022 19:16:55 GMT",
-        "x-contentful-request-id": "7469d831-e959-4fd7-b0a7-34c487e6410a"
+        "Date": "Sun, 09 Oct 2022 10:38:17 GMT",
+        "x-contentful-request-id": "6f72156b-d117-4b83-81d9-b2c72b1b2b7d"
       },
       "status_code": 200,
       "type": "ok"
@@ -53,7 +53,7 @@
       "headers": {
         "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
         "X-Contentful-Content-Type": "blog_post",
-        "X-Contentful-Version": "44"
+        "X-Contentful-Version": "55"
       },
       "method": "put",
       "options": {
@@ -64,20 +64,20 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"blog_post\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2022-09-11T08:55:33.224Z\",\n    \"updatedAt\": \"2022-09-30T19:16:55.713Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"publishedVersion\": 36,\n    \"publishedAt\": \"2022-09-25T20:53:07.469Z\",\n    \"firstPublishedAt\": \"2022-09-11T19:50:24.778Z\",\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 9,\n    \"version\": 45,\n    \"publishedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    }\n  },\n  \"displayField\": null,\n  \"name\": \"Blog Post\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"legacy_field\",\n      \"name\": \"An unused legacy field\",\n      \"type\": \"Symbol\",\n      \"localized\": true,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": true\n    },\n    {\n      \"id\": \"views\",\n      \"name\": \"Views\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"rating\",\n      \"name\": \"Rating\",\n      \"type\": \"Number\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"authors\",\n      \"name\": \"Authors\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"content\",\n      \"name\": \"Content\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"title\",\n      \"name\": \"Title\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    }\n  ]\n}\n",
+      "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"blog_post\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2022-09-11T08:55:33.224Z\",\n    \"updatedAt\": \"2022-10-09T10:38:17.736Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"publishedVersion\": 46,\n    \"publishedAt\": \"2022-10-09T10:27:30.702Z\",\n    \"firstPublishedAt\": \"2022-09-11T19:50:24.778Z\",\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 10,\n    \"version\": 56,\n    \"publishedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    }\n  },\n  \"displayField\": null,\n  \"name\": \"Blog Post\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"legacy_field\",\n      \"name\": \"An unused legacy field\",\n      \"type\": \"Symbol\",\n      \"localized\": true,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": true\n    },\n    {\n      \"id\": \"views\",\n      \"name\": \"Views\",\n      \"type\": \"Integer\",\n      \"localized\": false,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"rating\",\n      \"name\": \"Rating\",\n      \"type\": \"Number\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"authors\",\n      \"name\": \"Authors\",\n      \"type\": \"Array\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false,\n      \"items\": {\n        \"type\": \"Symbol\",\n        \"validations\": []\n      }\n    },\n    {\n      \"id\": \"content\",\n      \"name\": \"Content\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": true,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"title\",\n      \"name\": \"Title\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    }\n  ]\n}\n",
       "headers": {
         "Connection": "keep-alive",
-        "Content-Length": "2441",
+        "Content-Length": "2442",
         "Content-Type": "application/vnd.contentful.management.v1+json",
-        "X-Contentful-RateLimit-Second-Remaining": "8",
-        "X-Contentful-RateLimit-Hour-Limit": "36000",
         "X-Contentful-RateLimit-Second-Limit": "10",
         "X-Contentful-RateLimit-Reset": "0",
         "X-Contentful-RateLimit-Hour-Remaining": "35998",
+        "X-Contentful-RateLimit-Second-Remaining": "8",
+        "X-Contentful-RateLimit-Hour-Limit": "36000",
         "cf-environment-id": "integration",
         "cf-environment-uuid": "integration",
         "cf-space-id": "g8l7lpiniu90",
-        "etag": "\"10116443918385841358\"",
+        "etag": "\"5771177976671512772\"",
         "x-contentful-route": "/spaces/:space/environments/:environment/content_types/:id",
         "Strict-Transport-Security": "max-age=15768000",
         "X-Content-Type-Options": "nosniff",
@@ -90,8 +90,8 @@
         "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
         "Access-Control-Max-Age": "1728000",
         "Accept-Ranges": "bytes",
-        "Date": "Fri, 30 Sep 2022 19:16:55 GMT",
-        "x-contentful-request-id": "6def6869-4099-4dd0-bc05-4a49ceaa3d6c"
+        "Date": "Sun, 09 Oct 2022 10:38:17 GMT",
+        "x-contentful-request-id": "a9531009-b0bc-4a53-91f3-4f0673e84146"
       },
       "status_code": 200,
       "type": "ok"
@@ -103,7 +103,7 @@
       "headers": {
         "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
         "X-Contentful-Content-Type": "comment",
-        "X-Contentful-Version": "4"
+        "X-Contentful-Version": "13"
       },
       "method": "put",
       "options": {
@@ -114,20 +114,20 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"comment\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2022-09-30T15:38:42.726Z\",\n    \"updatedAt\": \"2022-09-30T19:16:56.021Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 5\n  },\n  \"displayField\": null,\n  \"name\": \"Comment\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"comment\",\n      \"name\": \"Comment\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"blog_post_id\",\n      \"name\": \"Blog Post Id\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    }\n  ]\n}\n",
+      "body": "{\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"comment\",\n    \"type\": \"ContentType\",\n    \"createdAt\": \"2022-09-30T15:38:42.726Z\",\n    \"updatedAt\": \"2022-10-09T10:38:17.964Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 14\n  },\n  \"displayField\": null,\n  \"name\": \"Comment\",\n  \"description\": null,\n  \"fields\": [\n    {\n      \"id\": \"comment\",\n      \"name\": \"Comment\",\n      \"type\": \"Text\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    },\n    {\n      \"id\": \"blog_post_id\",\n      \"name\": \"Blog Post Id\",\n      \"type\": \"Symbol\",\n      \"localized\": false,\n      \"required\": false,\n      \"validations\": [],\n      \"disabled\": false,\n      \"omitted\": false\n    }\n  ]\n}\n",
       "headers": {
         "Connection": "keep-alive",
-        "Content-Length": "1258",
+        "Content-Length": "1259",
         "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-RateLimit-Hour-Remaining": "35997",
         "X-Contentful-RateLimit-Second-Remaining": "7",
         "X-Contentful-RateLimit-Hour-Limit": "36000",
         "X-Contentful-RateLimit-Second-Limit": "10",
         "X-Contentful-RateLimit-Reset": "0",
-        "X-Contentful-RateLimit-Hour-Remaining": "35997",
         "cf-environment-id": "integration",
         "cf-environment-uuid": "integration",
         "cf-space-id": "g8l7lpiniu90",
-        "etag": "\"17143555025407270670\"",
+        "etag": "\"1265964271592642632\"",
         "x-contentful-route": "/spaces/:space/environments/:environment/content_types/:id",
         "Strict-Transport-Security": "max-age=15768000",
         "X-Content-Type-Options": "nosniff",
@@ -140,8 +140,8 @@
         "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
         "Access-Control-Max-Age": "1728000",
         "Accept-Ranges": "bytes",
-        "Date": "Fri, 30 Sep 2022 19:16:56 GMT",
-        "x-contentful-request-id": "8fd8ecb3-5c22-4c35-a183-ebcdc73084ad"
+        "Date": "Sun, 09 Oct 2022 10:38:18 GMT",
+        "x-contentful-request-id": "1a25fd53-5aba-4a84-ba02-92621e2e7686"
       },
       "status_code": 200,
       "type": "ok"

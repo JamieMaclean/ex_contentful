@@ -2,15 +2,11 @@ defmodule Content.ContentManagement.Query.EntryTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
+  alias Content.Resource.Entry
   alias Content.Error
   alias Content.Integration.BlogPost
   alias Content.Integration.Comment
   alias Content.ContentManagement.Query
-
-  setup_all do
-    start_supervised!(Content.Integration.Content)
-    :ok
-  end
 
   describe "create/1" do
     test "creates an entry" do
@@ -117,7 +113,7 @@ defmodule Content.ContentManagement.Query.EntryTest do
       end
     end
 
-    test "returns a version missmatch error when content type is not expected" do
+    test "returns a content type mismatch content type is not expected" do
       use_cassette "entry" do
         expected_type = Comment.__contentful_schema__().id
         received_type = BlogPost.__contentful_schema__().id
@@ -131,6 +127,14 @@ defmodule Content.ContentManagement.Query.EntryTest do
                     response: _response
                   }
                 }} = Query.get(%Comment{}, "1ovcGJESEykRotOaKuTRtE")
+      end
+    end
+  end
+
+  describe "get_all/1" do
+    test "gets all entries for space" do
+      use_cassette "all_entries" do
+        assert {:ok, _list} = Query.get_all(%Entry{})
       end
     end
   end
