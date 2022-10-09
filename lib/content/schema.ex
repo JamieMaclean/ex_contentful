@@ -66,7 +66,7 @@ defmodule Content.Schema do
       end
 
       defimpl Content.Resource do
-        alias Content.Field
+        alias Content.Schema.Field
 
         def base_url(_content_type, :content_management) do
           Content.ContentManagement.url() <> "/entries"
@@ -80,7 +80,7 @@ defmodule Content.Schema do
             |> Map.delete(:sys)
             |> Map.delete(:__struct__)
             |> Map.keys()
-            |> Enum.map(&Field.to_contentful_entry(resource, &1))
+            |> Enum.map(&Field.prepare_for_contentful(resource, &1))
             |> Enum.into(%{})
 
           %{fields: fields}
@@ -302,6 +302,6 @@ defmodule Content.Schema do
     |> String.split("_")
     |> Enum.map_join(" ", &String.capitalize(&1))
   end
-  
+
   # coveralls-ignore-end
 end

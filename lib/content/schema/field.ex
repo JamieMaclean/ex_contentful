@@ -19,13 +19,9 @@ defmodule Content.Schema.Field do
           omitted: boolean()
         }
 
-  alias __MODULE__
-  alias Content.Field.ShortText
-  alias Content.Field.LongText
-  alias Jason
-
-  @spec prepare(field :: ShortText.t() | LongText.t()) :: Field.t()
-  def prepare(field) do
-    Jason.encode!(field)
+  def prepare_for_contentful(parent, field_name) do
+    schema = parent.__struct__.__contentful_schema__
+    field = Enum.find(schema.fields, fn field -> field.id == Atom.to_string(field_name) end)
+    {field.id, %{"en-US" => Map.get(parent, field_name)}}
   end
 end
