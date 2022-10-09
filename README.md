@@ -33,7 +33,7 @@ config :content,
   environment_id: "my_environment_id",
   content_management_token: "content_management_token",
   content_preview_token: "content_preview_token",
-  content_delivery_token: "content_delivery_token"
+  content_delivery_token: "content_delivery_token",
   content_types: [
     MyApp.BlogPost,
     MyApp.Comment,
