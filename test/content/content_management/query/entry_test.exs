@@ -3,6 +3,7 @@ defmodule Content.ContentManagement.EntryTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias Content.Resource.Entry
+  alias Content.Resource.Link
   alias Content.Error
   alias Content.Integration.BlogPost
   alias Content.Integration.Comment
@@ -133,6 +134,145 @@ defmodule Content.ContentManagement.EntryTest do
     test "gets all entries for space" do
       use_cassette "all_entries" do
         assert {:ok, _list} = ContentManagement.get_all(%Entry{})
+      end
+    end
+  end
+
+  describe "upsert/1" do
+    test "creates a new entry when the id does not exist" do
+      use_cassette "upsert_as_create_entry" do
+        {:ok, blog_post} =
+          BlogPost.create(%{
+            views: 12345,
+            content: "some changed content"
+          })
+
+        assert ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7") ==
+                 %BlogPost{
+                   authors: [],
+                   content: "some changed content",
+                   id: nil,
+                   legacy_field: "",
+                   metadata: %{tags: []},
+                   rating: nil,
+                   sys: %{
+                     content_type: %Link{
+                       id: "blog_post",
+                       link_type: "ContentType",
+                       type: "Link"
+                     },
+                     created_at: ~U[2022-10-09 13:11:38.153Z],
+                     created_by: %Link{
+                       id: "5J5TUlcInAPSw6zfv557d7",
+                       link_type: "User",
+                       type: "Link"
+                     },
+                     environment: %Link{
+                       id: "integration",
+                       link_type: "Environment",
+                       type: "Link"
+                     },
+                     id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7",
+                     published_counter: 0,
+                     space: %Link{
+                       id: "g8l7lpiniu90",
+                       link_type: "Space",
+                       type: "Link"
+                     },
+                     type: "Entry",
+                     updated_at: ~U[2022-10-09 13:11:38.153Z],
+                     updated_by: %Link{
+                       id: "5J5TUlcInAPSw6zfv557d7",
+                       link_type: "User",
+                       type: "Link"
+                     },
+                     version: 1
+                   },
+                   title: "",
+                   views: 12345
+                 }
+      end
+    end
+
+    test "updates an new entry when the id exists" do
+      use_cassette "upsert_as_update_entry" do
+        {:ok, blog_post} =
+          BlogPost.create(
+            %{
+              views: 1,
+              content: "Some updated content"
+            }
+          )
+
+        assert ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                 version: 1
+               ) ==
+                 %BlogPost{
+                   authors: [],
+                   content: "Some updated content",
+                   id: nil,
+                   legacy_field: "",
+                   metadata: %{tags: []},
+                   rating: nil,
+                   sys: %{
+                     content_type: %Link{
+                       id: "blog_post",
+                       link_type: "ContentType",
+                       type: "Link"
+                     },
+                     created_at: ~U[2022-10-09 13:06:35.379Z],
+                     created_by: %Link{
+                       id: "5J5TUlcInAPSw6zfv557d7",
+                       link_type: "User",
+                       type: "Link"
+                     },
+                     environment: %Link{
+                       id: "integration",
+                       link_type: "Environment",
+                       type: "Link"
+                     },
+                     id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                     published_counter: 0,
+                     space: %Link{
+                       id: "g8l7lpiniu90",
+                       link_type: "Space",
+                       type: "Link"
+                     },
+                     type: "Entry",
+                     updated_at: ~U[2022-10-09 13:21:14.621Z],
+                     updated_by: %Link{
+                       id: "5J5TUlcInAPSw6zfv557d7",
+                       link_type: "User",
+                       type: "Link"
+                     },
+                     version: 2
+                   },
+                   title: "",
+                   views: 1
+                 }
+      end
+    end
+
+    test "returs version mismatch error when the version is wrong" do
+      use_cassette "upsert_as_update_fail" do
+        {:ok, blog_post} =
+          BlogPost.create(%{
+            views: 1,
+            content: "Some updated content"
+          })
+
+        assert %Error{
+                 details: %{
+                   response: %{
+                     "requestId" => _,
+                     "sys" => %{"id" => "VersionMismatch", "type" => "Error"}
+                   }
+                 },
+                 type: :version_mismatch
+               } =
+                 ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                   version: 100
+                 )
       end
     end
   end

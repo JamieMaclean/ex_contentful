@@ -1,0 +1,54 @@
+[
+  {
+    "request": {
+      "body": "{\"fields\":{\"authors\":{\"en-US\":[]},\"content\":{\"en-US\":\"Some updated content\"},\"legacy_field\":{\"en-US\":\"\"},\"rating\":{\"en-US\":null},\"title\":{\"en-US\":\"\"},\"views\":{\"en-US\":1}}}",
+      "headers": {
+        "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-Content-Type": "blog_post",
+        "X-Contentful-Version": "1"
+      },
+      "method": "put",
+      "options": {
+        "insecure": "true"
+      },
+      "request_body": "",
+      "url": "https://api.contentful.com/spaces/g8l7lpiniu90/environments/integration/entries/3abade73-5615-4b1e-92a2-ce5b3b2bdf7f"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"metadata\": {\n    \"tags\": []\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"3abade73-5615-4b1e-92a2-ce5b3b2bdf7f\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2022-10-09T13:06:35.379Z\",\n    \"updatedAt\": \"2022-10-09T13:21:14.621Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 2,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"blog_post\"\n      }\n    }\n  },\n  \"fields\": {\n    \"legacy_field\": {\n      \"en-US\": \"\"\n    },\n    \"views\": {\n      \"en-US\": 1\n    },\n    \"rating\": {\n      \"en-US\": null\n    },\n    \"content\": {\n      \"en-US\": \"Some updated content\"\n    },\n    \"title\": {\n      \"en-US\": \"\"\n    }\n  }\n}\n",
+      "headers": {
+        "Connection": "keep-alive",
+        "Content-Length": "1190",
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-RateLimit-Hour-Limit": "36000",
+        "X-Contentful-RateLimit-Second-Limit": "10",
+        "X-Contentful-RateLimit-Reset": "0",
+        "X-Contentful-RateLimit-Hour-Remaining": "35999",
+        "X-Contentful-RateLimit-Second-Remaining": "9",
+        "accept-patch": "application/json-patch+json",
+        "cf-environment-id": "integration",
+        "cf-environment-uuid": "integration",
+        "cf-space-id": "g8l7lpiniu90",
+        "etag": "\"16390861550331222301\"",
+        "x-contentful-route": "/spaces/:space/environments/:environment/entries/:id",
+        "Strict-Transport-Security": "max-age=15768000",
+        "X-Content-Type-Options": "nosniff",
+        "Contentful-Api": "cma",
+        "Server": "Contentful",
+        "Contentful-Upstream": "content-api",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-Tag-Visibility,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature,X-Contentful-Source-Environment,X-Contentful-Team,X-Contentful-Parent-Id,x-contentful-validate-only,X-Contentful-Skip-UI-Draft-Validation,X-Contentful-Marketplace,X-Contentful-UI-Content-Auto-Save,cf-trace",
+        "Access-Control-Expose-Headers": "Etag",
+        "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
+        "Access-Control-Max-Age": "1728000",
+        "Accept-Ranges": "bytes",
+        "Date": "Sun, 09 Oct 2022 13:21:14 GMT",
+        "x-contentful-request-id": "62574d6e-5efc-483e-855e-555d17b2837f"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
