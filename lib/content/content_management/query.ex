@@ -76,7 +76,7 @@ defmodule Content.ContentManagement.Query do
         received: "blog_post",
         response: %{"fields" => %{"content" => %{"en-US" => "asdfasdf"}, "legacy_field" => %{"en-US" => ""}, "rating" => %{"en-US" => nil}, "title" => %{"en-US" => ""}, "views" => %{"en-US" => 123}}, "metadata" => %{"tags" => []}, "sys" => %{"contentType" => %{"sys" => %{"id" => "blog_post", "linkType" => "ContentType", "type" => "Link"}}, "createdAt" => "2022-09-25T18:16:18.350Z", "createdBy" => %{"sys" => %{"id" => "5J5TUlcInAPSw6zfv557d7", "linkType" => "User", "type" => "Link"}}, "environment" => %{"sys" => %{"id" => "integration", "linkType" => "Environment", "type" => "Link"}}, "id" => "1ovcGJESEykRotOaKuTRtE", "publishedCounter" => 0, "space" => %{"sys" => %{"id" => "g8l7lpiniu90", "linkType" => "Space", "type" => "Link"}}, "type" => "Entry", "updatedAt" => "2022-09-25T18:16:18.350Z", "updatedBy" => %{"sys" => %{"id" => "5J5TUlcInAPSw6zfv557d7", "linkType" => "User", "type" => "Link"}}, "version" => 1}}
       },
-      type: :content_type_missmatch
+      type: :content_type_mismatch
     }
   }
   ```
@@ -216,7 +216,7 @@ defmodule Content.ContentManagement.Query do
       expected_type.__struct__.build_from_response(body)
     else
       %Error{
-        type: :content_type_missmatch,
+        type: :content_type_mismatch,
         details: %{
           expected: expected_type.__struct__.__contentful_schema__.id,
           received: content_type_id,

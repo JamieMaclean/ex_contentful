@@ -3,12 +3,12 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias Content.Resource.ContentType
-  alias Content.ContentManagement.Query
+  alias Content.ContentManagement
 
   describe "get/2" do
     test "get a content type from an id" do
       use_cassette "content_type_get" do
-        assert Query.get(%ContentType{}, "blog_post") ==
+        assert ContentManagement.get(%ContentType{}, "blog_post") ==
                  %Content.Resource.ContentType{
                    fields: [
                      %{
@@ -111,7 +111,7 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
   describe "get_all/1" do
     test "gets all content types in an environment" do
       use_cassette "content_type_get_all" do
-        assert Query.get_all(%ContentType{}) ==
+        assert ContentManagement.get_all(%ContentType{}) ==
                  {
                    :ok,
                    [

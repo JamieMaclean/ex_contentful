@@ -1,4 +1,4 @@
-defmodule Content.ContentManagement.Query.EntryTest do
+defmodule Content.ContentManagement.EntryTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -6,14 +6,14 @@ defmodule Content.ContentManagement.Query.EntryTest do
   alias Content.Error
   alias Content.Integration.BlogPost
   alias Content.Integration.Comment
-  alias Content.ContentManagement.Query
+  alias Content.ContentManagement
 
   describe "create/1" do
     test "creates an entry" do
       use_cassette "create_entry" do
         {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
 
-        assert Query.create(blog_post) ==
+        assert ContentManagement.create(blog_post) ==
                  {:ok,
                   %Content.Integration.BlogPost{
                     authors: [],
@@ -65,7 +65,7 @@ defmodule Content.ContentManagement.Query.EntryTest do
   describe "get/2" do
     test "gets an entry" do
       use_cassette "entry" do
-        assert Query.get(%BlogPost{}, "1ovcGJESEykRotOaKuTRtE") ==
+        assert ContentManagement.get(%BlogPost{}, "1ovcGJESEykRotOaKuTRtE") ==
                  %Content.Integration.BlogPost{
                    authors: [],
                    content: "asdfasdf",
@@ -118,13 +118,13 @@ defmodule Content.ContentManagement.Query.EntryTest do
         received_type = BlogPost.__contentful_schema__().id
 
         assert %Error{
-                 type: :content_type_missmatch,
+                 type: :content_type_mismatch,
                  details: %{
                    expected: ^expected_type,
                    received: ^received_type,
                    response: _response
                  }
-               } = Query.get(%Comment{}, "1ovcGJESEykRotOaKuTRtE")
+               } = ContentManagement.get(%Comment{}, "1ovcGJESEykRotOaKuTRtE")
       end
     end
   end
@@ -132,7 +132,7 @@ defmodule Content.ContentManagement.Query.EntryTest do
   describe "get_all/1" do
     test "gets all entries for space" do
       use_cassette "all_entries" do
-        assert {:ok, _list} = Query.get_all(%Entry{})
+        assert {:ok, _list} = ContentManagement.get_all(%Entry{})
       end
     end
   end
