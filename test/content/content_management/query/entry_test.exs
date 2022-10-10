@@ -19,7 +19,7 @@ defmodule Content.ContentManagement.EntryTest do
                   %BlogPost{
                     authors: [],
                     content: "some content",
-                    id: nil,
+                    id: "3rpnMzTbz5WaWrotEHqkms",
                     legacy_field: "",
                     rating: nil,
                     title: "",
@@ -70,7 +70,7 @@ defmodule Content.ContentManagement.EntryTest do
                  %BlogPost{
                    authors: [],
                    content: "asdfasdf",
-                   id: nil,
+                   id: "1ovcGJESEykRotOaKuTRtE",
                    legacy_field: "",
                    rating: nil,
                    title: "",
@@ -151,7 +151,7 @@ defmodule Content.ContentManagement.EntryTest do
                  %BlogPost{
                    authors: [],
                    content: "some changed content",
-                   id: nil,
+                   id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7",
                    legacy_field: "",
                    metadata: %{tags: []},
                    rating: nil,
@@ -208,7 +208,7 @@ defmodule Content.ContentManagement.EntryTest do
                  %BlogPost{
                    authors: [],
                    content: "Some updated content",
-                   id: nil,
+                   id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
                    legacy_field: "",
                    metadata: %{tags: []},
                    rating: nil,

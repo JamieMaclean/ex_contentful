@@ -131,6 +131,7 @@ defmodule Content.Schema do
           |> Enum.filter(fn {_id, value} -> !is_nil(value) end)
           |> Enum.into(%{})
           |> Map.merge(%{
+            id: response["sys"]["id"],
             metadata: %{tags: []},
             sys: %{
               id: response["sys"]["id"],
