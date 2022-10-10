@@ -72,6 +72,10 @@ defmodule Content.Schema do
           Content.ContentManagement.url() <> "/entries"
         end
 
+        def base_url(_content_type, :content_delivery) do
+          Content.ContentDelivery.url() <> "/entries"
+        end
+
         def prepare_for_contentful(resource) do
           fields =
             Map.from_struct(resource)
@@ -119,7 +123,7 @@ defmodule Content.Schema do
         unquote(block)
       end
 
-      def build_from_response(response) do
+      def build_from_response(response, :content_management_api) do
         {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
         {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])
 
@@ -165,6 +169,47 @@ defmodule Content.Schema do
                 type: response["sys"]["updatedBy"]["sys"]["type"]
               },
               version: response["sys"]["version"]
+            }
+          })
+          |> create_from_response()
+
+        entry
+      end
+
+      def build_from_response(response, :content_delivery_api) do
+        {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
+        {:ok, updated_at, _} = DateTime.from_iso8601(response["sys"]["updatedAt"])
+
+        {:ok, entry} =
+          __MODULE__.__contentful_schema__().fields
+          |> Enum.map(fn field -> {field[:id], nil} end)
+          |> Enum.map(fn {id, _} -> {id, response["fields"][id]} end)
+          |> Enum.map(fn {id, value} -> {String.to_existing_atom(id), value} end)
+          |> Enum.filter(fn {_id, value} -> !is_nil(value) end)
+          |> Enum.into(%{})
+          |> Map.merge(%{
+            id: response["sys"]["id"],
+            metadata: %{tags: []},
+            sys: %{
+              id: response["sys"]["id"],
+              created_at: created_at,
+              content_type: %Link{
+                id: response["sys"]["contentType"]["sys"]["id"],
+                link_type: response["sys"]["contentType"]["sys"]["linkType"],
+                type: response["sys"]["contentType"]["sys"]["type"]
+              },
+              environment: %Link{
+                id: response["sys"]["environment"]["sys"]["id"],
+                link_type: response["sys"]["environment"]["sys"]["linkType"],
+                type: response["sys"]["environment"]["sys"]["type"]
+              },
+              space: %Link{
+                id: response["sys"]["space"]["sys"]["id"],
+                link_type: response["sys"]["space"]["sys"]["linkType"],
+                type: response["sys"]["space"]["sys"]["type"]
+              },
+              type: "Entry",
+              updated_at: updated_at
             }
           })
           |> create_from_response()

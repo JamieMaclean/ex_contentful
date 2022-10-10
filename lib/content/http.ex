@@ -1,13 +1,16 @@
 defmodule Content.HTTP do
   @moduledoc false
-  def access_token(),
+  def access_token(:content_management_token),
     do: Application.get_env(:content, :content_management_token)
+
+  def access_token(:content_delivery_token),
+    do: Application.get_env(:content, :content_delivery_token)
 
   def headers(headers, props \\ [])
 
   def headers([:auth | tail], props),
     do: [
-      {"Authorization", "Bearer #{access_token()}"}
+      {"Authorization", "Bearer #{access_token(:content_management_token)}"}
       | headers(tail, props)
     ]
 
