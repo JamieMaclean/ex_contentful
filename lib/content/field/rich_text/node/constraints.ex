@@ -21,7 +21,7 @@ defmodule Content.Field.RichText.Node.Constraints do
       unordered_list: "unordered-list",
       list_item: "list-item",
       hr: "hr",
-      quote: "blockquote",
+      blockquote: "blockquote",
       embedded_entry: "embedded-entry-block",
       embedded_asset: "embedded-asset-block",
       table: "table",
@@ -60,7 +60,7 @@ defmodule Content.Field.RichText.Node.Constraints do
       blocks.ordered_list,
       blocks.unordered_list,
       blocks.hr,
-      blocks.quote,
+      blocks.blockquote,
       blocks.embedded_entry,
       blocks.embedded_asset,
       blocks.table
@@ -81,35 +81,10 @@ defmodule Content.Field.RichText.Node.Constraints do
       blocks.ordered_list,
       blocks.unordered_list,
       blocks.hr,
-      blocks.quote,
+      blocks.blockquote,
       blocks.embedded_entry,
       blocks.embedded_asset
     ]
-  end
-
-  def void_blocks do
-    blocks = blocks()
-
-    [
-      blocks.hr,
-      blocks.embedded_entry,
-      blocks.embedded_asset
-    ]
-  end
-
-  def containers do
-    blocks = blocks()
-
-    %{
-      blocks.ol_list => [blocks.list_item],
-      blocks.ul_list => [blocks.list_item],
-      blocks.list_item => list_item_blocks(),
-      blocks.quote => [blocks.paragraph],
-      blocks.table => [blocks.table_row],
-      blocks.table_row => [blocks.table_cell, blocks.table_header_cell],
-      blocks.table_cell => [blocks.paragraph],
-      blocks.table_header_cell => [blocks.paragraph]
-    }
   end
 
   # coveralls-ignore-start
