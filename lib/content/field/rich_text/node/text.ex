@@ -7,7 +7,6 @@ defmodule Content.Field.RichText.Node.Text do
 
   alias __MODULE__
   alias Content.Field.RichText.Node.Constraints
-  alias Content.Field.RichText.Node.Text.Mark
   alias Content.Field.RichText.ValidationError
 
   defimpl Content.Field.RichText.Node do
@@ -38,7 +37,7 @@ defmodule Content.Field.RichText.Node.Text do
       end
     end
 
-    defp valid_mark?(%Mark{type: type}) when type in @valid_marks, do: true
+    defp valid_mark?(%{type: type}) when type in @valid_marks, do: true
     defp valid_mark?(_), do: false
   end
 end

@@ -4,11 +4,10 @@ defmodule Content.Field.RichText.Node.TextTest do
   alias Content.Field.RichText.ValidationError
   alias Content.Field.RichText.Node
   alias Content.Field.RichText.Node.Text
-  alias Content.Field.RichText.Node.Text.Mark
 
   describe "Node.validate/1" do
     test "returns the text when it is valid" do
-      node = %Text{value: "a valid value", marks: [%Mark{type: "bold"}]}
+      node = %Text{value: "a valid value", marks: [%{type: "bold"}]}
 
       assert Node.validate(node) == node
     end
@@ -26,10 +25,9 @@ defmodule Content.Field.RichText.Node.TextTest do
     end
 
     test "returns validation error when incorrect marks are provided" do
-      node = %Text{marks: [%Mark{type: "invalid"}, %Mark{type: "bold"}, %{type: "bold"}]}
+      node = %Text{marks: [%{type: "invalid"}, %{type: "bold"}]}
 
-      assert %ValidationError{node: ^node, received: [%Mark{type: "invalid"}, %{type: "bold"}]} =
-               Node.validate(node)
+      assert %ValidationError{node: ^node, received: [%{type: "invalid"}]} = Node.validate(node)
     end
   end
 end
