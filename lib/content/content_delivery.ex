@@ -65,11 +65,12 @@ defmodule Content.ContentDelivery do
   ```
   """
   def get(resource, id) do
-    url = Resource.base_url(resource, :content_delivery) <> "/#{id}?access_token=#{HTTP.access_token(:content_delivery_token)}"
+    url =
+      Resource.base_url(resource, :content_delivery) <>
+        "/#{id}?access_token=#{HTTP.access_token(:content_delivery_token)}"
 
     url
     |> HTTPoison.get([], hackney: [:insecure])
-    |> IO.inspect()
     |> case do
       {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}

@@ -256,7 +256,7 @@ defmodule Content.ContentManagement do
     |> Enum.find(fn content_type -> content_type.__contentful_schema__.id == content_type_id end)
     |> case do
       nil -> Entry.build_from_response(body)
-      content_type -> content_type.build_from_response(body)
+      content_type -> content_type.build_from_response(body, :content_management_api)
     end
   end
 
@@ -266,7 +266,7 @@ defmodule Content.ContentManagement do
            body
        ) do
     if expected_type.__struct__.__contentful_schema__.id == content_type_id do
-      expected_type.__struct__.build_from_response(body)
+      expected_type.__struct__.build_from_response(body, :content_management_api)
     else
       %Error{
         type: :content_type_mismatch,
