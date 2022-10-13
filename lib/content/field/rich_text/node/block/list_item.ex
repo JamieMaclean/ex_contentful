@@ -25,8 +25,8 @@ defmodule Content.Field.RichText.Node.ListItem do
           %ValidationError{
             node: node,
             type: :invalid_content,
-            valid_node_types: @valid_nodes,
-            recieved: nodes
+            expected: @valid_nodes,
+            received: nodes
           }
       end
     end

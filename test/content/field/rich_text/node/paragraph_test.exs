@@ -16,7 +16,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
     test "returns error when content is invalid" do
       node = %Paragraph{content: [%Paragraph{}, %Text{}, %Paragraph{}]}
 
-      assert %ValidationError{node: ^node, recieved: [%Paragraph{}, %Paragraph{}]} =
+      assert %ValidationError{node: ^node, received: [%Paragraph{}, %Paragraph{}]} =
                Node.validate(node)
     end
 

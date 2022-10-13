@@ -17,7 +17,7 @@ defmodule Content.Field.RichText.Node.BlockquoteTest do
     test "returns error when content is invalid" do
       node = %Blockquote{content: [%Text{}, %Paragraph{}, %Text{}]}
 
-      assert %ValidationError{node: ^node, recieved: [%Text{}, %Text{}]} = Node.validate(node)
+      assert %ValidationError{node: ^node, received: [%Text{}, %Text{}]} = Node.validate(node)
     end
 
     test "returns the document when valid" do

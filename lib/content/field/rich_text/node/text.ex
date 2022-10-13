@@ -3,11 +3,42 @@ defmodule Content.Field.RichText.Node.Text do
   Text node is the lowest level...
   """
 
-  defstruct [:data, :value, :marks, node_type: "text"]
+  defstruct data: %{}, value: "", marks: [], node_type: "text"
+
+  alias __MODULE__
+  alias Content.Field.RichText.Node.Constraints
+  alias Content.Field.RichText.Node.Text.Mark
+  alias Content.Field.RichText.ValidationError
 
   defimpl Content.Field.RichText.Node do
-    def validate(node) do
-      node
+    @valid_marks Map.values(Constraints.marks())
+
+    def validate(%Text{value: value} = node) when not is_binary(value) do
+      %ValidationError{
+        node: node,
+        type: :invalid_value,
+        expected: "binary",
+        received: value
+      }
     end
+
+    def validate(%Text{marks: marks} = node) do
+      Enum.filter(marks, fn mark -> !valid_mark?(mark) end)
+      |> case do
+        [] ->
+          node
+
+        marks ->
+          %ValidationError{
+            node: node,
+            type: :invalid_mark,
+            expected: @valid_marks,
+            received: marks
+          }
+      end
+    end
+
+    defp valid_mark?(%Mark{type: type}) when type in @valid_marks, do: true
+    defp valid_mark?(_), do: false
   end
 end

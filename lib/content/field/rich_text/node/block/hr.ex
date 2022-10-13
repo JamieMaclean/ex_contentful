@@ -17,8 +17,8 @@ defmodule Content.Field.RichText.Node.Hr do
         %ValidationError{
           node: node,
           type: :invalid_content,
-          valid_node_types: [],
-          recieved: content
+          expected: [],
+          received: content
         }
       end
     end

@@ -25,8 +25,8 @@ defmodule Content.Field.RichText.Node.Paragraph do
           %ValidationError{
             node: paragraph,
             type: :invalid_content,
-            valid_node_types: @valid_nodes,
-            recieved: nodes
+            expected: @valid_nodes,
+            received: nodes
           }
       end
     end
