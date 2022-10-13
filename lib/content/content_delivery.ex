@@ -1,5 +1,5 @@
-defmodule Content.ContentManagement do
-  @base_url "https://api.contentful.com"
+defmodule Content.ContentDelivery do
+  @base_url "https://cdn.contentful.com"
 
   @moduledoc """
   This module can be used to access Contentful's Content Management API.
@@ -7,7 +7,6 @@ defmodule Content.ContentManagement do
   This module provides some basic, composable functions that can be used to query any Contentful resource
   """
 
-  alias Content.ContentManagement
   alias Content.Error
   alias Content.HTTP
   alias Content.Resource
@@ -16,75 +15,7 @@ defmodule Content.ContentManagement do
   alias Content.Resource.ContentType
 
   def url,
-    do: "#{@base_url}/spaces/#{Content.space_id()}/environments/#{Content.environment_id()}"
-
-  def migrate_content_model() do
-    {:ok, items} = ContentManagement.get_all(%ContentType{})
-
-    Enum.each(Content.content_types(), fn content_type ->
-      case Enum.find(items, fn item ->
-             item.sys.id == content_type.__contentful_schema__.id
-           end) do
-        nil -> upsert_content_type(content_type, 1)
-        item -> upsert_content_type(content_type, item.sys.version)
-      end
-    end)
-  end
-
-  def upsert_content_type(content_type_module, version) do
-    url = url() <> "/content_types/#{content_type_module.__contentful_schema__.id}"
-
-    body =
-      content_type_module.__contentful_schema__
-      |> Map.delete(:id)
-      |> Jason.encode!()
-
-    url
-    |> HTTPoison.put(
-      body,
-      HTTP.headers([:auth, :contentful_type, :version],
-        contentful_type: content_type_module,
-        version: version
-      ),
-      hackney: [:insecure]
-    )
-    |> HTTP.process_response()
-  end
-
-  @doc """
-  Used to create an instance of a resource on Contentful.
-
-  The function accepts a struct of a valid contentful resource and returns the resource that was created, or an error.
-
-  Note that the `create/1` function is distinct from the `upsert/2` function because you cannot define the `id` of the resource that you are creating. This function will always create a new resource with a automatically generated `id`. If you would like to define the `id` of the resource that you are creating, see the `upsert/2` function.
-
-  ```elixir
-  alias Content.ContentManagement.Query
-  alias MyApp.BlogPost
-
-  Query.create(%BlogPost{})
-  {:ok, %BlogPost{}}
-  ```
-  """
-  def create(resource) do
-    url = Resource.base_url(resource, :content_management)
-
-    body =
-      Resource.prepare_for_contentful(resource)
-      |> Map.delete(:id)
-      |> Jason.encode!()
-
-    url
-    |> HTTPoison.post(
-      body,
-      HTTP.headers([:auth, :content_type, :contentful_type], contentful_type: resource.__struct__),
-      hackney: [:insecure]
-    )
-    |> case do
-      {:ok, %{body: body}} -> {:ok, process_response!(resource, Jason.decode!(body))}
-      {:error, error} -> {:error, error}
-    end
-  end
+    do: "#{@base_url}/spaces/#{Content.space_id()}"
 
   @doc """
   Used to get a single Contentful resource.
@@ -134,10 +65,12 @@ defmodule Content.ContentManagement do
   ```
   """
   def get(resource, id) do
-    url = Resource.base_url(resource, :content_management) <> "/#{id}"
+    url =
+      Resource.base_url(resource, :content_delivery) <>
+        "/#{id}?access_token=#{HTTP.access_token(:content_delivery_token)}"
 
     url
-    |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
+    |> HTTPoison.get([], hackney: [:insecure])
     |> case do
       {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
@@ -149,67 +82,6 @@ defmodule Content.ContentManagement do
 
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
-    |> case do
-      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
-      {:error, error} -> {:error, error}
-    end
-  end
-
-  def delete(resource, id, version: version) do
-    url = Resource.base_url(resource, :content_management) <> "/#{id}"
-
-    url
-    |> HTTPoison.delete(HTTP.headers([:auth, :version], version: version), hackney: [:insecure])
-    |> case do
-      {:ok, %{status_code: 204}} -> :ok
-      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
-      {:error, error} -> {:error, error}
-    end
-  end
-
-  @doc """
-  Used to upsert an instance of a resource on Contentful.
-
-  The function accepts a struct of a valid contentful resource and returns the resource that was created, or an error.
-
-  Note that the srtuct passed to `upsert/2` must have a non `nil` id to identify the entry that is to be upserted. If an entry exists with that id and the version provided matches the version on Contentfu, the entry will be updated. If no extry exists with that id, a new one will be created.
-
-  You may also provide the `force` option to force an update. In the case of a forced update, two api calls are made. The first to `get` the entry that is being updated and identify the current version, and the second to make the update. Therefore it should be noted that `force` is a feature of this library rather than one provided by Contentful.
-
-  ```elixir
-  alias Content.ContentManagement.Query
-  alias MyApp.BlogPost
-
-  Query.upsert(%BlogPost{}, "entry_id")
-  {:ok, %BlogPost{}} # If nothing eixists with that id a new entry is created
-
-  Query.upsert(%BlogPost{}, "entry_id")
-  {:error, :version_mismatch} # As an entry exists a version number must be provided
-
-  Query.upsert(%BlogPost{}, "enrty_id",  version: 1)
-  {:ok, %BlogPost{}} # The version provided matches the version on Contentful -> :ok
-
-  Query.upsert(%BlogPost{}, "enrty_id", force: true)
-  {:ok, %BlogPost{}} # Version is not checked and entry is force updated
-  ```
-  """
-  def upsert(resource, id, opts \\ []) do
-    url = Resource.base_url(resource, :content_management) <> "/#{id}"
-
-    body =
-      Resource.prepare_for_contentful(resource)
-      |> Map.delete(:id)
-      |> Jason.encode!()
-
-    url
-    |> HTTPoison.put(
-      body,
-      HTTP.headers([:auth, :content_type, :contentful_type, :version],
-        contentful_type: resource.__struct__,
-        version: opts[:version]
-      ),
-      hackney: [:insecure]
-    )
     |> case do
       {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
       {:error, error} -> {:error, error}
@@ -256,7 +128,7 @@ defmodule Content.ContentManagement do
     |> Enum.find(fn content_type -> content_type.__contentful_schema__.id == content_type_id end)
     |> case do
       nil -> Entry.build_from_response(body)
-      content_type -> content_type.build_from_response(body, :content_management_api)
+      content_type -> content_type.build_from_response(body)
     end
   end
 
@@ -266,7 +138,7 @@ defmodule Content.ContentManagement do
            body
        ) do
     if expected_type.__struct__.__contentful_schema__.id == content_type_id do
-      expected_type.__struct__.build_from_response(body, :content_management_api)
+      expected_type.__struct__.build_from_response(body, :content_delivery_api)
     else
       %Error{
         type: :content_type_mismatch,
