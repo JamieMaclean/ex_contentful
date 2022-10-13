@@ -34,7 +34,8 @@ defmodule Content.MixProject do
       {:httpoison, "~> 1.8.0", override: true},
       {:excoveralls, "~> 0.10", only: :test},
       {:ecto, "~> 3.8"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:floki, "~> 0.33.1"}
     ]
   end
 
