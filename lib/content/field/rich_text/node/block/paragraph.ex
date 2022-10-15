@@ -23,7 +23,10 @@ defmodule Content.Field.RichText.Node.Paragraph do
       }
     end
 
-    def to_html(_node), do: "<p>Hello</p>"
+    def to_html(node) do
+      content = Enum.map(node.content, &Node.to_html(&1))
+      "<p>#{Enum.join(content, "")}</p>"
+    end
 
     def validate(%Paragraph{content: content} = paragraph) do
       Enum.filter(content, fn

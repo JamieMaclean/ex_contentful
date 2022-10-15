@@ -4,6 +4,7 @@ defmodule Content.Field.RichText.Node.TextTest do
   alias Content.Field.RichText.ValidationError
   alias Content.Field.RichText.Node
   alias Content.Field.RichText.Node.Text
+  alias Content.Factory.RichText
 
   describe "Node.validate/1" do
     test "returns the text when it is valid" do
@@ -28,6 +29,34 @@ defmodule Content.Field.RichText.Node.TextTest do
       node = %Text{marks: [%{type: "invalid"}, %{type: "bold"}]}
 
       assert %ValidationError{node: ^node, received: [%{type: "invalid"}]} = Node.validate(node)
+    end
+  end
+
+  describe "Node.to_html/1" do
+    test "returns the html for the node" do
+      node = RichText.build(:text, %{value: "Some text"})
+
+      assert Node.to_html(node) == "Some text"
+    end
+
+    test "wraps text in marks" do
+      bold = RichText.build(:text, %{value: "Some text", marks: [%{type: "bold"}]})
+      italic = RichText.build(:text, %{value: "Some text", marks: [%{type: "italic"}]})
+      underline = RichText.build(:text, %{value: "Some text", marks: [%{type: "underline"}]})
+      code = RichText.build(:text, %{value: "Some text", marks: [%{type: "code"}]})
+
+      all =
+        RichText.build(:text, %{
+          value: "Some text",
+          marks: [%{type: "bold"}, %{type: "underline"}, %{type: "italic"}, %{type: "code"}]
+        })
+
+      assert Node.to_html(bold) == "<b>Some text</b>"
+      assert Node.to_html(italic) == "<em>Some text</em>"
+      assert Node.to_html(underline) == "<u>Some text</u>"
+      assert Node.to_html(code) == "<code>Some text</code>"
+
+      assert Node.to_html(all) == "<code><em><u><b>Some text</b></u></em></code>"
     end
   end
 end
