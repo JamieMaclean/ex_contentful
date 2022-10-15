@@ -31,11 +31,38 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
   describe "Node.to_html/1" do
     test "returns the html for the node" do
       node =
-        RichText.build(:paragraph, %{
-          content: [RichText.build(:text, %{value: "Some text"})]
+        RichText.build(:document, %{
+          content: [
+            RichText.build(:paragraph, %{
+              content: [RichText.build(:text, %{value: "Some text"})]
+            })
+          ]
         })
 
       assert Node.to_html(node) == "<p>Some text</p>"
+    end
+
+    test "integration test - gets custom atributes" do
+      node =
+        RichText.build(:document, %{
+          content: [
+            RichText.build(:paragraph, %{
+              content: [
+                RichText.build(:text, %{value: "Text in Blockquote"}),
+                RichText.build(:blockquote, %{
+                  content: [
+                    RichText.build(:paragraph, %{
+                      content: [RichText.build(:text, %{value: "Text in Blockquote"})]
+                    })
+                  ]
+                })
+              ]
+            })
+          ]
+        })
+
+      assert Node.to_html(node) ==
+               "<p class=\"aClass\">Text in Blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
     end
   end
 end

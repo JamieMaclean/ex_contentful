@@ -22,7 +22,10 @@ defmodule Content.Field.RichText.Node.Document do
       }
     end
 
-    def to_html(_node), do: "<p>Hello</p>"
+    def to_html(node) do
+      Enum.map(node.content, &Node.to_html(&1))
+      |> Floki.raw_html()
+    end
 
     def validate(%Document{content: content} = node) do
       Enum.filter(content, fn

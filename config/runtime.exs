@@ -9,4 +9,5 @@ config :content,
   content_types: [
     Content.Integration.BlogPost,
     Content.Integration.Comment
-  ]
+  ],
+  attributes_module: Content.Integration.Attributes

@@ -24,8 +24,13 @@ defmodule Content.Field.RichText.Node.Paragraph do
     end
 
     def to_html(node) do
-      content = Enum.map(node.content, &Node.to_html(&1))
-      "<p>#{Enum.join(content, "")}</p>"
+      attributes =
+        case Application.get_env(:content, :attributes_module) do
+          nil -> []
+          module -> module.get_attributes(node)
+        end
+
+      {"p", attributes, Enum.map(node.content, &Node.to_html(&1))}
     end
 
     def validate(%Paragraph{content: content} = paragraph) do
