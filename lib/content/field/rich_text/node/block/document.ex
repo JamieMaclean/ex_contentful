@@ -10,7 +10,19 @@ defmodule Content.Field.RichText.Node.Document do
   defstruct [:data, :content, node_type: Constraints.blocks().document]
 
   defimpl Content.Field.RichText.Node do
+    alias Content.Field.RichText.Node
+
     @valid_nodes Constraints.top_level_blocks()
+
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => Enum.map(node.content, &Node.prepare_for_contentful(&1))
+      }
+    end
+
+    def to_html(_node), do: "<p>Hello</p>"
 
     def validate(%Document{content: content} = node) do
       Enum.filter(content, fn

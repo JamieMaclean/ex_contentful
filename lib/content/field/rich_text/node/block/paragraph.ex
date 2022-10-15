@@ -7,10 +7,23 @@ defmodule Content.Field.RichText.Node.Paragraph do
   TODO
   """
 
+  @derive Jason.Encoder
   defstruct [:data, :content, node_type: Constraints.blocks().paragraph]
 
   defimpl Content.Field.RichText.Node do
+    alias Content.Field.RichText.Node
+
     @valid_nodes ["text" | Map.values(Constraints.inlines())]
+
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => Enum.map(node.content, &Node.prepare_for_contentful(&1))
+      }
+    end
+
+    def to_html(_node), do: "<p>Hello</p>"
 
     def validate(%Paragraph{content: content} = paragraph) do
       Enum.filter(content, fn

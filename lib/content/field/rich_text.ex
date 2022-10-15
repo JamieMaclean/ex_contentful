@@ -8,7 +8,7 @@ defmodule Content.Field.RichText do
     localized: false,
     required: false,
     contentful_type: "RichText",
-    ecto_type: :integer,
+    ecto_type: :map,
     omitted: false
   ]
 
@@ -22,4 +22,11 @@ defmodule Content.Field.RichText do
           required: boolean(),
           omitted: boolean()
         }
+
+  alias Content.Field.RichText.Node
+  alias Content.Field.RichText.Node.Document
+
+  def to_html(%Document{content: content}) do
+    Node.to_html(content)
+  end
 end

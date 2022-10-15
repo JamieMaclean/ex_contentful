@@ -41,12 +41,12 @@ defmodule Content.Integration.SchemaTest do
                    items: %{type: "Symbol", validations: []}
                  },
                  %{
-                   type: "Text",
+                   type: "RichText",
                    id: "content",
                    localized: false,
                    name: "Content",
                    omitted: false,
-                   required: true
+                   required: false
                  },
                  %{
                    type: "Symbol",

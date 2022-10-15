@@ -35,7 +35,8 @@ defmodule Content.Schema do
     short_text: Content.Field.ShortText,
     long_text: Content.Field.LongText,
     number: Content.Field.Number,
-    integer: Content.Field.Integer
+    integer: Content.Field.Integer,
+    rich_text: Content.Field.RichText
   }
   alias Content.Schema.FieldArray
 
@@ -329,7 +330,7 @@ defmodule Content.Schema do
     Map.get(
       %{
         string: "",
-        map: %{}
+        map: Macro.escape(%{})
       },
       type
     )

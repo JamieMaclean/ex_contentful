@@ -8,57 +8,58 @@ defmodule Content.ContentManagement.EntryTest do
   alias Content.Integration.BlogPost
   alias Content.Integration.Comment
   alias Content.ContentManagement
+  alias Content.Factory.RichText
 
   describe "create/1" do
+    @tag :only
     test "creates an entry" do
       use_cassette "create_entry" do
-        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
+        {:ok, blog_post} = BlogPost.create(%{views: 123, content: RichText.build(:full_document)})
 
-        assert ContentManagement.create(blog_post) ==
-                 {:ok,
-                  %BlogPost{
-                    authors: [],
-                    content: "some content",
-                    id: "3rpnMzTbz5WaWrotEHqkms",
-                    legacy_field: "",
-                    rating: nil,
-                    title: "",
-                    views: 123,
-                    metadata: %{tags: []},
-                    sys: %{
-                      content_type: %Link{
-                        id: "blog_post",
-                        link_type: "ContentType",
-                        type: "Link"
-                      },
-                      created_at: ~U[2022-10-02 22:01:54.712Z],
-                      created_by: %Link{
-                        id: "5J5TUlcInAPSw6zfv557d7",
-                        link_type: "User",
-                        type: "Link"
-                      },
-                      environment: %Link{
-                        id: "integration",
-                        link_type: "Environment",
-                        type: "Link"
-                      },
-                      id: "3rpnMzTbz5WaWrotEHqkms",
-                      published_counter: 0,
-                      space: %Link{
-                        id: "g8l7lpiniu90",
-                        link_type: "Space",
-                        type: "Link"
-                      },
-                      type: "Entry",
-                      updated_at: ~U[2022-10-02 22:01:54.712Z],
-                      updated_by: %Link{
-                        id: "5J5TUlcInAPSw6zfv557d7",
-                        link_type: "User",
-                        type: "Link"
-                      },
-                      version: 1
-                    }
-                  }}
+        assert {:ok,
+                %BlogPost{
+                  authors: [],
+                  content: _,
+                  id: _,
+                  legacy_field: _,
+                  rating: nil,
+                  title: _,
+                  views: _,
+                  metadata: %{tags: []},
+                  sys: %{
+                    content_type: %Link{
+                      id: "blog_post",
+                      link_type: "ContentType",
+                      type: "Link"
+                    },
+                    created_at: _,
+                    created_by: %Link{
+                      id: "5J5TUlcInAPSw6zfv557d7",
+                      link_type: "User",
+                      type: "Link"
+                    },
+                    environment: %Link{
+                      id: "integration",
+                      link_type: "Environment",
+                      type: "Link"
+                    },
+                    id: _,
+                    published_counter: 0,
+                    space: %Link{
+                      id: "g8l7lpiniu90",
+                      link_type: "Space",
+                      type: "Link"
+                    },
+                    type: "Entry",
+                    updated_at: _,
+                    updated_by: %Link{
+                      id: _,
+                      link_type: "User",
+                      type: "Link"
+                    },
+                    version: 1
+                  }
+                }} = ContentManagement.create(blog_post)
       end
     end
   end

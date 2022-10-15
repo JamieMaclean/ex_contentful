@@ -10,6 +10,8 @@ defmodule Content.Field.RichText.Node.Hr do
   defstruct [:data, :content, node_type: Constraints.blocks().hr]
 
   defimpl Content.Field.RichText.Node do
+    def to_html(_node), do: "<p>Hello</p>"
+
     def validate(%Hr{content: content} = node) do
       if Enum.empty?(content) do
         node

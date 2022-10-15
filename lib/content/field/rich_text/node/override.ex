@@ -1,4 +1,4 @@
-defprotocol Content.Field.RichText.Node do
+defprotocol Content.Field.RichText.Node.Override do
   @moduledoc """
   A useful description of nodes
 
@@ -7,5 +7,4 @@ defprotocol Content.Field.RichText.Node do
 
   def validate(node)
   def to_html(node)
-  def prepare_for_contentful(node)
 end

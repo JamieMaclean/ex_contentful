@@ -12,6 +12,8 @@ defmodule Content.Field.RichText.Node.OrderedList do
   defimpl Content.Field.RichText.Node do
     @valid_nodes [Constraints.blocks().list_item]
 
+    def to_html(_node), do: "<p>Hello</p>"
+
     def validate(%OrderedList{content: content} = node) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false

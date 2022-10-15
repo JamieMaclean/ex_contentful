@@ -12,6 +12,8 @@ defmodule Content.Field.RichText.Node.TableHeaderCell do
   defimpl Content.Field.RichText.Node do
     @valid_nodes [Constraints.blocks().paragraph]
 
+    def to_html(_node), do: "<p>Hello</p>"
+
     def validate(%TableHeaderCell{content: content} = node) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false

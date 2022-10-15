@@ -3,6 +3,7 @@ defmodule Content.Field.RichText.Node.Text do
   Text node is the lowest level...
   """
 
+  @derive Jason.Encoder
   defstruct data: %{}, value: "", marks: [], node_type: "text"
 
   alias __MODULE__
@@ -10,7 +11,18 @@ defmodule Content.Field.RichText.Node.Text do
   alias Content.Field.RichText.ValidationError
 
   defimpl Content.Field.RichText.Node do
+    alias Content.Field.RichText.Node
+
     @valid_marks Map.values(Constraints.marks())
+
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "value" => node.value,
+        "marks" => node.marks
+      }
+    end
 
     def validate(%Text{value: value} = node) when not is_binary(value) do
       %ValidationError{
@@ -36,6 +48,8 @@ defmodule Content.Field.RichText.Node.Text do
           }
       end
     end
+
+    def to_html(_node), do: "<p>Hello</p>"
 
     defp valid_mark?(%{type: type}) when type in @valid_marks, do: true
     defp valid_mark?(_), do: false

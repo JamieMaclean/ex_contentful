@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"fields\":{\"authors\":{\"en-US\":[]},\"content\":{\"en-US\":\"some content\"},\"legacy_field\":{\"en-US\":\"\"},\"rating\":{\"en-US\":null},\"title\":{\"en-US\":\"\"},\"views\":{\"en-US\":123}}}",
+      "body": "{\"fields\":{\"authors\":{\"en-US\":null},\"content\":{\"en-US\":null},\"legacy_field\":{\"en-US\":null},\"rating\":{\"en-US\":null},\"title\":{\"en-US\":null},\"views\":{\"en-US\":null}}}",
       "headers": {
         "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
         "Content-Type": "application/vnd.contentful.management.v1+json",
@@ -16,10 +16,10 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"metadata\": {\n    \"tags\": []\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"3rpnMzTbz5WaWrotEHqkms\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2022-10-02T22:01:54.712Z\",\n    \"updatedAt\": \"2022-10-02T22:01:54.712Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 1,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"blog_post\"\n      }\n    }\n  },\n  \"fields\": {\n    \"legacy_field\": {\n      \"en-US\": \"\"\n    },\n    \"views\": {\n      \"en-US\": 123\n    },\n    \"rating\": {\n      \"en-US\": null\n    },\n    \"content\": {\n      \"en-US\": \"some content\"\n    },\n    \"title\": {\n      \"en-US\": \"\"\n    }\n  }\n}\n",
+      "body": "{\n  \"metadata\": {\n    \"tags\": []\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"ExmY3DI23ZbTZBdEDdLXe\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2022-10-15T15:09:04.980Z\",\n    \"updatedAt\": \"2022-10-15T15:09:04.980Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 1,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"blog_post\"\n      }\n    }\n  },\n  \"fields\": {\n    \"legacy_field\": {\n      \"en-US\": null\n    },\n    \"views\": {\n      \"en-US\": null\n    },\n    \"rating\": {\n      \"en-US\": null\n    },\n    \"content\": {\n      \"en-US\": null\n    },\n    \"title\": {\n      \"en-US\": null\n    }\n  }\n}\n",
       "headers": {
         "Connection": "keep-alive",
-        "Content-Length": "1170",
+        "Content-Length": "1164",
         "Content-Type": "application/vnd.contentful.management.v1+json",
         "X-Contentful-RateLimit-Hour-Remaining": "35999",
         "X-Contentful-RateLimit-Second-Remaining": "9",
@@ -29,7 +29,7 @@
         "cf-environment-id": "integration",
         "cf-environment-uuid": "integration",
         "cf-space-id": "g8l7lpiniu90",
-        "etag": "\"16889916732324241074\"",
+        "etag": "\"12293410772119109235\"",
         "x-contentful-route": "/spaces/:space/environments/:environment/entries",
         "Strict-Transport-Security": "max-age=15768000",
         "X-Content-Type-Options": "nosniff",
@@ -42,8 +42,8 @@
         "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
         "Access-Control-Max-Age": "1728000",
         "Accept-Ranges": "bytes",
-        "Date": "Sun, 02 Oct 2022 22:01:54 GMT",
-        "x-contentful-request-id": "dd09d3f3-cda5-4cbe-8f4a-41198ec6a903"
+        "Date": "Sat, 15 Oct 2022 15:09:05 GMT",
+        "x-contentful-request-id": "466b6405-257c-4282-bf0a-1524d964d106"
       },
       "status_code": 201,
       "type": "ok"
