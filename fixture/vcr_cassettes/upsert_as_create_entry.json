@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"fields\":{\"authors\":{\"en-US\":[]},\"content\":{\"en-US\":\"some changed content\"},\"legacy_field\":{\"en-US\":\"\"},\"rating\":{\"en-US\":null},\"title\":{\"en-US\":\"\"},\"views\":{\"en-US\":12345}}}",
+      "body": "{\"fields\":{\"authors\":{\"en-US\":[]},\"content\":{\"en-US\":{\"content\":[{\"content\":[{\"data\":{},\"marks\":[],\"nodeType\":\"text\",\"value\":\"Hello World!\"}],\"data\":{},\"nodeType\":\"paragraph\"}],\"data\":{},\"nodeType\":\"document\"}},\"legacy_field\":{\"en-US\":\"\"},\"rating\":{\"en-US\":null},\"title\":{\"en-US\":\"\"},\"views\":{\"en-US\":12345}}}",
       "headers": {
         "Authorization": "Bearer CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
         "Content-Type": "application/vnd.contentful.management.v1+json",
@@ -13,25 +13,25 @@
         "insecure": "true"
       },
       "request_body": "",
-      "url": "https://api.contentful.com/spaces/g8l7lpiniu90/environments/integration/entries/3abade73-5615-4b1e-92a2-ce5b3b2bdf7"
+      "url": "https://api.contentful.com/spaces/g8l7lpiniu90/environments/integration/entries/3abade73-5615-4b1e-92a2-ce5b3b2bdf0"
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"metadata\": {\n    \"tags\": []\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"3abade73-5615-4b1e-92a2-ce5b3b2bdf7\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2022-10-09T13:11:38.153Z\",\n    \"updatedAt\": \"2022-10-09T13:11:38.153Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 1,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"blog_post\"\n      }\n    }\n  },\n  \"fields\": {\n    \"legacy_field\": {\n      \"en-US\": \"\"\n    },\n    \"views\": {\n      \"en-US\": 12345\n    },\n    \"rating\": {\n      \"en-US\": null\n    },\n    \"content\": {\n      \"en-US\": \"some changed content\"\n    },\n    \"title\": {\n      \"en-US\": \"\"\n    }\n  }\n}\n",
+      "body": "{\n  \"metadata\": {\n    \"tags\": []\n  },\n  \"sys\": {\n    \"space\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"Space\",\n        \"id\": \"g8l7lpiniu90\"\n      }\n    },\n    \"id\": \"3abade73-5615-4b1e-92a2-ce5b3b2bdf0\",\n    \"type\": \"Entry\",\n    \"createdAt\": \"2022-10-15T15:34:39.938Z\",\n    \"updatedAt\": \"2022-10-15T15:34:39.938Z\",\n    \"environment\": {\n      \"sys\": {\n        \"id\": \"integration\",\n        \"type\": \"Link\",\n        \"linkType\": \"Environment\"\n      }\n    },\n    \"createdBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"updatedBy\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"User\",\n        \"id\": \"5J5TUlcInAPSw6zfv557d7\"\n      }\n    },\n    \"publishedCounter\": 0,\n    \"version\": 1,\n    \"contentType\": {\n      \"sys\": {\n        \"type\": \"Link\",\n        \"linkType\": \"ContentType\",\n        \"id\": \"blog_post\"\n      }\n    }\n  },\n  \"fields\": {\n    \"legacy_field\": {\n      \"en-US\": \"\"\n    },\n    \"views\": {\n      \"en-US\": 12345\n    },\n    \"rating\": {\n      \"en-US\": null\n    },\n    \"content\": {\n      \"en-US\": {\n        \"content\": [\n          {\n            \"content\": [\n              {\n                \"data\": {},\n                \"marks\": [],\n                \"nodeType\": \"text\",\n                \"value\": \"Hello World!\"\n              }\n            ],\n            \"data\": {},\n            \"nodeType\": \"paragraph\"\n          }\n        ],\n        \"data\": {},\n        \"nodeType\": \"document\"\n      }\n    },\n    \"title\": {\n      \"en-US\": \"\"\n    }\n  }\n}\n",
       "headers": {
         "Connection": "keep-alive",
-        "Content-Length": "1193",
+        "Content-Length": "1552",
         "Content-Type": "application/vnd.contentful.management.v1+json",
-        "X-Contentful-RateLimit-Hour-Remaining": "35998",
-        "X-Contentful-RateLimit-Second-Remaining": "8",
-        "X-Contentful-RateLimit-Hour-Limit": "36000",
         "X-Contentful-RateLimit-Second-Limit": "10",
         "X-Contentful-RateLimit-Reset": "0",
+        "X-Contentful-RateLimit-Hour-Remaining": "35999",
+        "X-Contentful-RateLimit-Second-Remaining": "9",
+        "X-Contentful-RateLimit-Hour-Limit": "36000",
         "accept-patch": "application/json-patch+json",
         "cf-environment-id": "integration",
         "cf-environment-uuid": "integration",
         "cf-space-id": "g8l7lpiniu90",
-        "etag": "\"17831653496697460336\"",
+        "etag": "\"7170444286529901400\"",
         "x-contentful-route": "/spaces/:space/environments/:environment/entries/:id",
         "Strict-Transport-Security": "max-age=15768000",
         "X-Content-Type-Options": "nosniff",
@@ -44,8 +44,8 @@
         "Access-Control-Allow-Methods": "DELETE,GET,HEAD,POST,PUT,PATCH,OPTIONS",
         "Access-Control-Max-Age": "1728000",
         "Accept-Ranges": "bytes",
-        "Date": "Sun, 09 Oct 2022 13:11:38 GMT",
-        "x-contentful-request-id": "4b6a4257-71e0-4efd-8ffa-0fb779f440f2"
+        "Date": "Sat, 15 Oct 2022 15:34:40 GMT",
+        "x-contentful-request-id": "bde86c50-45bf-4893-92c2-f857d627afc7"
       },
       "status_code": 201,
       "type": "ok"

@@ -70,7 +70,7 @@ defmodule Content.ContentManagement.EntryTest do
         assert ContentManagement.get(%BlogPost{}, "1ovcGJESEykRotOaKuTRtE") ==
                  %BlogPost{
                    authors: [],
-                   content: "asdfasdf",
+                   content: %{},
                    id: "1ovcGJESEykRotOaKuTRtE",
                    legacy_field: "",
                    rating: nil,
@@ -133,7 +133,7 @@ defmodule Content.ContentManagement.EntryTest do
 
   describe "get_all/1" do
     test "gets all entries for space" do
-      use_cassette "all_entries" do
+      use_cassette "get_all_entries" do
         assert {:ok, _list} = ContentManagement.get_all(%Entry{})
       end
     end
@@ -145,53 +145,52 @@ defmodule Content.ContentManagement.EntryTest do
         {:ok, blog_post} =
           BlogPost.create(%{
             views: 12_345,
-            content: "some changed content"
+            content: RichText.build(:full_document)
           })
 
-        assert ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7") ==
-                 %BlogPost{
-                   authors: [],
-                   content: "some changed content",
-                   id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7",
-                   legacy_field: "",
-                   metadata: %{tags: []},
-                   rating: nil,
-                   sys: %{
-                     content_type: %Link{
-                       id: "blog_post",
-                       link_type: "ContentType",
-                       type: "Link"
-                     },
-                     created_at: ~U[2022-10-09 13:11:38.153Z],
-                     created_by: %Link{
-                       id: "5J5TUlcInAPSw6zfv557d7",
-                       link_type: "User",
-                       type: "Link"
-                     },
-                     environment: %Link{
-                       id: "integration",
-                       link_type: "Environment",
-                       type: "Link"
-                     },
-                     id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7",
-                     published_counter: 0,
-                     space: %Link{
-                       id: "g8l7lpiniu90",
-                       link_type: "Space",
-                       type: "Link"
-                     },
-                     type: "Entry",
-                     updated_at: ~U[2022-10-09 13:11:38.153Z],
-                     updated_by: %Link{
-                       id: "5J5TUlcInAPSw6zfv557d7",
-                       link_type: "User",
-                       type: "Link"
-                     },
-                     version: 1
+        assert %BlogPost{
+                 authors: [],
+                 content: _,
+                 id: _,
+                 legacy_field: "",
+                 metadata: %{tags: []},
+                 rating: nil,
+                 sys: %{
+                   content_type: %Link{
+                     id: "blog_post",
+                     link_type: "ContentType",
+                     type: "Link"
                    },
-                   title: "",
-                   views: 12_345
-                 }
+                   created_at: _,
+                   created_by: %Link{
+                     id: "5J5TUlcInAPSw6zfv557d7",
+                     link_type: "User",
+                     type: "Link"
+                   },
+                   environment: %Link{
+                     id: "integration",
+                     link_type: "Environment",
+                     type: "Link"
+                   },
+                   id: _,
+                   published_counter: 0,
+                   space: %Link{
+                     id: "g8l7lpiniu90",
+                     link_type: "Space",
+                     type: "Link"
+                   },
+                   type: "Entry",
+                   updated_at: _,
+                   updated_by: %Link{
+                     id: "5J5TUlcInAPSw6zfv557d7",
+                     link_type: "User",
+                     type: "Link"
+                   },
+                   version: 1
+                 },
+                 title: "",
+                 views: 12_345
+               } = ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf0")
       end
     end
 
@@ -200,55 +199,55 @@ defmodule Content.ContentManagement.EntryTest do
         {:ok, blog_post} =
           BlogPost.create(%{
             views: 1,
-            content: "Some updated content"
+            content: RichText.build(:full_document)
           })
 
-        assert ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
-                 version: 1
-               ) ==
-                 %BlogPost{
-                   authors: [],
-                   content: "Some updated content",
-                   id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
-                   legacy_field: "",
-                   metadata: %{tags: []},
-                   rating: nil,
-                   sys: %{
-                     content_type: %Link{
-                       id: "blog_post",
-                       link_type: "ContentType",
-                       type: "Link"
-                     },
-                     created_at: ~U[2022-10-09 13:06:35.379Z],
-                     created_by: %Link{
-                       id: "5J5TUlcInAPSw6zfv557d7",
-                       link_type: "User",
-                       type: "Link"
-                     },
-                     environment: %Link{
-                       id: "integration",
-                       link_type: "Environment",
-                       type: "Link"
-                     },
-                     id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
-                     published_counter: 0,
-                     space: %Link{
-                       id: "g8l7lpiniu90",
-                       link_type: "Space",
-                       type: "Link"
-                     },
-                     type: "Entry",
-                     updated_at: ~U[2022-10-09 13:21:14.621Z],
-                     updated_by: %Link{
-                       id: "5J5TUlcInAPSw6zfv557d7",
-                       link_type: "User",
-                       type: "Link"
-                     },
-                     version: 2
+        assert %BlogPost{
+                 authors: [],
+                 content: _,
+                 id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                 legacy_field: "",
+                 metadata: %{tags: []},
+                 rating: nil,
+                 sys: %{
+                   content_type: %Link{
+                     id: "blog_post",
+                     link_type: "ContentType",
+                     type: "Link"
                    },
-                   title: "",
-                   views: 1
-                 }
+                   created_at: _,
+                   created_by: %Link{
+                     id: "5J5TUlcInAPSw6zfv557d7",
+                     link_type: "User",
+                     type: "Link"
+                   },
+                   environment: %Link{
+                     id: "integration",
+                     link_type: "Environment",
+                     type: "Link"
+                   },
+                   id: "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                   published_counter: 0,
+                   space: %Link{
+                     id: "g8l7lpiniu90",
+                     link_type: "Space",
+                     type: "Link"
+                   },
+                   type: "Entry",
+                   updated_at: _,
+                   updated_by: %Link{
+                     id: "5J5TUlcInAPSw6zfv557d7",
+                     link_type: "User",
+                     type: "Link"
+                   },
+                   version: _
+                 },
+                 title: "",
+                 views: _
+               } =
+                 ContentManagement.upsert(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+                   version: 1
+                 )
       end
     end
 
@@ -257,7 +256,7 @@ defmodule Content.ContentManagement.EntryTest do
         {:ok, blog_post} =
           BlogPost.create(%{
             views: 1,
-            content: "Some updated content"
+            content: RichText.build(:full_document)
           })
 
         assert %Error{
@@ -279,9 +278,7 @@ defmodule Content.ContentManagement.EntryTest do
   describe "delete/1" do
     test "returns not found error when the id does not exist" do
       use_cassette "delete_entry_not_found" do
-        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
-
-        assert ContentManagement.delete(blog_post, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
+        assert ContentManagement.delete(%BlogPost{}, "3abade73-5615-4b1e-92a2-ce5b3b2bdf7f",
                  version: 2
                ) == %Error{
                  details: %{
@@ -304,9 +301,7 @@ defmodule Content.ContentManagement.EntryTest do
 
     test "deletes an entry" do
       use_cassette "delete_entry" do
-        {:ok, blog_post} = BlogPost.create(%{views: 123, content: "some content"})
-
-        assert ContentManagement.delete(blog_post, "5nGIcgPywsB0qBjzrI1sUX", version: 2) == :ok
+        assert ContentManagement.delete(%BlogPost{}, "5nGIcgPywsB0qBjzrI1sUX", version: 2) == :ok
       end
     end
   end

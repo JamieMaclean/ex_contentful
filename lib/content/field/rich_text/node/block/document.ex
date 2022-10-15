@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.Document do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks().document]
+  defstruct data: %{}, content: [], node_type: Constraints.blocks().document
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node

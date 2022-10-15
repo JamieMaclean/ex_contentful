@@ -11,8 +11,6 @@ defmodule Content.Field.RichText.Node.Text do
   alias Content.Field.RichText.ValidationError
 
   defimpl Content.Field.RichText.Node do
-    alias Content.Field.RichText.Node
-
     @valid_marks Map.values(Constraints.marks())
 
     def prepare_for_contentful(node) do

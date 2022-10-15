@@ -8,7 +8,7 @@ defmodule Content.Field.RichText.Node.Paragraph do
   """
 
   @derive Jason.Encoder
-  defstruct [:data, :content, node_type: Constraints.blocks().paragraph]
+  defstruct data: %{}, content: [], node_type: Constraints.blocks().paragraph
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
