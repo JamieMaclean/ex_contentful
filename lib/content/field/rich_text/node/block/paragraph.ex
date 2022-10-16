@@ -24,23 +24,6 @@ defmodule Content.Field.RichText.Node.Paragraph do
       }
     end
 
-    def to_html(node, data) do
-      RichText.to_html(node)
-    rescue
-      FunctionClauseError -> to_standard_html(node, data)
-      Protocol.UndefinedError -> to_standard_html(node, data)
-    end
-
-    defp to_standard_html(node, data) do
-      attributes =
-        case Application.get_env(:content, :attributes_module) do
-          nil -> []
-          module -> module.get_attributes(node)
-        end
-
-      {"p", attributes, Enum.map(node.content, &Node.to_html(&1, data))}
-    end
-
     def validate(%Paragraph{content: content} = paragraph) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false

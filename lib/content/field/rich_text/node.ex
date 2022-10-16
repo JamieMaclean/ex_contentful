@@ -6,6 +6,5 @@ defprotocol Content.Field.RichText.Node do
   """
 
   def validate(node)
-  def to_html(node, data \\ nil)
   def prepare_for_contentful(node)
 end

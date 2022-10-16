@@ -4,6 +4,7 @@ defmodule Content.Field.RichText.Node.TextTest do
   alias Content.Field.RichText.ValidationError
   alias Content.Field.RichText.Node
   alias Content.Field.RichText.Node.Text
+  alias Content.Integration.RichText, as: Integration
   alias Content.Factory.RichText
 
   describe "Node.validate/1" do
@@ -36,7 +37,7 @@ defmodule Content.Field.RichText.Node.TextTest do
     test "returns the html for the node" do
       node = RichText.build(:text, %{value: "Some text"})
 
-      assert Node.to_html(node) == "Some text"
+      assert Integration.to_html(node) == "Some text"
     end
 
     test "wraps text in marks" do
@@ -51,12 +52,12 @@ defmodule Content.Field.RichText.Node.TextTest do
           marks: [%{type: "bold"}, %{type: "underline"}, %{type: "italic"}, %{type: "code"}]
         })
 
-      assert Node.to_html(bold) == "<b>Some text</b>"
-      assert Node.to_html(italic) == "<em>Some text</em>"
-      assert Node.to_html(underline) == "<u>Some text</u>"
-      assert Node.to_html(code) == "<code>Some text</code>"
+      assert Integration.to_html(bold) == "<b>Some text</b>"
+      assert Integration.to_html(italic) == "<em>Some text</em>"
+      assert Integration.to_html(underline) == "<u>Some text</u>"
+      assert Integration.to_html(code) == "<code>Some text</code>"
 
-      assert Node.to_html(all) == "<code><em><u><b>Some text</b></u></em></code>"
+      assert Integration.to_html(all) == "<code><em><u><b>Some text</b></u></em></code>"
     end
   end
 end

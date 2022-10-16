@@ -5,6 +5,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
   alias Content.Field.RichText.Node
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Text
+  alias Content.Integration.RichText, as: Integration
   alias Content.Factory.RichText
 
   describe "Node.validate/1" do
@@ -39,7 +40,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Node.to_html(node) == "<p>Some text</p>"
+      assert Integration.to_html(node) == "<p>Some text</p>"
     end
 
     test "integration test - gets custom atributes" do
@@ -61,7 +62,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Node.to_html(node) ==
+      assert Integration.to_html(node) ==
                "<p class=\"aClass\">Text outside blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
     end
 
@@ -77,7 +78,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Node.to_html(node) == "Some text"
+      assert Integration.to_html(node) == "Some text"
     end
   end
 end

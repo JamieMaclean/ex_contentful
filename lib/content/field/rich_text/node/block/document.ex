@@ -22,14 +22,6 @@ defmodule Content.Field.RichText.Node.Document do
       }
     end
 
-    def to_html(node) do
-      Enum.map(node.content, &Node.to_html(&1))
-      |> Floki.raw_html()
-    end
-
-    def do_to_html(current, rest, data) do
-    end
-
     def validate(%Document{content: content} = node) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false
