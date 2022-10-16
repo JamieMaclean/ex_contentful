@@ -78,7 +78,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Integration.to_html(node) == "Some text"
+      assert Integration.to_html(node) == "<p>Some text</p>"
     end
   end
 end

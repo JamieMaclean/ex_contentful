@@ -1,7 +1,7 @@
 defmodule Content.RichText do
   @moduledoc false
 
-  defmacro __using__(_) do
+  defmacro __before_compile__(_) do
     quote do
       alias Content.Field.RichText.Node.{Document, Paragraph, Text, Blockquote}
 
@@ -35,6 +35,12 @@ defmodule Content.RichText do
       def to_html(%Text{marks: [], value: value}, _), do: value
       def to_html(%Text{marks: marks, value: value}, _), do: wrap_with_marks(marks, value)
 
+      def get_attributes(%Paragraph{content: [%Text{}, %Blockquote{}]}) do
+        [
+          {"class", "aClass"}
+        ]
+      end
+
       defp wrap_with_marks([], value), do: value
 
       defp wrap_with_marks([%{type: mark} | rest], value) do
@@ -47,6 +53,12 @@ defmodule Content.RichText do
       defp mark_to_tag("italic"), do: {"<em>", "</em>"}
       defp mark_to_tag("underline"), do: {"<u>", "</u>"}
       defp mark_to_tag("code"), do: {"<code>", "</code>"}
+    end
+  end
+    
+  defmacro __using__(_) do
+    quote do
+      @before_compile Content.RichText
     end
   end
 end
