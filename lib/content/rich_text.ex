@@ -1,11 +1,11 @@
 defmodule Content.RichText do
   @moduledoc false
 
+  @callback to_html(node :: struct(), data :: any()) :: {struct(), any()}
+
   defmacro __before_compile__(_) do
     quote do
       alias Content.Field.RichText.Node.{Document, Paragraph, Text, Blockquote}
-
-      def to_html(node, data \\ nil)
 
       def to_html(%Document{} = node, data) do
         Enum.map(node.content, &to_html(&1, data))

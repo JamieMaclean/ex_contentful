@@ -37,7 +37,7 @@ defmodule Content.Field.RichText.Node.TextTest do
     test "returns the html for the node" do
       node = RichText.build(:text, %{value: "Some text"})
 
-      assert Integration.to_html(node) == "Some text"
+      assert Integration.to_html(node, nil) == "Some text"
     end
 
     test "wraps text in marks" do
@@ -52,12 +52,12 @@ defmodule Content.Field.RichText.Node.TextTest do
           marks: [%{type: "bold"}, %{type: "underline"}, %{type: "italic"}, %{type: "code"}]
         })
 
-      assert Integration.to_html(bold) == "<b>Some text</b>"
-      assert Integration.to_html(italic) == "<em>Some text</em>"
-      assert Integration.to_html(underline) == "<u>Some text</u>"
-      assert Integration.to_html(code) == "<code>Some text</code>"
+      assert Integration.to_html(bold, nil) == "<b>Some text</b>"
+      assert Integration.to_html(italic, nil) == "<em>Some text</em>"
+      assert Integration.to_html(underline, nil) == "<u>Some text</u>"
+      assert Integration.to_html(code, nil) == "<code>Some text</code>"
 
-      assert Integration.to_html(all) == "<code><em><u><b>Some text</b></u></em></code>"
+      assert Integration.to_html(all, nil) == "<code><em><u><b>Some text</b></u></em></code>"
     end
   end
 end

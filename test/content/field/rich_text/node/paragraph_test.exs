@@ -40,7 +40,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Integration.to_html(node) == "<p>Some text</p>"
+      assert Integration.to_html(node, nil) == "<p>Some text</p>"
     end
 
     test "integration test - gets custom atributes" do
@@ -62,7 +62,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Integration.to_html(node) ==
+      assert Integration.to_html(node, nil) ==
                "<p class=\"aClass\">Text outside blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
     end
 
@@ -78,7 +78,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           ]
         })
 
-      assert Integration.to_html(node) == "<p>Some text</p>"
+      assert Integration.to_html(node, nil) == "<p>Some text</p>"
     end
   end
 end
