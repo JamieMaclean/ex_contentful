@@ -1,4 +1,6 @@
 defmodule Content.Integration.Attributes do
+  @moduledoc false
+
   use Content.HTMLAttributes
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Blockquote

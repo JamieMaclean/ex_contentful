@@ -2,43 +2,47 @@ defmodule Content.RichText do
   @moduledoc false
 
   @callback to_html(node :: struct(), data :: any()) :: {struct(), any()}
+  @callback get_attributes(node :: struct()) :: list(tuple())
 
   defmacro __before_compile__(_) do
     quote do
       alias Content.Field.RichText.Node.{Document, Paragraph, Text, Blockquote}
 
-      def to_html(%Document{} = node, data) do
-        Enum.map(node.content, &to_html(&1, data))
-        |> Floki.raw_html()
+      def to_html(%Document{} = node, nil) do
+        {content, data} = parse_content(node.content, [], nil)
+        Floki.raw_html(content)
       end
 
       def to_html(%Paragraph{} = node, data) do
-        attributes =
-          case Application.get_env(:content, :attributes_module) do
-            nil -> []
-            module -> module.get_attributes(node)
-          end
-
-        {"p", attributes, Enum.map(node.content, &to_html(&1, data))}
+        {content, data} = parse_content(node.content, [], data)
+        {{"p", get_attributes(node), content}, data}
       end
 
       def to_html(%Blockquote{} = node, data) do
-        attributes =
-          case Application.get_env(:content, :attributes_module) do
-            nil -> []
-            module -> module.get_attributes(node)
-          end
-
-        {"blockquote", attributes, Enum.map(node.content, &to_html(&1, data))}
+        {content, data} = parse_content(node.content, [], data)
+        {{"blockquote", get_attributes(node), content}, data}
       end
 
-      def to_html(%Text{marks: [], value: value}, _), do: value
-      def to_html(%Text{marks: marks, value: value}, _), do: wrap_with_marks(marks, value)
+      def to_html(%Text{marks: [], value: value}, data), do: {value, data}
 
-      def get_attributes(%Paragraph{content: [%Text{}, %Blockquote{}]}) do
-        [
-          {"class", "aClass"}
-        ]
+      def to_html(%Text{marks: marks, value: value}, data),
+        do: {wrap_with_marks(marks, value), data}
+
+      def parse_content([[]], html, data) do
+        {Enum.reverse(html), data}
+      end
+
+      def parse_content([last], html, data) do
+        parse_content([last | [[]]], html, data)
+      end
+
+      def parse_content([current_node | rest], html, data) do
+        {node_html, data} = to_html(current_node, data)
+        parse_content(rest, [node_html | html], data)
+      end
+
+      def get_attributes(_node) do
+        []
       end
 
       defp wrap_with_marks([], value), do: value
@@ -58,6 +62,8 @@ defmodule Content.RichText do
 
   defmacro __using__(_) do
     quote do
+      @behaviour Content.RichText
+
       @before_compile Content.RichText
     end
   end

@@ -1,4 +1,6 @@
 defmodule Content.HTMLAttributes do
+  @moduledoc false
+
   @callback get_attributes(node :: term()) :: list()
 
   defmacro __before_compile__(_env) do
