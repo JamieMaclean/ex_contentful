@@ -12,6 +12,7 @@ defmodule Content.Field.RichText.Node.Paragraph do
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
+    alias Content.RichText
 
     @valid_nodes ["text" | Map.values(Constraints.inlines())]
 
@@ -23,14 +24,21 @@ defmodule Content.Field.RichText.Node.Paragraph do
       }
     end
 
-    def to_html(node) do
+    def to_html(node, data) do
+      RichText.to_html(node)
+    rescue
+      FunctionClauseError -> to_standard_html(node, data)
+      Protocol.UndefinedError -> to_standard_html(node, data)
+    end
+
+    defp to_standard_html(node, data) do
       attributes =
         case Application.get_env(:content, :attributes_module) do
           nil -> []
           module -> module.get_attributes(node)
         end
 
-      {"p", attributes, Enum.map(node.content, &Node.to_html(&1))}
+      {"p", attributes, Enum.map(node.content, &Node.to_html(&1, data))}
     end
 
     def validate(%Paragraph{content: content} = paragraph) do

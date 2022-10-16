@@ -48,7 +48,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
           content: [
             RichText.build(:paragraph, %{
               content: [
-                RichText.build(:text, %{value: "Text in Blockquote"}),
+                RichText.build(:text, %{value: "Text outside blockquote"}),
                 RichText.build(:blockquote, %{
                   content: [
                     RichText.build(:paragraph, %{
@@ -62,7 +62,22 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
         })
 
       assert Node.to_html(node) ==
-               "<p class=\"aClass\">Text in Blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
+               "<p class=\"aClass\">Text outside blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
+    end
+
+    test "integration test - pattern matches custom impl" do
+      node =
+        RichText.build(:document, %{
+          content: [
+            RichText.build(:paragraph, %{
+              content: [
+                RichText.build(:text, %{value: "Some text"})
+              ]
+            })
+          ]
+        })
+
+      assert Node.to_html(node) == "Some text"
     end
   end
 end
