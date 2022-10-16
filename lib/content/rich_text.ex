@@ -55,7 +55,7 @@ defmodule Content.RichText do
       defp mark_to_tag("code"), do: {"<code>", "</code>"}
     end
   end
-    
+
   defmacro __using__(_) do
     quote do
       @before_compile Content.RichText
