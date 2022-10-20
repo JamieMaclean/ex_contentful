@@ -13,6 +13,14 @@ defmodule Content.Field.RichText.Node.Blockquote do
     alias Content.Field.RichText.Node
     @valid_nodes [Constraints.blocks().paragraph]
 
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => Enum.map(node.content, &Node.prepare_for_contentful(&1))
+      }
+    end
+
     def validate(%Blockquote{content: content} = node) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false

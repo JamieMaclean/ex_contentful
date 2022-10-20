@@ -12,4 +12,8 @@ defmodule Content.Integration.RichText do
       {"class", "aClass"}
     ]
   end
+
+  def to_html(_), do: :todo
+
+  def parse_content(_), do: :todo
 end

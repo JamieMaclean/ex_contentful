@@ -12,6 +12,14 @@ defmodule Content.Field.RichText.Node.Hr do
   defimpl Content.Field.RichText.Node do
     def to_html(_node), do: "<p>Hello</p>"
 
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => []
+      }
+    end
+
     def validate(%Hr{content: content} = node) do
       if Enum.empty?(content) do
         node

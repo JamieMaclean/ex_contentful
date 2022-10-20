@@ -12,7 +12,6 @@ defmodule Content.Field.RichText.Node.Paragraph do
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
-    alias Content.RichText
 
     @valid_nodes ["text" | Map.values(Constraints.inlines())]
 

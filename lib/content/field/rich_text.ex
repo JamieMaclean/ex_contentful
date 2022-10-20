@@ -27,6 +27,6 @@ defmodule Content.Field.RichText do
   alias Content.Field.RichText.Node.Document
 
   def to_html(%Document{content: content}) do
-    Node.to_html(content)
+    Node.prepare_for_contentful(content)
   end
 end
