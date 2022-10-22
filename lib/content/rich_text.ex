@@ -51,7 +51,8 @@ defmodule Content.RichText do
   @callback to_html(document :: struct()) :: String.t()
   @callback to_html(node :: struct(), data :: any()) :: {struct(), any()}
   @callback get_attributes(node :: struct()) :: list(tuple())
-  @callback parse_content(content :: list(struct()), html :: list(struct()), data :: any()) :: {html_content :: list(struct()), data :: any()}
+  @callback parse_content(content :: list(struct()), html :: list(struct()), data :: any()) ::
+              {html_content :: list(struct()), data :: any()}
 
   defmacro __before_compile__(_) do
     quote do
@@ -90,7 +91,7 @@ defmodule Content.RichText do
         parse_content(rest, [node_html | html], data)
       end
 
-      def get_attributes(_node) do
+      def get_attributes(_) do
         []
       end
 
@@ -111,7 +112,10 @@ defmodule Content.RichText do
 
   defmacro __using__(_) do
     quote do
+      import Content.RichText
       @behaviour Content.RichText
+
+      Module.register_attribute(__MODULE__, :defattribute, accumulate: true)
 
       @before_compile Content.RichText
     end
