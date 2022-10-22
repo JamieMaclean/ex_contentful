@@ -1,4 +1,6 @@
 defmodule Content.Factory.RichText do
+  @moduledoc false
+
   alias Content.Field.RichText.Node.Document
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Blockquote

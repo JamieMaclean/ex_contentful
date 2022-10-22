@@ -13,5 +13,9 @@ defmodule Content.Resource.Environment do
     def base_url(_content_type, :content_management) do
       Content.ContentManagement.url() <> "/environments"
     end
+
+    def prepare_for_contentful(_content_type) do
+      :todo
+    end
   end
 end

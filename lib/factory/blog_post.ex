@@ -1,4 +1,6 @@
 defmodule Content.Factory.BlogPost do
+  @moduledoc false
+
   alias Content.Integration.BlogPost
   alias Content.Factory.RichText
 

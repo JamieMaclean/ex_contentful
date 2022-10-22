@@ -10,9 +10,19 @@ defmodule Content.Field.RichText.Node.OrderedList do
   defstruct [:data, :content, node_type: Constraints.blocks().ordered_list]
 
   defimpl Content.Field.RichText.Node do
+    alias Content.Field.RichText.Node
+
     @valid_nodes [Constraints.blocks().list_item]
 
     def to_html(_node), do: "<p>Hello</p>"
+
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => Enum.map(node.content, &Node.prepare_for_contentful(&1))
+      }
+    end
 
     def validate(%OrderedList{content: content} = node) do
       Enum.filter(content, fn

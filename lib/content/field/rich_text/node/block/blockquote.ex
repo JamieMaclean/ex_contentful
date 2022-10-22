@@ -13,14 +13,12 @@ defmodule Content.Field.RichText.Node.Blockquote do
     alias Content.Field.RichText.Node
     @valid_nodes [Constraints.blocks().paragraph]
 
-    def to_html(node) do
-      attributes =
-        case Application.get_env(:content, :attributes_module) do
-          nil -> []
-          module -> module.get_attributes(node)
-        end
-
-      {"blockquote", attributes, Enum.map(node.content, &Node.to_html(&1))}
+    def prepare_for_contentful(node) do
+      %{
+        "data" => node.data,
+        "nodeType" => node.node_type,
+        "content" => Enum.map(node.content, &Node.prepare_for_contentful(&1))
+      }
     end
 
     def validate(%Blockquote{content: content} = node) do
