@@ -70,7 +70,7 @@ defmodule Content.Resource.ContentType do
     end
 
     def prepare_for_contentful(_content_type) do
-      :todo
+      raise "Not implemented"
     end
   end
 end
