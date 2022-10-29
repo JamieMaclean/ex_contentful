@@ -7,6 +7,7 @@ defmodule Content.ContentManagement do
   This module provides some basic, composable functions that can be used to query any Contentful resource
   """
 
+  alias Content.Config
   alias Content.ContentManagement
   alias Content.Error
   alias Content.HTTP
@@ -16,12 +17,12 @@ defmodule Content.ContentManagement do
   alias Content.Resource.ContentType
 
   def url,
-    do: "#{@base_url}/spaces/#{Content.space_id()}/environments/#{Content.environment_id()}"
+    do: "#{@base_url}/spaces/#{Config.space_id()}/environments/#{Config.environment_id()}"
 
   def migrate_content_model() do
     {:ok, items} = ContentManagement.get_all(%ContentType{})
 
-    Enum.each(Content.content_types(), fn content_type ->
+    Enum.each(Config.content_types(), fn content_type ->
       case Enum.find(items, fn item ->
              item.sys.id == content_type.__contentful_schema__.id
            end) do
@@ -252,7 +253,7 @@ defmodule Content.ContentManagement do
          %{"sys" => %{"contentType" => %{"sys" => %{"id" => content_type_id}}, "type" => "Entry"}} =
            body
        ) do
-    Content.content_types()
+    Config.content_types()
     |> Enum.find(fn content_type -> content_type.__contentful_schema__.id == content_type_id end)
     |> case do
       nil -> Entry.build_from_response(body)

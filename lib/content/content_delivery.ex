@@ -7,6 +7,7 @@ defmodule Content.ContentDelivery do
   This module provides some basic, composable functions that can be used to query any Contentful resource
   """
 
+  alias Content.Config
   alias Content.Error
   alias Content.HTTP
   alias Content.Resource
@@ -15,7 +16,7 @@ defmodule Content.ContentDelivery do
   alias Content.Resource.ContentType
 
   def url,
-    do: "#{@base_url}/spaces/#{Content.space_id()}"
+    do: "#{@base_url}/spaces/#{Config.space_id()}"
 
   @doc """
   Used to get a single Contentful resource.
@@ -124,7 +125,7 @@ defmodule Content.ContentDelivery do
          %{"sys" => %{"contentType" => %{"sys" => %{"id" => content_type_id}}, "type" => "Entry"}} =
            body
        ) do
-    Content.content_types()
+    Config.content_types()
     |> Enum.find(fn content_type -> content_type.__contentful_schema__.id == content_type_id end)
     |> case do
       nil -> Entry.build_from_response(body)
