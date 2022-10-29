@@ -50,6 +50,7 @@ defmodule Content.Schema do
       Module.register_attribute(__MODULE__, :contentful_field, accumulate: true)
       Module.register_attribute(__MODULE__, :content_type_name, accumulate: false)
       Module.register_attribute(__MODULE__, :content_type_id, accumulate: false)
+      Module.register_attribute(__MODULE__, :content_display_field, accumulate: false)
 
       @before_compile {Content.Schema, :add_schema}
     end
@@ -62,6 +63,7 @@ defmodule Content.Schema do
         %{
           name: @content_type_name,
           id: @content_type_id,
+          displayField: Atom.to_string(@content_display_field),
           fields: @contentful_field
         }
       end
@@ -115,6 +117,14 @@ defmodule Content.Schema do
         :content_type_name,
         unquote(display_name)
       )
+
+      if unquote(props[:display_field]) do
+        Module.put_attribute(
+          __MODULE__,
+          :content_display_field,
+          unquote(props[:display_field])
+        )
+      end
 
       @primary_key false
       embedded_schema do
