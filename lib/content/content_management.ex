@@ -19,15 +19,22 @@ defmodule Content.ContentManagement do
   def url,
     do: "#{@base_url}/spaces/#{Config.space_id()}/environments/#{Config.environment_id()}"
 
-  def migrate_content_model() do
+  def migrate_content_model(arg \\ :no_publish) do
     {:ok, items} = ContentManagement.get_all(%ContentType{})
 
     Enum.each(Config.content_types(), fn content_type ->
-      case Enum.find(items, fn item ->
-             item.sys.id == content_type.__contentful_schema__.id
-           end) do
-        nil -> upsert_content_type(content_type, 1)
-        item -> upsert_content_type(content_type, item.sys.version)
+      updated =
+        case Enum.find(items, fn item ->
+               item.sys.id == content_type.__contentful_schema__.id
+             end) do
+          nil -> upsert_content_type(content_type, 1)
+          item -> upsert_content_type(content_type, item.sys.version)
+        end
+
+      if arg == :publish do
+        publish(%ContentType{}, content_type.__contentful_schema__.id,
+          version: updated["sys"]["version"]
+        )
       end
     end)
   end
@@ -161,6 +168,18 @@ defmodule Content.ContentManagement do
 
     url
     |> HTTPoison.delete(HTTP.headers([:auth, :version], version: version), hackney: [:insecure])
+    |> case do
+      {:ok, %{status_code: 204}} -> :ok
+      {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
+      {:error, error} -> {:error, error}
+    end
+  end
+
+  def publish(resource, id, version: version) do
+    url = Resource.base_url(resource, :content_management) <> "/#{id}/published"
+
+    url
+    |> HTTPoison.put("", HTTP.headers([:auth, :version], version: version), hackney: [:insecure])
     |> case do
       {:ok, %{status_code: 204}} -> :ok
       {:ok, %{body: body}} -> process_response!(resource, Jason.decode!(body))
