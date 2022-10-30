@@ -30,6 +30,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
   end
 
   describe "Node.to_html/1" do
+    @tag :skip
     test "returns the html for the node" do
       node =
         RichText.build(:document, %{
@@ -43,6 +44,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
       assert Integration.to_html(node, nil) == "<p>Some text</p>"
     end
 
+    @tag :skip
     test "integration test - gets custom atributes" do
       node =
         RichText.build(:document, %{
@@ -66,6 +68,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
                "<p class=\"aClass\">Text outside blockquote<blockquote><p>Text in Blockquote</p></blockquote></p>"
     end
 
+    @tag :skip
     test "integration test - pattern matches custom impl" do
       node =
         RichText.build(:document, %{

@@ -1,6 +1,10 @@
 defmodule Content.Field.RichText do
   @moduledoc false
 
+  alias Content.Field.RichText.Node.Document
+  alias Content.Field.RichText.Node.Paragraph
+  alias Content.Field.RichText.Node.Text
+
   defstruct [
     :name,
     id: "",
@@ -28,5 +32,17 @@ defmodule Content.Field.RichText do
 
   def to_html(%Document{content: content}) do
     Node.prepare_for_contentful(content)
+  end
+
+  def parse(%{"nodeType" => "document", "data" => data, "content" => content}) do
+    %Document{data: data, content: Enum.map(content, &parse(&1))}
+  end
+
+  def parse(%{"nodeType" => "paragraph", "data" => data, "content" => content}) do
+    %Paragraph{data: data, content: Enum.map(content, &parse(&1))}
+  end
+
+  def parse(%{"nodeType" => "text", "data" => data, "value" => value, "marks" => marks}) do
+    %Text{marks: marks, data: data, value: value}
   end
 end

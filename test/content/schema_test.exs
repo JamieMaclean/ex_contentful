@@ -57,6 +57,7 @@ defmodule Content.Integration.SchemaTest do
                    required: false
                  }
                ],
+               displayField: "nil",
                id: "blog_post",
                name: "Blog Post"
              }

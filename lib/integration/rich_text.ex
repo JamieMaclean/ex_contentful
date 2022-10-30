@@ -1,19 +1,13 @@
 defmodule Content.Integration.RichText do
   @moduledoc false
 
-  use Content.RichText
-  alias Content.Field.RichText.Node.Document
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Blockquote
-  alias Content.Field.RichText.Node.Text
+  use Content.RichText.Adapter
 
-  def get_attributes(%Paragraph{content: [%Text{}, %Blockquote{}]}) do
-    [
-      {"class", "aClass"}
-    ]
+  html_block [%Paragraph{content: [%Text{value: "matched bold text"}] = content}] do
+    {"p", [], [{"bold", [], parse_content(content)}]}
   end
 
-  def to_html(_), do: :todo
-
-  def parse_content(_), do: :todo
+  html_block [%Paragraph{content: content}] do
+    {"p", [], parse_content(content)}
+  end
 end

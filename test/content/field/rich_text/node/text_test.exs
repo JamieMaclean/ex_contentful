@@ -34,12 +34,14 @@ defmodule Content.Field.RichText.Node.TextTest do
   end
 
   describe "Node.to_html/1" do
+    @tag :skip
     test "returns the html for the node" do
       node = RichText.build(:text, %{value: "Some text"})
 
       assert Integration.to_html(node, nil) == {"Some text", nil}
     end
 
+    @tag :skip
     test "wraps text in marks" do
       bold = RichText.build(:text, %{value: "Some text", marks: [%{type: "bold"}]})
       italic = RichText.build(:text, %{value: "Some text", marks: [%{type: "italic"}]})
