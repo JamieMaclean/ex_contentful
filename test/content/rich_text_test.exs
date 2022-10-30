@@ -153,11 +153,12 @@ defmodule Content.RichTextTest do
             Factory.build(:hr),
             Factory.build(:paragraph, %{
               content: [Factory.build(:text, %{value: "After heading"})]
-            }),
+            })
           ]
         })
 
-      assert Adapter.to_html(node) == "<p>Before heading</p><h1>Change me to a heading</h1><p>After heading</p>"
+      assert Adapter.to_html(node) ==
+               "<p>Before heading</p><h1>Change me to a heading</h1><p>After heading</p>"
     end
   end
 end

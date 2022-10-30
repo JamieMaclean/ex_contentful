@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.Constraints do
   # not relevant whether or not they are covered.
   #
   # coveralls-ignore-start
-  def blocks,
+  def blocks_mapping,
     do: %{
       document: "document",
       paragraph: "paragraph",
@@ -30,13 +30,17 @@ defmodule Content.Field.RichText.Node.Constraints do
       table_header_cell: "table-header-cell"
     }
 
-  def inlines,
+  def blocks, do: Map.values(blocks_mapping())
+
+  def inlines_mapping,
     do: %{
       hyperlink: "hyperlink",
       entry_hyperlink: "entry-hyperlink",
       asset_hyperlink: "asset-hyperlink",
       inline_entry: "embedded-entry-inline"
     }
+
+  def inlines, do: Map.values(inlines_mapping())
 
   def marks,
     do: %{
@@ -47,7 +51,7 @@ defmodule Content.Field.RichText.Node.Constraints do
     }
 
   def top_level_blocks do
-    blocks = blocks()
+    blocks = blocks_mapping()
 
     [
       blocks.paragraph,
@@ -68,7 +72,7 @@ defmodule Content.Field.RichText.Node.Constraints do
   end
 
   def list_item_blocks do
-    blocks = blocks()
+    blocks = blocks_mapping()
 
     [
       blocks.paragraph,

@@ -10,6 +10,8 @@ defmodule Content.RichText.Adapter do
       alias Content.Field.RichText.Node.Text
       alias Content.Field.RichText.Node.Blockquote
       alias Content.Field.RichText.Node.Hr
+      alias Content.Field.RichText.Node.OrderedList
+      alias Content.Field.RichText.Node.ListItem
 
       def to_html(%Document{content: content}) do
         parse_content(content)

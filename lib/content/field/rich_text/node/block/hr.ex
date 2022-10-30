@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.Hr do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks().hr]
+  defstruct [:data, :content, node_type: Constraints.blocks_mapping().hr]
 
   defimpl Content.Field.RichText.Node do
     def to_html(_node), do: "<p>Hello</p>"

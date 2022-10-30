@@ -7,11 +7,11 @@ defmodule Content.Field.RichText.Node.Blockquote do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks().blockquote]
+  defstruct [:data, :content, node_type: Constraints.blocks_mapping().blockquote]
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
-    @valid_nodes [Constraints.blocks().paragraph]
+    @valid_nodes [Constraints.blocks_mapping().paragraph]
 
     def prepare_for_contentful(node) do
       %{

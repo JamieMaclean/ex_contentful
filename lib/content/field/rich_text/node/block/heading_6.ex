@@ -1,4 +1,4 @@
-defmodule Content.Field.RichText.Node.ListItem do
+defmodule Content.Field.RichText.Node.Heading6 do
   alias __MODULE__
   alias Content.Field.RichText.ValidationError
   alias Content.Field.RichText.Node.Constraints
@@ -7,14 +7,11 @@ defmodule Content.Field.RichText.Node.ListItem do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks_mapping().list_item]
+  defstruct [:data, :content, node_type: Constraints.blocks_mapping().heading_6]
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
-
-    @valid_nodes Constraints.list_item_blocks()
-
-    def to_html(_node), do: "<p>Hello</p>"
+    @valid_nodes Constraints.blocks()
 
     def prepare_for_contentful(node) do
       %{
@@ -24,7 +21,7 @@ defmodule Content.Field.RichText.Node.ListItem do
       }
     end
 
-    def validate(%ListItem{content: content} = node) do
+    def validate(%Heading6{content: content} = node) do
       Enum.filter(content, fn
         %{node_type: node_type} when node_type in @valid_nodes -> false
         _ -> true

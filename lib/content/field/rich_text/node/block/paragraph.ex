@@ -8,12 +8,12 @@ defmodule Content.Field.RichText.Node.Paragraph do
   """
 
   @derive Jason.Encoder
-  defstruct data: %{}, content: [], node_type: Constraints.blocks().paragraph
+  defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().paragraph
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
 
-    @valid_nodes ["text" | Map.values(Constraints.inlines())]
+    @valid_nodes ["text" | Constraints.inlines()]
 
     def prepare_for_contentful(node) do
       %{

@@ -2,6 +2,9 @@ defmodule Content.RichText.Parser do
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Text
   alias Content.Field.RichText.Node.Blockquote
+  alias Content.Field.RichText.Node.OrderedList
+  alias Content.Field.RichText.Node.ListItem
+  alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
 
   def search_adapter([first], rest, adapter) do
     case adapter.html_block([first]) do
@@ -27,6 +30,46 @@ defmodule Content.RichText.Parser do
   def default_html(%Blockquote{} = node, adapter) do
     content = adapter.parse_content(node.content)
     {"blockquote", [], content}
+  end
+
+  def default_html(%OrderedList{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"ol", [], content}
+  end
+
+  def default_html(%ListItem{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"li", [], content}
+  end
+
+  def default_html(%Heading1{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h1", [], content}
+  end
+
+  def default_html(%Heading2{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h2", [], content}
+  end
+
+  def default_html(%Heading3{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h3", [], content}
+  end
+
+  def default_html(%Heading4{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h4", [], content}
+  end
+
+  def default_html(%Heading5{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h5", [], content}
+  end
+
+  def default_html(%Heading6{} = node, adapter) do
+    content = adapter.parse_content(node.content)
+    {"h6", [], content}
   end
 
   def default_html(%Text{marks: [], value: value}, _), do: value

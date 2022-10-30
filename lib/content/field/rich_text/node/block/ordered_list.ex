@@ -7,12 +7,12 @@ defmodule Content.Field.RichText.Node.OrderedList do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks().ordered_list]
+  defstruct [:data, :content, node_type: Constraints.blocks_mapping().ordered_list]
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
 
-    @valid_nodes [Constraints.blocks().list_item]
+    @valid_nodes [Constraints.blocks_mapping().list_item]
 
     def to_html(_node), do: "<p>Hello</p>"
 

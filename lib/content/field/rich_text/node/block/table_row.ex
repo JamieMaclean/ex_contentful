@@ -7,12 +7,15 @@ defmodule Content.Field.RichText.Node.TableRow do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks().table_row]
+  defstruct [:data, :content, node_type: Constraints.blocks_mapping().table_row]
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
 
-    @valid_nodes [Constraints.blocks().table_cell, Constraints.blocks().table_header_cell]
+    @valid_nodes [
+      Constraints.blocks_mapping().table_cell,
+      Constraints.blocks_mapping().table_header_cell
+    ]
 
     def to_html(_node), do: "<p>Hello</p>"
 
