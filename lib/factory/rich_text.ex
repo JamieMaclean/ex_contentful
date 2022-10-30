@@ -5,6 +5,7 @@ defmodule Content.Factory.RichText do
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Blockquote
   alias Content.Field.RichText.Node.Text
+  alias Content.Field.RichText.Node.Hr
 
   def build(node, args \\ %{})
 
@@ -14,6 +15,10 @@ defmodule Content.Factory.RichText do
 
   def build(:paragraph, args) do
     struct(%Paragraph{}, args)
+  end
+
+  def build(:hr, args) do
+    struct(%Hr{}, args)
   end
 
   def build(:text, args) do

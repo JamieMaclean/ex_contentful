@@ -1,4 +1,6 @@
 defmodule Content.RichText.Adapter do
+  # coveralls-ignore-start
+
   defmacro __using__(_) do
     quote do
       import Content.RichText.Adapter
@@ -7,6 +9,7 @@ defmodule Content.RichText.Adapter do
       alias Content.Field.RichText.Node.Paragraph
       alias Content.Field.RichText.Node.Text
       alias Content.Field.RichText.Node.Blockquote
+      alias Content.Field.RichText.Node.Hr
 
       def to_html(%Document{content: content}) do
         parse_content(content)
@@ -56,4 +59,6 @@ defmodule Content.RichText.Adapter do
       end
     end
   end
+
+  # coveralls-ignore-end
 end

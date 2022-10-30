@@ -2,6 +2,7 @@ defmodule Content.RichTextTest do
   use ExUnit.Case
 
   alias Content.Factory.RichText, as: Factory
+  alias Content.Integration.RichTextAdapter, as: Adapter
   alias Content.Integration.RichTextEmptyAdapter, as: EmptyAdapter
 
   describe "block/1" do
@@ -28,7 +29,7 @@ defmodule Content.RichTextTest do
     end
   end
 
-  describe "to_html/1" do
+  describe "EmptyAdapter.to_html/1" do
     test "returns the html for the node" do
       node =
         Factory.build(:document, %{
@@ -104,6 +105,59 @@ defmodule Content.RichTextTest do
       assert EmptyAdapter.to_html(code) == "<code>Some text</code>"
 
       assert EmptyAdapter.to_html(all) == "<b><u><em><code>Some text</code></em></u></b>"
+    end
+  end
+
+  describe "Adapter.to_html/1" do
+    test "returns custom matched text" do
+      node =
+        Factory.build(:document, %{
+          content: [
+            Factory.build(:paragraph, %{
+              content: [Factory.build(:text, %{value: "Change me to bold"})]
+            })
+          ]
+        })
+
+      assert Adapter.to_html(node) == "<p><b>Change me to bold</b></p>"
+    end
+
+    test "returns custom matched text when embedded in other html" do
+      node =
+        Factory.build(:document, %{
+          content: [
+            Factory.build(:paragraph, %{
+              content: [
+                Factory.build(:paragraph, %{
+                  content: [Factory.build(:text, %{value: "Change me to bold"})]
+                })
+              ]
+            })
+          ]
+        })
+
+      assert Adapter.to_html(node) == "<p><p><b>Change me to bold</b></p></p>"
+    end
+
+    test "Can completely transform text for custom patterns" do
+      node =
+        Factory.build(:document, %{
+          content: [
+            Factory.build(:paragraph, %{
+              content: [Factory.build(:text, %{value: "Before heading"})]
+            }),
+            Factory.build(:hr),
+            Factory.build(:paragraph, %{
+              content: [Factory.build(:text, %{value: "Change me to a heading"})]
+            }),
+            Factory.build(:hr),
+            Factory.build(:paragraph, %{
+              content: [Factory.build(:text, %{value: "After heading"})]
+            }),
+          ]
+        })
+
+      assert Adapter.to_html(node) == "<p>Before heading</p><h1>Change me to a heading</h1><p>After heading</p>"
     end
   end
 end

@@ -30,5 +30,4 @@ defmodule Content.Field.RichText.Node.TextTest do
       assert %ValidationError{node: ^node, received: [%{type: "invalid"}]} = Node.validate(node)
     end
   end
-
 end
