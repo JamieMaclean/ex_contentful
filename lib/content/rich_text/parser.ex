@@ -32,7 +32,7 @@ defmodule Content.RichText.Parser do
   def default_html(%Text{marks: [], value: value}, _), do: value
 
   def default_html(%Text{marks: marks, value: value}, _),
-    do: {wrap_with_marks(marks, value)}
+    do: wrap_with_marks(marks, value)
 
   defp wrap_with_marks([], value), do: value
 

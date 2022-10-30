@@ -79,5 +79,31 @@ defmodule Content.RichTextTest do
 
       assert EmptyAdapter.to_html(node) == "<p>Some text</p>"
     end
+
+    test "retsdfasdurns the html for the node" do
+      node = Factory.build(:text, %{value: "Some text"})
+
+      assert EmptyAdapter.to_html([node]) == "Some text"
+    end
+
+    test "wraps text in marks" do
+      bold = Factory.build(:text, %{value: "Some text", marks: [%{type: "bold"}]})
+      italic = Factory.build(:text, %{value: "Some text", marks: [%{type: "italic"}]})
+      underline = Factory.build(:text, %{value: "Some text", marks: [%{type: "underline"}]})
+      code = Factory.build(:text, %{value: "Some text", marks: [%{type: "code"}]})
+
+      all =
+        Factory.build(:text, %{
+          value: "Some text",
+          marks: [%{type: "bold"}, %{type: "underline"}, %{type: "italic"}, %{type: "code"}]
+        })
+
+      assert EmptyAdapter.to_html(bold) == "<b>Some text</b>"
+      assert EmptyAdapter.to_html(italic) == "<em>Some text</em>"
+      assert EmptyAdapter.to_html(underline) == "<u>Some text</u>"
+      assert EmptyAdapter.to_html(code) == "<code>Some text</code>"
+
+      assert EmptyAdapter.to_html(all) == "<b><u><em><code>Some text</code></em></u></b>"
+    end
   end
 end

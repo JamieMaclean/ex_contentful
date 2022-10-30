@@ -13,6 +13,16 @@ defmodule Content.RichText.Adapter do
         |> Floki.raw_html()
       end
 
+      def to_html(content) when is_list(content) do
+        parse_content(content)
+        |> Floki.raw_html()
+      end
+
+      def to_html(content) do
+        parse_content([content])
+        |> Floki.raw_html()
+      end
+
       def parse_content([]) do
         []
       end

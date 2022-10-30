@@ -5,9 +5,6 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
   alias Content.Field.RichText.Node
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Text
-  alias Content.Integration.RichText, as: Integration
-  alias Content.Integration.RichTextEmptyAdapter
-  alias Content.Factory.RichText
 
   describe "Node.validate/1" do
     test "returns the paragraph when content is empty" do
