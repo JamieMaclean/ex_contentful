@@ -1,4 +1,4 @@
-defmodule Content.Integration.RichText do
+defmodule Content.Integration.RichTextAdapter do
   @moduledoc false
 
   use Content.RichText.Adapter
