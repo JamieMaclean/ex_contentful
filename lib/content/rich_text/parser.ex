@@ -72,24 +72,12 @@ defmodule Content.RichText.Parser do
     {"h6", [], content}
   end
 
-  def default_html(%Text{marks: [], value: value}, _) do
-    String.split(value, ~r{\n}, include_captures: true)
-    |> Enum.map(fn
-      "\n" -> {"br", [], []}
-      other -> other
-    end)
-  end
+  def default_html(%Text{marks: [], value: value}, _), do: value
 
   def default_html(%Text{marks: marks, value: value}, _),
     do: wrap_with_marks(marks, value)
 
-  defp wrap_with_marks([], value) do
-    String.split(value, ~r{\n}, include_captures: true)
-    |> Enum.map(fn
-      "\n" -> {"br", [], []}
-      other -> other
-    end)
-  end
+  defp wrap_with_marks([], value), do: value
 
   defp wrap_with_marks([%{type: mark} | rest], value) do
     {mark_to_tag(mark), [], wrap_with_marks(rest, value)}
@@ -98,5 +86,5 @@ defmodule Content.RichText.Parser do
   defp mark_to_tag("bold"), do: "b"
   defp mark_to_tag("italic"), do: "em"
   defp mark_to_tag("underline"), do: "u"
-  defp mark_to_tag("code"), do: "code"
+  defp mark_to_tag("code"), do: "pre"
 end
