@@ -13,6 +13,15 @@ defmodule Content.RichText.Adapter do
       alias Content.Field.RichText.Node.OrderedList
       alias Content.Field.RichText.Node.ListItem
 
+      alias Content.Field.RichText.Node.{
+        Heading1,
+        Heading2,
+        Heading3,
+        Heading4,
+        Heading5,
+        Heading6
+      }
+
       def to_html(%Document{content: content}) do
         parse_content(content)
         |> Floki.raw_html()
@@ -38,6 +47,7 @@ defmodule Content.RichText.Adapter do
           {html, rest} when is_list(html) -> html ++ parse_content(rest)
           {html, rest} -> [html] ++ parse_content(rest)
         end
+        |> List.flatten()
       end
 
       @before_compile Content.RichText.Adapter

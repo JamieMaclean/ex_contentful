@@ -160,5 +160,19 @@ defmodule Content.RichTextTest do
       assert Adapter.to_html(node) ==
                "<p>Before heading</p><h1>Change me to a heading</h1><p>After heading</p>"
     end
+
+    test "Can completely transform text for custom pattdsasdferns" do
+      node =
+        Factory.build(:document, %{
+          content: [
+            Factory.build(:paragraph, %{
+              content: [Factory.build(:text, %{value: "Before \n heading"})]
+            })
+          ]
+        })
+
+      assert Adapter.to_html(node) ==
+               "<p>Before <br/> heading</p>"
+    end
   end
 end
