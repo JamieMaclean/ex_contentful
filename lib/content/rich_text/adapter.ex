@@ -4,6 +4,7 @@ defmodule Content.RichText.Adapter do
   defmacro __using__(_) do
     quote do
       import Content.RichText.Adapter
+      alias Content.RichText.Highlighter
       alias Content.RichText.Parser
       alias Content.Field.RichText.Node.Document
       alias Content.Field.RichText.Node.Paragraph
@@ -25,16 +26,19 @@ defmodule Content.RichText.Adapter do
       def to_html(%Document{content: content}) do
         parse_content(content)
         |> Floki.raw_html()
+        |> Highlighter.highlight_code_blocks()
       end
 
       def to_html(content) when is_list(content) do
         parse_content(content)
         |> Floki.raw_html()
+        |> Highlighter.highlight_code_blocks()
       end
 
       def to_html(content) do
         parse_content([content])
         |> Floki.raw_html()
+        |> Highlighter.highlight_code_blocks()
       end
 
       def parse_content([]) do
