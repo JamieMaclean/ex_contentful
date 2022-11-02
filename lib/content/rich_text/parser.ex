@@ -1,4 +1,5 @@
 defmodule Content.RichText.Parser do
+  alias Content.Field.RichText.Node.Custom
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Text
   alias Content.Field.RichText.Node.Blockquote
@@ -72,33 +73,29 @@ defmodule Content.RichText.Parser do
     {"h6", [], content}
   end
 
-  def default_html(%Text{marks: [], value: value}, _), do: set_text(value)
-
-  def default_html(%Text{marks: marks, value: value}, _),
-    do: wrap_with_marks(marks, value)
-
-
-  defp wrap_with_marks([], value, :code), do: value
-
-  defp wrap_with_marks([], value), do: set_text(value)
-
-  defp wrap_with_marks([%{type: "code"} | rest], value) do
-    {"pre", [], [{"code", [], wrap_with_marks(rest, value, :code)}]}
+  def default_html(%Custom{node_type: "br"}, _adapter) do
+    {"br", [], []}
   end
 
-  defp wrap_with_marks([%{type: mark} | rest], value) do
-    {mark_to_tag(mark), [], wrap_with_marks(rest, value)}
+  def default_html(%Text{marks: [%{type: "code"} | rest]} = node, adapter) do
+    text = struct(node, %{marks: rest})
+    {"pre", [], [{"code", [], [default_html(text, adapter)]}]}
   end
 
-  defp mark_to_tag("bold"), do: "b"
-  defp mark_to_tag("italic"), do: "em"
-  defp mark_to_tag("underline"), do: "u"
-
-  defp set_text(text) do
-    String.split(text, ~r(\n), include_captures: true)
-    |> Enum.map(fn 
-      "\n" -> {"br", [], []} 
-      other -> other
-    end)
+  def default_html(%Text{marks: [%{type: "bold"} | rest]} = node, adapter) do
+    text = struct(node, %{marks: rest})
+    {"b", [], [default_html(text, adapter)]}
   end
+
+  def default_html(%Text{marks: [%{type: "italic"} | rest]} = node, adapter) do
+    text = struct(node, %{marks: rest})
+    {"em", [], [default_html(text, adapter)]}
+  end
+
+  def default_html(%Text{marks: [%{type: "underline"} | rest]} = node, adapter) do
+    text = struct(node, %{marks: rest})
+    {"u", [], [default_html(text, adapter)]}
+  end
+
+  def default_html(%Text{marks: [], value: value}, _), do: value
 end

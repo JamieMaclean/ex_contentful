@@ -6,6 +6,7 @@ defmodule Content.RichText.Adapter do
       import Content.RichText.Adapter
       alias Content.RichText.Highlighter
       alias Content.RichText.Parser
+      alias Content.RichText.Transformer
       alias Content.Field.RichText.Node.Document
       alias Content.Field.RichText.Node.Paragraph
       alias Content.Field.RichText.Node.Text
@@ -23,8 +24,11 @@ defmodule Content.RichText.Adapter do
         Heading6
       }
 
-      def to_html(%Document{content: content}) do
+      def to_html(%Document{} = node) do
+        %Document{content: content} = Transformer.transform(node)
+
         parse_content(content)
+        |> Transformer.transform()
         |> Floki.raw_html()
         |> Highlighter.highlight_code_blocks()
       end
