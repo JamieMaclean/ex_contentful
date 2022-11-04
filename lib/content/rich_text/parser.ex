@@ -8,17 +8,21 @@ defmodule Content.RichText.Parser do
   alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
 
   def search_adapter([first], rest, adapter) do
-    case adapter.html_block([first]) do
-      :no_match -> {default_html(first, adapter), rest}
-      match -> {match, rest}
-    end
+    match = adapter.html_block([first])
+    {match, rest}
+  rescue
+    UndefinedFunctionError -> {default_html(first, adapter), rest}
+    FunctionClauseError -> {default_html(first, adapter), rest}
+    e -> e
   end
 
   def search_adapter([last | rest] = current_block, remainder, adapter) do
-    case adapter.html_block(current_block) do
-      :no_match -> search_adapter(rest, [last | remainder], adapter)
-      match -> {match, remainder}
-    end
+    match = adapter.html_block(current_block)
+    {match, remainder}
+  rescue
+    UndefinedFunctionError -> search_adapter(rest, [last | remainder], adapter)
+    FunctionClauseError -> search_adapter(rest, [last | remainder], adapter)
+    e -> e
   end
 
   def default_html(node, adapter)

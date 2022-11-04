@@ -5,7 +5,7 @@ defmodule Content.RichTextTest do
   alias Content.Integration.RichTextAdapter, as: Adapter
   alias Content.Integration.RichTextEmptyAdapter, as: EmptyAdapter
 
-  describe "block/1" do
+  describe "parse_content/1" do
     test "returns a value on a matchadsf" do
       node =
         Factory.build(:paragraph, %{
@@ -102,9 +102,51 @@ defmodule Content.RichTextTest do
       assert EmptyAdapter.to_html(bold) == "<b>Some text</b>"
       assert EmptyAdapter.to_html(italic) == "<em>Some text</em>"
       assert EmptyAdapter.to_html(underline) == "<u>Some text</u>"
-      assert EmptyAdapter.to_html(code) == "<code>Some text</code>"
+      assert EmptyAdapter.to_html(code) == "<pre><code>Some text</code></pre>"
 
-      assert EmptyAdapter.to_html(all) == "<b><u><em><code>Some text</code></em></u></b>"
+      assert EmptyAdapter.to_html(all) ==
+               "<b><u><em><pre><code>Some text</code></pre></em></u></b>"
+    end
+
+    test "headings are parsed correctly" do
+      rich_text =
+        Factory.build(:document, %{
+          content: [
+            Factory.build(:heading_1, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 1"})
+              ]
+            }),
+            Factory.build(:heading_2, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 2"})
+              ]
+            }),
+            Factory.build(:heading_3, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 3"})
+              ]
+            }),
+            Factory.build(:heading_4, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 4"})
+              ]
+            }),
+            Factory.build(:heading_5, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 5"})
+              ]
+            }),
+            Factory.build(:heading_6, %{
+              content: [
+                Factory.build(:text, %{value: "Heading 6"})
+              ]
+            })
+          ]
+        })
+
+      assert EmptyAdapter.to_html(rich_text) ==
+               "<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><h5>Heading 5</h5><h6>Heading 6</h6>"
     end
   end
 
@@ -161,7 +203,7 @@ defmodule Content.RichTextTest do
                "<p>Before heading</p><h1>Change me to a heading</h1><p>After heading</p>"
     end
 
-    test "Can completely transform text for custom pattdsasdferns" do
+    test "Replaces \n with a <br/> tag" do
       node =
         Factory.build(:document, %{
           content: [

@@ -30,19 +30,16 @@ defmodule Content.RichText.Adapter do
         parse_content(content)
         |> Transformer.transform()
         |> Floki.raw_html()
-        |> Highlighter.highlight_code_blocks()
       end
 
       def to_html(content) when is_list(content) do
         parse_content(content)
         |> Floki.raw_html()
-        |> Highlighter.highlight_code_blocks()
       end
 
       def to_html(content) do
         parse_content([content])
         |> Floki.raw_html()
-        |> Highlighter.highlight_code_blocks()
       end
 
       def parse_content([]) do
@@ -57,20 +54,10 @@ defmodule Content.RichText.Adapter do
         end
         |> List.flatten()
       end
-
-      @before_compile Content.RichText.Adapter
     end
   end
 
-  defmacro __before_compile__(_) do
-    quote do
-      def html_block(_) do
-        :no_match
-      end
-    end
-  end
-
-  defmacro html_block(rich_text_block, do: block) when is_list(rich_text_block) do
+  defmacro def_html(rich_text_block, do: block) when is_list(rich_text_block) do
     reversed_block = Enum.reverse(rich_text_block)
 
     quote do

@@ -7,10 +7,43 @@ defmodule Content.Factory.RichText do
   alias Content.Field.RichText.Node.Text
   alias Content.Field.RichText.Node.Hr
 
+  alias Content.Field.RichText.Node.{
+    Heading1,
+    Heading2,
+    Heading3,
+    Heading4,
+    Heading5,
+    Heading6
+  }
+
   def build(node, args \\ %{})
 
   def build(:document, args) do
     struct(%Document{}, args)
+  end
+
+  def build(:heading_1, args) do
+    struct(%Heading1{}, args)
+  end
+
+  def build(:heading_2, args) do
+    struct(%Heading2{}, args)
+  end
+
+  def build(:heading_3, args) do
+    struct(%Heading3{}, args)
+  end
+
+  def build(:heading_4, args) do
+    struct(%Heading4{}, args)
+  end
+
+  def build(:heading_5, args) do
+    struct(%Heading5{}, args)
+  end
+
+  def build(:heading_6, args) do
+    struct(%Heading6{}, args)
   end
 
   def build(:paragraph, args) do

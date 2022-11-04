@@ -35,8 +35,7 @@ defmodule Content.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:ecto, "~> 3.8"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:floki, "~> 0.33.1"},
-      {:makeup_elixir, "~> 0.16.0"}
+      {:floki, "~> 0.33.1"}
     ]
   end
 
