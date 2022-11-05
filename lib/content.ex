@@ -1,3 +1,5 @@
 defmodule Content do
-  @moduledoc false
+  @moduledoc """
+  For doing stuff
+  """
 end

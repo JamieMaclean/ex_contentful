@@ -3,7 +3,7 @@ defmodule Content.Integration.RichTextAdapter do
 
   use Content.RichText.Adapter
 
-  def_html [%Paragraph{content: [%Text{value: "Change me to bold"}] = content}] do
+  def_html %Paragraph{content: [%Text{value: "Change me to bold"}] = content} do
     {"p", [], [{"b", [], parse_content(content)}]}
   end
 

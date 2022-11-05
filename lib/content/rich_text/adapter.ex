@@ -67,5 +67,13 @@ defmodule Content.RichText.Adapter do
     end
   end
 
+  defmacro def_html(rich_text_block, do: block) do
+    quote do
+      def html_block(unquote([rich_text_block])) do
+        unquote(block)
+      end
+    end
+  end
+
   # coveralls-ignore-end
 end
