@@ -20,30 +20,5 @@ config :content, MyApp,
   content_delivery_token: "content_delivery_token"
 ```
 
-## Add `Content` to the Application Supervision Tree
-
-Create a module as follows and ensure it is added as a child to your Application supervision tree.
-
-```elixir
-defmodule MyApp.Content do 
-  use Content, otp_app: :my_app
-end
-```
-
-```elixir
-defmodule MyApp do
-  use Application
-
-  def start(_type, _args) do
-    children = [
-      MyApp.Content
-    ]
-
-    Supervisor.start_link(children, strategy: :one_for_one)
-  end
-end
-```
-
-
-Now that `Content` has been installed and fully configured you are ready to start defining your [Content Model](content_model.md).
+Now that `Content` has been fully configured you are ready to start defining your [Content Model](content_model.md).
 

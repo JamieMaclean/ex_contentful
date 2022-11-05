@@ -54,6 +54,7 @@ defmodule Content.MixProject do
       "docs/introduction/content_model.md",
       "docs/introduction/create_update_content.md",
       "docs/introduction/api.md",
+      "docs/introduction/transforming_rich_text.md",
       "docs/introduction/errors.md",
       "docs/advanced/content_model_1.md"
     ]
