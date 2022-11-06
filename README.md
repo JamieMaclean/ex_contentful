@@ -115,10 +115,10 @@ Content.Api.update_entry(blog_post, version) # Version is 0 for new entry
 
 ## Installation
 
-  Very experimental! Not yet available on Hex.
+Very experimental! Not yet available on Hex.
 
 ### Copyright and License
 
-  Copyright (c) 2022, Jamie Maclean.
+Copyright (c) 2022, Jamie Maclean.
 
-  Content source code is licensed under the [MIT License](LICENSE.md).
+Content source code is licensed under the [MIT License](LICENSE.md).

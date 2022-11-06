@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.HrTest do
   alias Content.Field.RichText.Node.Text
 
   describe "Node.validate/1" do
-    test "returns the paragraph when content is empty" do
+    test "returns the hr when content is empty" do
       node = %Hr{content: []}
 
       assert Node.validate(node) == node

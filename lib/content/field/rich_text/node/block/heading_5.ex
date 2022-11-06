@@ -11,7 +11,7 @@ defmodule Content.Field.RichText.Node.Heading5 do
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
-    @valid_nodes Constraints.blocks()
+    @valid_nodes ["text" | Constraints.inlines()]
 
     def prepare_for_contentful(node) do
       %{

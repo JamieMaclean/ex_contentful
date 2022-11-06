@@ -20,7 +20,7 @@ defmodule Content.Field.RichText.Node.ParagraphTest do
                Node.validate(node)
     end
 
-    test "returns the paragrph when valid" do
+    test "returns the paragraph when valid" do
       node = %Paragraph{content: [%Text{}]}
 
       assert Node.validate(node) == node
