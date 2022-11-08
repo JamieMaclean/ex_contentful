@@ -6,6 +6,7 @@ defmodule Content.Field.RichText do
   alias Content.Field.RichText.Node.Text
   alias Content.Field.RichText.Node.Hr
   alias Content.Field.RichText.Node.OrderedList
+  alias Content.Field.RichText.Node.UnorderedList
   alias Content.Field.RichText.Node.ListItem
   alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
 
@@ -48,6 +49,10 @@ defmodule Content.Field.RichText do
 
   def parse(%{"nodeType" => "ordered-list", "data" => data, "content" => content}) do
     %OrderedList{data: data, content: Enum.map(content, &parse(&1))}
+  end
+
+  def parse(%{"nodeType" => "unordered-list", "data" => data, "content" => content}) do
+    %UnorderedList{data: data, content: Enum.map(content, &parse(&1))}
   end
 
   def parse(%{"nodeType" => "list-item", "data" => data, "content" => content}) do

@@ -21,6 +21,21 @@ defmodule Content.Factory.ContentfulRichText do
     build(:block, args)
   end
 
+  def build(:ordered_list, args) do
+    args = Map.merge(%{"nodeType" => "ordered-list"}, args)
+    build(:block, args)
+  end
+
+  def build(:unordered_list, args) do
+    args = Map.merge(%{"nodeType" => "unordered-list"}, args)
+    build(:block, args)
+  end
+
+  def build(:list_item, args) do
+    args = Map.merge(%{"nodeType" => "list-item"}, args)
+    build(:block, args)
+  end
+
   def build(:heading_1, args) do
     args = Map.merge(%{"nodeType" => "heading-1"}, args)
     build(:block, args)

@@ -6,6 +6,9 @@ defmodule Content.Field.RichTextTest do
   alias Content.Field.RichText.Node.Document
   alias Content.Field.RichText.Node.Paragraph
   alias Content.Field.RichText.Node.Text
+  alias Content.Field.RichText.Node.OrderedList
+  alias Content.Field.RichText.Node.UnorderedList
+  alias Content.Field.RichText.Node.ListItem
 
   alias Content.Field.RichText.Node.{
     Heading1,
@@ -112,6 +115,55 @@ defmodule Content.Field.RichTextTest do
                  %Heading6{
                    content: [
                      %Text{value: "Heading 6"}
+                   ]
+                 }
+               ]
+             }
+    end
+
+    test "return a document with all list types" do
+      document =
+        ContentfulRichText.build(:document, %{
+          "content" => [
+            ContentfulRichText.build(:ordered_list, %{
+              "content" => [
+                ContentfulRichText.build(:list_item, %{
+                  "content" => [
+                    ContentfulRichText.build(:text, %{"value" => "item in ordered list"})
+                  ]
+                })
+              ]
+            }),
+            ContentfulRichText.build(:unordered_list, %{
+              "content" => [
+                ContentfulRichText.build(:list_item, %{
+                  "content" => [
+                    ContentfulRichText.build(:text, %{"value" => "item in unordered list"})
+                  ]
+                })
+              ]
+            })
+          ]
+        })
+
+      assert RichText.parse(document) == %Document{
+               content: [
+                 %OrderedList{
+                   content: [
+                     %ListItem{
+                       content: [
+                         %Text{value: "item in ordered list"}
+                       ]
+                     }
+                   ]
+                 },
+                 %UnorderedList{
+                   content: [
+                     %ListItem{
+                       content: [
+                         %Text{value: "item in unordered list"}
+                       ]
+                     }
                    ]
                  }
                ]

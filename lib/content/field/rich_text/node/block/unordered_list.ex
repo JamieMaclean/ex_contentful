@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.UnorderedList do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks_mapping().unordered_list]
+  defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().unordered_list
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node
