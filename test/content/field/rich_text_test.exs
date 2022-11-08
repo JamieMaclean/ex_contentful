@@ -9,6 +9,7 @@ defmodule Content.Field.RichTextTest do
   alias Content.Field.RichText.Node.OrderedList
   alias Content.Field.RichText.Node.UnorderedList
   alias Content.Field.RichText.Node.ListItem
+  alias Content.Field.RichText.Node.Hr
 
   alias Content.Field.RichText.Node.{
     Heading1,
@@ -167,6 +168,19 @@ defmodule Content.Field.RichTextTest do
                    ]
                  }
                ]
+             }
+    end
+
+    test "return a document with hrs" do
+      document =
+        ContentfulRichText.build(:document, %{
+          "content" => [
+            ContentfulRichText.build(:hr)
+          ]
+        })
+
+      assert RichText.parse(document) == %Document{
+               content: [%Hr{}]
              }
     end
   end

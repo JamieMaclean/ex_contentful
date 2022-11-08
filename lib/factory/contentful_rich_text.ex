@@ -16,6 +16,11 @@ defmodule Content.Factory.ContentfulRichText do
     build(:block, args)
   end
 
+  def build(:hr, args) do
+    args = Map.merge(%{"nodeType" => "hr"}, args)
+    build(:block, args)
+  end
+
   def build(:paragraph, args) do
     args = Map.merge(%{"nodeType" => "paragraph"}, args)
     build(:block, args)
