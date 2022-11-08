@@ -79,7 +79,7 @@ defmodule Content.ContentDelivery do
   end
 
   def get_all(resource) do
-    url = Resource.base_url(resource, :content_management)
+    url = Resource.base_url(resource, :content_delivery)
 
     url
     |> HTTPoison.get(HTTP.headers([:auth]), hackney: [:insecure])
