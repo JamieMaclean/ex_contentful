@@ -7,7 +7,7 @@ defmodule Content.Field.RichText.Node.Heading3 do
   TODO
   """
 
-  defstruct [:data, :content, node_type: Constraints.blocks_mapping().heading_3]
+  defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().heading_3
 
   defimpl Content.Field.RichText.Node do
     alias Content.Field.RichText.Node

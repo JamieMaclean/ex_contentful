@@ -11,36 +11,36 @@ defmodule Content.ContentDelivery.EntryTest do
   describe "get/2" do
     test "gets an entry" do
       use_cassette "content_delivery_get" do
-        assert  %BlogPost{
-                   authors: [],
-                   content: %{},
+        assert %BlogPost{
+                 authors: [],
+                 content: %{},
+                 id: "6KxUwJQ8bTaKOrLJNrJ8Hl",
+                 legacy_field: "",
+                 rating: nil,
+                 title: "",
+                 views: 123,
+                 metadata: %{tags: []},
+                 sys: %{
+                   content_type: %Link{
+                     id: "blog_post",
+                     link_type: "ContentType",
+                     type: "Link"
+                   },
+                   created_at: _,
+                   environment: %Link{
+                     id: "master",
+                     link_type: "Environment",
+                     type: "Link"
+                   },
                    id: "6KxUwJQ8bTaKOrLJNrJ8Hl",
-                   legacy_field: "",
-                   rating: nil,
-                   title: "",
-                   views: 123,
-                   metadata: %{tags: []},
-                   sys: %{
-                     content_type: %Link{
-                       id: "blog_post",
-                       link_type: "ContentType",
-                       type: "Link"
-                     },
-                     created_at: _,
-                     environment: %Link{
-                       id: "master",
-                       link_type: "Environment",
-                       type: "Link"
-                     },
-                     id: "6KxUwJQ8bTaKOrLJNrJ8Hl",
-                     space: %Link{
-                       id: "g8l7lpiniu90",
-                       link_type: "Space",
-                       type: "Link"
-                     },
-                     type: "Entry",
-                   }
-                 } = ContentDelivery.get(%BlogPost{}, "6KxUwJQ8bTaKOrLJNrJ8Hl")
+                   space: %Link{
+                     id: "g8l7lpiniu90",
+                     link_type: "Space",
+                     type: "Link"
+                   },
+                   type: "Entry"
+                 }
+               } = ContentDelivery.get(%BlogPost{}, "6KxUwJQ8bTaKOrLJNrJ8Hl")
       end
     end
 
