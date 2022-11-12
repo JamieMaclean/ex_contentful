@@ -1,25 +1,12 @@
-# Content
+# ExContentful
 
 Manage Contentful using standard Elxir practices without having to do a deep dive into the inner workings of Contentful.
 
-Content is a library that can be used to manage both the structure of your data on Contentful as well as the data itself. We have taken inspiration from Ecto with the hope of creating an easy to understand library with a small learning curve due to the similarities we have with one of the most widely used Elixir libraries.
+ExContentful is a library that can be used to manage both the structure of your data on Contentful as well as the data itself. We have taken inspiration from Ecto with the hope of creating an easy to understand library with a small learning curve due to the similarities we have with one of the most widely used Elixir libraries.
 
 # Warning
 
 Not ready for use. There are still lots of missing parts.
-
-## Current Functionality
-
-1. Define, create, and update content types with the following field types: `short_text`, `long_text`, `integer`, `number`, `array`.
-2. Create an entry of a defined content type.
-
-## Coming Soon
-
-1. Upsert entry without having to define version.
-2. More field types e.g. `rich_text` etc.
-3. Publish content types and entries.
-4. Get content types and entries.
-5. Much more!
 
 ## Quick Start
 
@@ -28,7 +15,7 @@ Not ready for use. There are still lots of missing parts.
 First add the following in your application config.
 
 ```elixir
-config :content,
+config :ex_contentful,
   space_id: "my_space_id",
   environment_id: "my_environment_id",
   content_management_token: "content_management_token",
@@ -63,9 +50,15 @@ end
 
 After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
 
-  ```elixir
-MyApp.ExContentful.migrate_content_model()
-  ```
+```elixir
+mix ex_contentful.update_content_model
+```
+
+If you would like to publish the changes that were made directly you can pass the `--publish` flag.
+
+```elixir
+mix ex_contentful.update_content_model --publish
+```
 
 ### Create and Upload Entries to Contentful
 
@@ -77,7 +70,7 @@ alias MyApp.BlogPost
 BlogPost.create(%{
   title: "My Awesome Blog Post",
   authors: ["Me"],
-  content: "Content is a great way to manage your data on Contentful!",
+  content: "ExContentful is a great way to manage your data on Contentful!",
   tags: ["contentful", "cms"]
 })
 ```
@@ -87,7 +80,7 @@ Which returns the tuple `{:ok, %BlogPost{}}`.
 ```elixir
 {:ok, %BlogPost{
   authors: ["Me"],
-  content: "Content is a great way to manage your data on Contentful!",
+  content: "ExContentful is a great way to manage your data on Contentful!",
   id: nil,
   tags: ["contentful", "cms"]
   title: "My Awesome Blog Post"
@@ -110,7 +103,7 @@ Entries are automatically validated after being created, so if you do something 
 The final step is to send the Entry to Contentful. 
 
 ```elixir
-ExContentful.Api.update_entry(blog_post, version) # Version is 0 for new entry
+ExContentful.Api.update_entry(blog_post)
 ```
 
 ## Installation
@@ -121,4 +114,4 @@ Very experimental! Not yet available on Hex.
 
 Copyright (c) 2022, Jamie Maclean.
 
-Content source code is licensed under the [MIT License](LICENSE.md).
+ExContentful source code is licensed under the [MIT License](LICENSE.md).
