@@ -31,13 +31,6 @@ defmodule ExContentful.Schema do
 
   You can see that this one is a little different. Contentful manages relationships between its `Entries` with `Links`. A link is essentially a pointer to the appropriate resource. Relationships between content types should always be defined using `Links` as demonstrated above.
   """
-  @field_modules %{
-    short_text: ExContentful.Field.ShortText,
-    long_text: ExContentful.Field.LongText,
-    number: ExContentful.Field.Number,
-    integer: ExContentful.Field.Integer,
-    rich_text: ExContentful.Field.RichText
-  }
   alias ExContentful.Schema.FieldArray
 
   # coveralls-ignore-start
@@ -271,9 +264,16 @@ defmodule ExContentful.Schema do
   """
   defmacro content_field(name, type, opts \\ [])
 
+  @field_modules %{
+    short_text: ExContentful.Field.ShortText,
+    long_text: ExContentful.Field.LongText,
+    number: ExContentful.Field.Number,
+    integer: ExContentful.Field.Integer,
+    rich_text: ExContentful.Field.RichText
+  }
   defmacro content_field(name, {:array, type}, opts) do
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
-    field_module = Map.get(@field_modules, type)
+    field_module = get_field_type(type)
     struct = struct(field_module)
 
     quote do
@@ -358,6 +358,13 @@ defmodule ExContentful.Schema do
     |> Atom.to_string()
     |> String.split("_")
     |> Enum.map_join(" ", &String.capitalize(&1))
+  end
+
+  defp get_field_type(type) do
+    case Map.get(@field_modules, type) do
+      nil -> type
+      module -> module
+    end
   end
 
   # coveralls-ignore-end

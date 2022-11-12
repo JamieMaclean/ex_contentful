@@ -1,10 +1,10 @@
 defmodule ExContentful.HTTP do
   @moduledoc false
   def access_token(:content_management_token),
-    do: Application.get_env(:content, :content_management_token)
+    do: Application.get_env(:ex_contentful, :content_management_token)
 
   def access_token(:content_delivery_token),
-    do: Application.get_env(:content, :content_delivery_token)
+    do: Application.get_env(:ex_contentful, :content_delivery_token)
 
   def headers(headers, props \\ [])
 

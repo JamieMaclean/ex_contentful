@@ -1,6 +1,6 @@
 import Config
 
-config :content,
+config :ex_contentful,
   space_id: "g8l7lpiniu90",
   environment_id: "integration",
   content_management_token: "CFPAT-ZOPrdX2tKo8zQHU0_vBt9jKyCtUJ5LDCEZDBv7bRc-Q",
