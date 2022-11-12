@@ -1,13 +1,13 @@
-defmodule Content.Factory.RichText do
+defmodule ExContentful.Factory.RichText do
   @moduledoc false
 
-  alias Content.Field.RichText.Node.Document
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Blockquote
-  alias Content.Field.RichText.Node.Text
-  alias Content.Field.RichText.Node.Hr
+  alias ExContentful.Field.RichText.Node.Document
+  alias ExContentful.Field.RichText.Node.Paragraph
+  alias ExContentful.Field.RichText.Node.Blockquote
+  alias ExContentful.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.Node.Hr
 
-  alias Content.Field.RichText.Node.{
+  alias ExContentful.Field.RichText.Node.{
     Heading1,
     Heading2,
     Heading3,

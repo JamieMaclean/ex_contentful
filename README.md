@@ -48,7 +48,7 @@ Defining your data is as easy as defining a `contentful_type` with all of the ne
 
 ```elixir
 defmodule MyApp.BlogPost do
-  use Content.Schema
+  use ExContentful.Schema
 
   contentful_type :blog_post do
     contentful_field :title, :short_text
@@ -64,7 +64,7 @@ end
 After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
 
   ```elixir
-MyApp.Content.migrate_content_model()
+MyApp.ExContentful.migrate_content_model()
   ```
 
 ### Create and Upload Entries to Contentful
@@ -102,7 +102,7 @@ Entries are automatically validated after being created, so if you do something 
    action: :update,
    changes: %{},
    errors: [content: {"can't be blank", [validation: :required]}],
-   data: #Content.Integration.BlogPost<>,
+   data: #ExContentful.Integration.BlogPost<>,
    valid?: false
  >}
 ```
@@ -110,7 +110,7 @@ Entries are automatically validated after being created, so if you do something 
 The final step is to send the Entry to Contentful. 
 
 ```elixir
-Content.Api.update_entry(blog_post, version) # Version is 0 for new entry
+ExContentful.Api.update_entry(blog_post, version) # Version is 0 for new entry
 ```
 
 ## Installation

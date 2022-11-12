@@ -1,9 +1,9 @@
-defmodule Content.MixProject do
+defmodule ExContentful.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :content,
+      app: :ex_contentful,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,

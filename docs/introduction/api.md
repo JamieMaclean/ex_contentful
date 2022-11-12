@@ -13,6 +13,6 @@ A read only API used for fetching data that is not yet public.
 
 `Content` defines the `Query` module for each of the APIs listed above. Using the appropriate `Query` module you can access the full Contentful API. The three `Query` modules that can be used to access your data on Contentful are explained in the following modules:
 
-- Content Management API: `Content.ContentManagement.Query`
-- Content Delivery API: `Content.ContentDelivery.Query`
-- Content Preview API: `Content.ContentPreview.Query`
+- Content Management API: `ExContentful.ContentManagement.Query`
+- Content Delivery API: `ExContentful.ContentDelivery.Query`
+- Content Preview API: `ExContentful.ContentPreview.Query`

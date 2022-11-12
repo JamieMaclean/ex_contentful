@@ -1,7 +1,7 @@
-defmodule Content.Integration.SchemaTest do
+defmodule ExContentful.Integration.SchemaTest do
   use ExUnit.Case
 
-  alias Content.Integration.BlogPost
+  alias ExContentful.Integration.BlogPost
 
   test "Correctly transforms short_text to be sent as an entry" do
     assert BlogPost.__contentful_schema__() ==

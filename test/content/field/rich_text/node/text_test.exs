@@ -1,9 +1,9 @@
-defmodule Content.Field.RichText.Node.TextTest do
+defmodule ExContentful.Field.RichText.Node.TextTest do
   use ExUnit.Case
 
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.Text
 
   describe "Node.validate/1" do
     test "returns the text when it is valid" do

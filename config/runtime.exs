@@ -7,7 +7,7 @@ config :content,
   content_preview_token: "hx7xZQjRw0gX4PJCPGoM8zpzxd0W8FvBeKmc-XZBsk4",
   content_delivery_token: "S7Qe5OTySNRWsoHIUD_FLHs0qoVczNCt3_fuO0W3bjw",
   content_types: [
-    Content.Integration.BlogPost,
-    Content.Integration.Comment
+    ExContentful.Integration.BlogPost,
+    ExContentful.Integration.Comment
   ],
-  attributes_module: Content.Integration.Attributes
+  attributes_module: ExContentful.Integration.Attributes

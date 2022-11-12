@@ -1,10 +1,10 @@
-defmodule Content.Field.RichText.Node.HrTest do
+defmodule ExContentful.Field.RichText.Node.HrTest do
   use ExUnit.Case
 
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.Hr
-  alias Content.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.Hr
+  alias ExContentful.Field.RichText.Node.Text
 
   describe "Node.validate/1" do
     test "returns the hr when content is empty" do

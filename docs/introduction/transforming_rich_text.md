@@ -8,7 +8,7 @@ Luckily `Content` comes with a plug 'n' play adapter that can be used and custom
 
 ```elixir
 defmodule MyApp.Contentful.RichTextAdapter do
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
 end
 ```
 
@@ -32,11 +32,11 @@ alias MyApp.Contentful.RichTextAdapter
 
 Note that the default adapter makes no assumptions. It simply converts the Rich Text directly to its HTML equivalent. This is good, but is probably insufficient for just about any application. You'll probably want to add classes and other attributes to your HTML.
 
-To do this `Content.RichText.Adapter` has the `def_html` macro. So lets revisit the adapter we created and add our own custom html pattern
+To do this `ExContentful.RichText.Adapter` has the `def_html` macro. So lets revisit the adapter we created and add our own custom html pattern
 
 ```elixir
 defmodule MyApp.Contentful.RichTextAdapter do
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
   
   def_html %Paragraph{content: content} do
     {"p", [{"class", "paragraph bold myOtherClasses"}], parse_content(content)}
@@ -71,7 +71,7 @@ Through the magic of Elixir pattern matching we are able to use the `def_html` m
 
 ```elixir
 defmodule MyApp.Contentful.RichTextAdapter do
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
   
   # If we want to remove the hr tags
   def_html [%Hr{}, %Paragraph{content: content}, %Hr{}] do
@@ -91,7 +91,7 @@ Contenful allows you to embed custom content types within your Rich Text, that m
 
 ```elixir
 defmodule MyApp.Contentful.RichTextAdapter do
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
   alias MyApp.Contentful.TableOfContents
   
   def_html [%TableOfContents{items: items}] do

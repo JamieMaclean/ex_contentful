@@ -1,7 +1,7 @@
-defmodule Content.Integration.RichTextAdapter do
+defmodule ExContentful.Integration.RichTextAdapter do
   @moduledoc false
 
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
 
   def_html %Paragraph{content: [%Text{value: "Change me to bold"}] = content} do
     {"p", [], [{"b", [], parse_content(content)}]}

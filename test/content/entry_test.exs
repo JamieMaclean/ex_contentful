@@ -1,8 +1,8 @@
-defmodule Content.ResourceTest do
+defmodule ExContentful.ResourceTest do
   use ExUnit.Case
 
-  alias Content.Resource
-  alias Content.Integration.BlogPost
+  alias ExContentful.Resource
+  alias ExContentful.Integration.BlogPost
 
   test "Correctly transforms an entry to be sent to contentful" do
     assert Resource.prepare_for_contentful(%BlogPost{

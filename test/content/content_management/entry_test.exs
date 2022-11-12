@@ -1,14 +1,14 @@
-defmodule Content.ContentManagement.EntryTest do
+defmodule ExContentful.ContentManagement.EntryTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias Content.Resource.Entry
-  alias Content.Resource.Link
-  alias Content.Error
-  alias Content.Integration.BlogPost
-  alias Content.Integration.Comment
-  alias Content.ContentManagement
-  alias Content.Factory.RichText
+  alias ExContentful.Resource.Entry
+  alias ExContentful.Resource.Link
+  alias ExContentful.Error
+  alias ExContentful.Integration.BlogPost
+  alias ExContentful.Integration.Comment
+  alias ExContentful.ContentManagement
+  alias ExContentful.Factory.RichText
 
   describe "create/1" do
     @tag :only

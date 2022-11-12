@@ -1,11 +1,11 @@
-defmodule Content.Field.RichText.Node.TableTest do
+defmodule ExContentful.Field.RichText.Node.TableTest do
   use ExUnit.Case
 
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.Table
-  alias Content.Field.RichText.Node.TableRow
-  alias Content.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.Table
+  alias ExContentful.Field.RichText.Node.TableRow
+  alias ExContentful.Field.RichText.Node.Text
 
   describe "Node.validate/1" do
     test "returns the paragraph when content is empty" do

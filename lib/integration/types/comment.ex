@@ -1,6 +1,6 @@
-defmodule Content.Integration.Comment do
+defmodule ExContentful.Integration.Comment do
   @moduledoc false
-  use Content.Schema
+  use ExContentful.Schema
 
   content_type :comment do
     content_field(:blog_post_id, :short_text)

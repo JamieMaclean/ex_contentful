@@ -1,17 +1,17 @@
-defmodule Content.Field.RichTextTest do
+defmodule ExContentful.Field.RichTextTest do
   use ExUnit.Case
 
-  alias Content.Factory.ContentfulRichText
-  alias Content.Field.RichText
-  alias Content.Field.RichText.Node.Document
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Text
-  alias Content.Field.RichText.Node.OrderedList
-  alias Content.Field.RichText.Node.UnorderedList
-  alias Content.Field.RichText.Node.ListItem
-  alias Content.Field.RichText.Node.Hr
+  alias ExContentful.Factory.ContentfulRichText
+  alias ExContentful.Field.RichText
+  alias ExContentful.Field.RichText.Node.Document
+  alias ExContentful.Field.RichText.Node.Paragraph
+  alias ExContentful.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.Node.OrderedList
+  alias ExContentful.Field.RichText.Node.UnorderedList
+  alias ExContentful.Field.RichText.Node.ListItem
+  alias ExContentful.Field.RichText.Node.Hr
 
-  alias Content.Field.RichText.Node.{
+  alias ExContentful.Field.RichText.Node.{
     Heading1,
     Heading2,
     Heading3,
