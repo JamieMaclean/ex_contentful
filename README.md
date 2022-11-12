@@ -50,13 +50,13 @@ end
 
 After defining all of the content types that you need. You can simply run the following command to migrate all of the content types for your entire application.
 
-```elixir
+```
 mix ex_contentful.update_content_model
 ```
 
 If you would like to publish the changes that were made directly you can pass the `--publish` flag.
 
-```elixir
+```
 mix ex_contentful.update_content_model --publish
 ```
 
