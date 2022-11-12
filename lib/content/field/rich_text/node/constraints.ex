@@ -1,4 +1,4 @@
-defmodule Content.Field.RichText.Node.Constraints do
+defmodule ExContentful.Field.RichText.Node.Constraints do
   @moduledoc """
   Explain constraints
   """

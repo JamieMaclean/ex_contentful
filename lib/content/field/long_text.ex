@@ -1,4 +1,4 @@
-defmodule Content.Field.LongText do
+defmodule ExContentful.Field.LongText do
   @moduledoc false
 
   defstruct [
@@ -13,7 +13,7 @@ defmodule Content.Field.LongText do
     omitted: false
   ]
 
-  @type t :: %Content.Field.LongText{
+  @type t :: %ExContentful.Field.LongText{
           id: String.t(),
           contentful_type: String.t(),
           name: String.t(),

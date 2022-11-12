@@ -1,4 +1,4 @@
-defmodule Content.Factory.ContentfulRichText do
+defmodule ExContentful.Factory.ContentfulRichText do
   @moduledoc false
 
   def build(node, args \\ %{})

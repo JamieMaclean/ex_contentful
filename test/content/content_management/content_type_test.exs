@@ -1,14 +1,14 @@
-defmodule Content.ContentManagement.Query.ContentTypeTest do
+defmodule ExContentful.ContentManagement.Query.ContentTypeTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias Content.Resource.ContentType
-  alias Content.ContentManagement
+  alias ExContentful.Resource.ContentType
+  alias ExContentful.ContentManagement
 
   describe "get/2" do
     test "get a content type from an id" do
       use_cassette "content_type_get" do
-        assert %Content.Resource.ContentType{
+        assert %ExContentful.Resource.ContentType{
                  fields: [
                    %{
                      disabled: false,
@@ -73,28 +73,28 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
                    }
                  ],
                  sys: %{
-                   content_type: %Content.Resource.Link{id: nil, link_type: nil, type: nil},
+                   content_type: %ExContentful.Resource.Link{id: nil, link_type: nil, type: nil},
                    created_at: _,
-                   created_by: %Content.Resource.Link{
+                   created_by: %ExContentful.Resource.Link{
                      id: "5J5TUlcInAPSw6zfv557d7",
                      link_type: "User",
                      type: "Link"
                    },
-                   environment: %Content.Resource.Link{
+                   environment: %ExContentful.Resource.Link{
                      id: "integration",
                      link_type: "Environment",
                      type: "Link"
                    },
                    id: "blog_post",
                    published_counter: _,
-                   space: %Content.Resource.Link{
+                   space: %ExContentful.Resource.Link{
                      id: "g8l7lpiniu90",
                      link_type: "Space",
                      type: "Link"
                    },
                    type: "ContentType",
                    updated_at: _,
-                   updated_by: %Content.Resource.Link{
+                   updated_by: %ExContentful.Resource.Link{
                      id: "5J5TUlcInAPSw6zfv557d7",
                      link_type: "User",
                      type: "Link"
@@ -113,7 +113,7 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
         assert {
                  :ok,
                  [
-                   %Content.Resource.ContentType{
+                   %ExContentful.Resource.ContentType{
                      fields: [
                        %{
                          disabled: false,
@@ -179,28 +179,28 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
                      ],
                      metadata: %{tags: []},
                      sys: %{
-                       content_type: %Content.Resource.Link{id: nil, link_type: nil, type: nil},
+                       content_type: %ExContentful.Resource.Link{id: nil, link_type: nil, type: nil},
                        created_at: _,
-                       created_by: %Content.Resource.Link{
+                       created_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",
                          link_type: "User",
                          type: "Link"
                        },
-                       environment: %Content.Resource.Link{
+                       environment: %ExContentful.Resource.Link{
                          id: "integration",
                          link_type: "Environment",
                          type: "Link"
                        },
                        id: "blog_post",
                        published_counter: _,
-                       space: %Content.Resource.Link{
+                       space: %ExContentful.Resource.Link{
                          id: "g8l7lpiniu90",
                          link_type: "Space",
                          type: "Link"
                        },
                        type: "ContentType",
                        updated_at: _,
-                       updated_by: %Content.Resource.Link{
+                       updated_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",
                          link_type: "User",
                          type: "Link"
@@ -208,7 +208,7 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
                        version: _
                      }
                    },
-                   %Content.Resource.ContentType{
+                   %ExContentful.Resource.ContentType{
                      fields: [
                        %{
                          disabled: false,
@@ -233,28 +233,28 @@ defmodule Content.ContentManagement.Query.ContentTypeTest do
                      ],
                      metadata: %{tags: []},
                      sys: %{
-                       content_type: %Content.Resource.Link{id: nil, link_type: nil, type: nil},
+                       content_type: %ExContentful.Resource.Link{id: nil, link_type: nil, type: nil},
                        created_at: _,
-                       created_by: %Content.Resource.Link{
+                       created_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",
                          link_type: "User",
                          type: "Link"
                        },
-                       environment: %Content.Resource.Link{
+                       environment: %ExContentful.Resource.Link{
                          id: "integration",
                          link_type: "Environment",
                          type: "Link"
                        },
                        id: "comment",
                        published_counter: 0,
-                       space: %Content.Resource.Link{
+                       space: %ExContentful.Resource.Link{
                          id: "g8l7lpiniu90",
                          link_type: "Space",
                          type: "Link"
                        },
                        type: "ContentType",
                        updated_at: _,
-                       updated_by: %Content.Resource.Link{
+                       updated_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",
                          link_type: "User",
                          type: "Link"

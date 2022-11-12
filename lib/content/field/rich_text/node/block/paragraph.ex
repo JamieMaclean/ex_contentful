@@ -1,7 +1,7 @@
-defmodule Content.Field.RichText.Node.Paragraph do
+defmodule ExContentful.Field.RichText.Node.Paragraph do
   alias __MODULE__
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node.Constraints
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node.Constraints
 
   @moduledoc """
   TODO
@@ -10,8 +10,8 @@ defmodule Content.Field.RichText.Node.Paragraph do
   @derive Jason.Encoder
   defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().paragraph
 
-  defimpl Content.Field.RichText.Node do
-    alias Content.Field.RichText.Node
+  defimpl ExContentful.Field.RichText.Node do
+    alias ExContentful.Field.RichText.Node
 
     @valid_nodes ["text" | Constraints.inlines()]
 

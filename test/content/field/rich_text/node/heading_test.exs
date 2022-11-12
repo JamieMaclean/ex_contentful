@@ -1,11 +1,11 @@
-defmodule Content.Field.RichText.Node.HeadingTest do
+defmodule ExContentful.Field.RichText.Node.HeadingTest do
   use ExUnit.Case
 
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
+  alias ExContentful.Field.RichText.Node.Paragraph
+  alias ExContentful.Field.RichText.Node.Text
 
   describe "Node.validate/1" do
     test "returns the node when content is empty" do

@@ -1,4 +1,4 @@
-defmodule Content.Schema do
+defmodule ExContentful.Schema do
   @moduledoc """
   This module provides all of the basic building blocks required to create different content types on Contentful.
 
@@ -32,27 +32,27 @@ defmodule Content.Schema do
   You can see that this one is a little different. Contentful manages relationships between its `Entries` with `Links`. A link is essentially a pointer to the appropriate resource. Relationships between content types should always be defined using `Links` as demonstrated above.
   """
   @field_modules %{
-    short_text: Content.Field.ShortText,
-    long_text: Content.Field.LongText,
-    number: Content.Field.Number,
-    integer: Content.Field.Integer,
-    rich_text: Content.Field.RichText
+    short_text: ExContentful.Field.ShortText,
+    long_text: ExContentful.Field.LongText,
+    number: ExContentful.Field.Number,
+    integer: ExContentful.Field.Integer,
+    rich_text: ExContentful.Field.RichText
   }
-  alias Content.Schema.FieldArray
+  alias ExContentful.Schema.FieldArray
 
   # coveralls-ignore-start
   defmacro __using__(_) do
     quote do
       use Ecto.Schema
       import Ecto.Changeset
-      import Content.Schema
+      import ExContentful.Schema
 
       Module.register_attribute(__MODULE__, :contentful_field, accumulate: true)
       Module.register_attribute(__MODULE__, :content_type_name, accumulate: false)
       Module.register_attribute(__MODULE__, :content_type_id, accumulate: false)
       Module.register_attribute(__MODULE__, :content_display_field, accumulate: false)
 
-      @before_compile {Content.Schema, :add_schema}
+      @before_compile {ExContentful.Schema, :add_schema}
     end
   end
 
@@ -68,15 +68,15 @@ defmodule Content.Schema do
         }
       end
 
-      defimpl Content.Resource do
-        alias Content.Schema.Field
+      defimpl ExContentful.Resource do
+        alias ExContentful.Schema.Field
 
         def base_url(_content_type, :content_management) do
-          Content.ContentManagement.url() <> "/entries"
+          ExContentful.ContentManagement.url() <> "/entries"
         end
 
         def base_url(_content_type, :content_delivery) do
-          Content.ContentDelivery.url() <> "/entries"
+          ExContentful.ContentDelivery.url() <> "/entries"
         end
 
         def prepare_for_contentful(resource) do
@@ -104,7 +104,7 @@ defmodule Content.Schema do
     display_name = get_default_display_name(name, props)
 
     quote do
-      alias Content.Resource.Link
+      alias ExContentful.Resource.Link
 
       Module.put_attribute(
         __MODULE__,

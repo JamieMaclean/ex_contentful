@@ -1,4 +1,4 @@
-defmodule Content.RichText do
+defmodule ExContentful.RichText do
   @moduledoc """
   Defines the set of functions used to convert Rich Text to HTML.
 
@@ -7,7 +7,7 @@ defmodule Content.RichText do
 
   ```elixir
   defmodule MyApp.RichText do
-    use Content.RichText
+    use ExContentful.RichText
   end
 
   raw_html_binary = MyApp.to_html(rich_text)
@@ -17,11 +17,11 @@ defmodule Content.RichText do
   ```elixir
   alias MyApp.RichText
 
-  rich_text = %Content.Field.RichText.Node.Document{
+  rich_text = %ExContentful.Field.RichText.Node.Document{
   content: [
-    %Content.Field.RichText.Node.Paragraph{
+    %ExContentful.Field.RichText.Node.Paragraph{
       content: [
-        %Content.Field.RichText.Node.Text{
+        %ExContentful.Field.RichText.Node.Text{
           data: %{},
           marks: [],
           node_type: "text",

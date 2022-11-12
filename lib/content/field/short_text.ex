@@ -1,4 +1,4 @@
-defmodule Content.Field.ShortText do
+defmodule ExContentful.Field.ShortText do
   @moduledoc false
 
   defstruct [
@@ -12,7 +12,7 @@ defmodule Content.Field.ShortText do
     omitted: false
   ]
 
-  @type t :: %Content.Field.ShortText{
+  @type t :: %ExContentful.Field.ShortText{
           id: String.t(),
           available_options: list(String.t()),
           contentful_type: String.t(),

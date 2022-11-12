@@ -1,7 +1,7 @@
-defmodule Content.Field.RichText.Node.Hr do
+defmodule ExContentful.Field.RichText.Node.Hr do
   alias __MODULE__
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node.Constraints
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node.Constraints
 
   @moduledoc """
   TODO
@@ -9,7 +9,7 @@ defmodule Content.Field.RichText.Node.Hr do
 
   defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().hr
 
-  defimpl Content.Field.RichText.Node do
+  defimpl ExContentful.Field.RichText.Node do
     def to_html(_node), do: "<p>Hello</p>"
 
     def prepare_for_contentful(node) do

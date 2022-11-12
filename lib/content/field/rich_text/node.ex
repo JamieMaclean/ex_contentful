@@ -1,4 +1,4 @@
-defprotocol Content.Field.RichText.Node do
+defprotocol ExContentful.Field.RichText.Node do
   @moduledoc """
   A useful description of nodes
 

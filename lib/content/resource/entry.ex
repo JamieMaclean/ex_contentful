@@ -1,16 +1,16 @@
-defmodule Content.Resource.Entry do
+defmodule ExContentful.Resource.Entry do
   @moduledoc """
   Entry is one of the Contentful base resources. This struct can be used in conjunction with any of the `Query` modules to access and update any of your Entries in Contentful
   """
   defstruct [:entry, :sys, :metadata]
 
-  @type t :: %Content.Resource.Entry{
+  @type t :: %ExContentful.Resource.Entry{
           entry: struct(),
           sys: map(),
           metadata: map()
         }
 
-  alias Content.Resource.Link
+  alias ExContentful.Resource.Link
 
   def build_from_response(response) do
     {:ok, created_at, _} = DateTime.from_iso8601(response["sys"]["createdAt"])
@@ -55,13 +55,13 @@ defmodule Content.Resource.Entry do
     })
   end
 
-  defimpl Content.Resource do
+  defimpl ExContentful.Resource do
     def prepare_for_contentful(_content_type) do
       :ok
     end
 
     def base_url(_content_type, :content_management) do
-      Content.ContentManagement.url() <> "/entries"
+      ExContentful.ContentManagement.url() <> "/entries"
     end
   end
 end

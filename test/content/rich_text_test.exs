@@ -1,9 +1,9 @@
-defmodule Content.RichTextTest do
+defmodule ExContentful.RichTextTest do
   use ExUnit.Case
 
-  alias Content.Factory.RichText, as: Factory
-  alias Content.Integration.RichTextAdapter, as: Adapter
-  alias Content.Integration.RichTextEmptyAdapter, as: EmptyAdapter
+  alias ExContentful.Factory.RichText, as: Factory
+  alias ExContentful.Integration.RichTextAdapter, as: Adapter
+  alias ExContentful.Integration.RichTextEmptyAdapter, as: EmptyAdapter
 
   describe "parse_content/1" do
     test "returns a value on a matchadsf" do

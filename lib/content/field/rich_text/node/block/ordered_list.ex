@@ -1,7 +1,7 @@
-defmodule Content.Field.RichText.Node.OrderedList do
+defmodule ExContentful.Field.RichText.Node.OrderedList do
   alias __MODULE__
-  alias Content.Field.RichText.ValidationError
-  alias Content.Field.RichText.Node.Constraints
+  alias ExContentful.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node.Constraints
 
   @moduledoc """
   TODO
@@ -9,8 +9,8 @@ defmodule Content.Field.RichText.Node.OrderedList do
 
   defstruct data: %{}, content: [], node_type: Constraints.blocks_mapping().ordered_list
 
-  defimpl Content.Field.RichText.Node do
-    alias Content.Field.RichText.Node
+  defimpl ExContentful.Field.RichText.Node do
+    alias ExContentful.Field.RichText.Node
 
     @valid_nodes [Constraints.blocks_mapping().list_item]
 

@@ -8,7 +8,7 @@ So lets start by defining our `blog_post` content type.
 
 ```elixir
 defmodule MyApp.BlogPost
-  use Content.Schema
+  use ExContentful.Schema
 
   content_type "blog_post" do
     content_field :title, :short_text, required: true
@@ -26,7 +26,7 @@ So our `blog_post` has been created, let's create a content type for blog post c
 
 ```elixir
 defmodule MyApp.Comment
-  use Content.Schema
+  use ExContentful.Schema
 
   content_type "comment" do
     content_field :blog_post, {:link, MyApp.BlogPost}
@@ -57,5 +57,5 @@ When defining content types, each field has a type which directly maps to a type
 Now that we have defined our content model it's time to send it to Contentful so that we can start creating entries. From the [Getting Started](getting_started.md) page we configured our app to connect to Contentful so it should just be a case of running the following command:
 
 ```elixir
-MyApp.Content.migrate_content_model()
+MyApp.ExContentful.migrate_content_model()
 ```

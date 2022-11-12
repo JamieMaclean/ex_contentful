@@ -1,4 +1,4 @@
-defprotocol Content.Resource do
+defprotocol ExContentful.Resource do
   @moduledoc false
   def base_url(resource, api)
 

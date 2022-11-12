@@ -1,4 +1,4 @@
-defmodule Content.MixProject do
+defmodule ExContentful.MixProject do
   use Mix.Project
 
   def project do

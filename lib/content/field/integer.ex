@@ -1,4 +1,4 @@
-defmodule Content.Field.Integer do
+defmodule ExContentful.Field.Integer do
   @moduledoc false
 
   defstruct [
@@ -12,7 +12,7 @@ defmodule Content.Field.Integer do
     omitted: false
   ]
 
-  @type t :: %Content.Field.Integer{
+  @type t :: %ExContentful.Field.Integer{
           id: String.t(),
           available_options: list(String.t()),
           contentful_type: String.t(),

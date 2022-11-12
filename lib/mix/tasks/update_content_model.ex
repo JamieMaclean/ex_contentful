@@ -1,10 +1,10 @@
-defmodule Mix.Tasks.Content.UpdateContentModel do
+defmodule Mix.Tasks.ExContentful.UpdateContentModel do
   @moduledoc "The hello mix task: `mix help hello`"
   use Mix.Task
 
   @requirements ["app.config"]
 
-  alias Content.ContentManagement
+  alias ExContentful.ContentManagement
 
   @doc "Updates the content model on Contentful"
   def run([]) do

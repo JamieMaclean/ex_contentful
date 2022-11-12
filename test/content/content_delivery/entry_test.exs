@@ -1,12 +1,12 @@
-defmodule Content.ContentDelivery.EntryTest do
+defmodule ExContentful.ContentDelivery.EntryTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias Content.Resource.Link
-  alias Content.Error
-  alias Content.Integration.BlogPost
-  alias Content.Integration.Comment
-  alias Content.ContentDelivery
+  alias ExContentful.Resource.Link
+  alias ExContentful.Error
+  alias ExContentful.Integration.BlogPost
+  alias ExContentful.Integration.Comment
+  alias ExContentful.ContentDelivery
 
   describe "get/2" do
     test "gets an entry" do

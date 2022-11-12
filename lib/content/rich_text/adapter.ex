@@ -1,21 +1,21 @@
-defmodule Content.RichText.Adapter do
+defmodule ExContentful.RichText.Adapter do
   # coveralls-ignore-start
 
   defmacro __using__(_) do
     quote do
-      import Content.RichText.Adapter
-      alias Content.RichText.Highlighter
-      alias Content.RichText.Parser
-      alias Content.RichText.Transformer
-      alias Content.Field.RichText.Node.Document
-      alias Content.Field.RichText.Node.Paragraph
-      alias Content.Field.RichText.Node.Text
-      alias Content.Field.RichText.Node.Blockquote
-      alias Content.Field.RichText.Node.Hr
-      alias Content.Field.RichText.Node.OrderedList
-      alias Content.Field.RichText.Node.ListItem
+      import ExContentful.RichText.Adapter
+      alias ExContentful.RichText.Highlighter
+      alias ExContentful.RichText.Parser
+      alias ExContentful.RichText.Transformer
+      alias ExContentful.Field.RichText.Node.Document
+      alias ExContentful.Field.RichText.Node.Paragraph
+      alias ExContentful.Field.RichText.Node.Text
+      alias ExContentful.Field.RichText.Node.Blockquote
+      alias ExContentful.Field.RichText.Node.Hr
+      alias ExContentful.Field.RichText.Node.OrderedList
+      alias ExContentful.Field.RichText.Node.ListItem
 
-      alias Content.Field.RichText.Node.{
+      alias ExContentful.Field.RichText.Node.{
         Heading1,
         Heading2,
         Heading3,

@@ -1,4 +1,4 @@
-defmodule Content.Field.RichText.ValidationError do
+defmodule ExContentful.Field.RichText.ValidationError do
   @moduledoc """
   Explain the different error types
   """

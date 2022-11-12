@@ -1,11 +1,11 @@
-defmodule Content.RichText.Parser do
-  alias Content.Field.RichText.Node.Custom
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Text
-  alias Content.Field.RichText.Node.Blockquote
-  alias Content.Field.RichText.Node.OrderedList
-  alias Content.Field.RichText.Node.ListItem
-  alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
+defmodule ExContentful.RichText.Parser do
+  alias ExContentful.Field.RichText.Node.Custom
+  alias ExContentful.Field.RichText.Node.Paragraph
+  alias ExContentful.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.Node.Blockquote
+  alias ExContentful.Field.RichText.Node.OrderedList
+  alias ExContentful.Field.RichText.Node.ListItem
+  alias ExContentful.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
 
   def search_adapter([first], rest, adapter) do
     match = adapter.html_block([first])

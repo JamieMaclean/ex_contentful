@@ -1,8 +1,8 @@
-defmodule Content.ContentManagementTest do
+defmodule ExContentful.ContentManagementTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias Content.ContentManagement
+  alias ExContentful.ContentManagement
 
   test "Correctly retrieves the correct content type from an id" do
     use_cassette "content_type_migration" do

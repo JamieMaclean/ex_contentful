@@ -1,14 +1,14 @@
-defmodule Content.Field.RichText do
+defmodule ExContentful.Field.RichText do
   @moduledoc false
 
-  alias Content.Field.RichText.Node.Document
-  alias Content.Field.RichText.Node.Paragraph
-  alias Content.Field.RichText.Node.Text
-  alias Content.Field.RichText.Node.Hr
-  alias Content.Field.RichText.Node.OrderedList
-  alias Content.Field.RichText.Node.UnorderedList
-  alias Content.Field.RichText.Node.ListItem
-  alias Content.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
+  alias ExContentful.Field.RichText.Node.Document
+  alias ExContentful.Field.RichText.Node.Paragraph
+  alias ExContentful.Field.RichText.Node.Text
+  alias ExContentful.Field.RichText.Node.Hr
+  alias ExContentful.Field.RichText.Node.OrderedList
+  alias ExContentful.Field.RichText.Node.UnorderedList
+  alias ExContentful.Field.RichText.Node.ListItem
+  alias ExContentful.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
 
   defstruct [
     :name,
@@ -21,7 +21,7 @@ defmodule Content.Field.RichText do
     omitted: false
   ]
 
-  @type t :: %Content.Field.Integer{
+  @type t :: %ExContentful.Field.Integer{
           id: String.t(),
           available_options: list(String.t()),
           contentful_type: String.t(),
@@ -32,8 +32,8 @@ defmodule Content.Field.RichText do
           omitted: boolean()
         }
 
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.Document
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.Document
 
   def to_html(%Document{content: content}) do
     Node.prepare_for_contentful(content)

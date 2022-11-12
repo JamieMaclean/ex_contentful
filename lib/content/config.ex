@@ -1,4 +1,4 @@
-defmodule Content.Config do
+defmodule ExContentful.Config do
   @moduledoc false
 
   def space_id(), do: Application.get_env(:content, :space_id)

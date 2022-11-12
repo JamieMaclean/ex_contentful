@@ -1,4 +1,4 @@
-defmodule Content.Field.RichText.Node.Custom do
+defmodule ExContentful.Field.RichText.Node.Custom do
   @moduledoc """
   TODO
   """

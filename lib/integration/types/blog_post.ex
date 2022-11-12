@@ -1,6 +1,6 @@
-defmodule Content.Integration.BlogPost do
+defmodule ExContentful.Integration.BlogPost do
   @moduledoc false
-  use Content.Schema
+  use ExContentful.Schema
 
   content_type :blog_post do
     content_field(:title, :short_text)

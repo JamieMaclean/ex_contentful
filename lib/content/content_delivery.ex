@@ -1,4 +1,4 @@
-defmodule Content.ContentDelivery do
+defmodule ExContentful.ContentDelivery do
   @base_url "https://cdn.contentful.com"
 
   @moduledoc """
@@ -7,13 +7,13 @@ defmodule Content.ContentDelivery do
   This module provides some basic, composable functions that can be used to query any Contentful resource
   """
 
-  alias Content.Config
-  alias Content.Error
-  alias Content.HTTP
-  alias Content.Resource
-  alias Content.Resource.ContentType
-  alias Content.Resource.Entry
-  alias Content.Resource.ContentType
+  alias ExContentful.Config
+  alias ExContentful.Error
+  alias ExContentful.HTTP
+  alias ExContentful.Resource
+  alias ExContentful.Resource.ContentType
+  alias ExContentful.Resource.Entry
+  alias ExContentful.Resource.ContentType
 
   def url,
     do: "#{@base_url}/spaces/#{Config.space_id()}"
@@ -25,9 +25,9 @@ defmodule Content.ContentDelivery do
 
   ## Examples
   ```elixir
-  alias Content.ContentManagement.Query
-  alias Content.Resource.ContentType
-  alias Content.Resource.Space
+  alias ExContentful.ContentManagement.Query
+  alias ExContentful.Resource.ContentType
+  alias ExContentful.Resource.Space
   alias MyApp.BlogPost
   alias MyApp.Comment
 
@@ -42,7 +42,7 @@ defmodule Content.ContentDelivery do
   ```elixir
   {
     :error,
-    %Content.Error{
+    %ExContentful.Error{
       details: %{
         expected: "comment",
         received: "blog_post",
@@ -57,7 +57,7 @@ defmodule Content.ContentDelivery do
   In the case that you use `Query.get/2` to query something and you are not sure what is going to be returned, you can use the `Entry` resource type. In this case, an entry of any content type is considered correct.
   ## Examples
   ```elixir
-  alias Content.Resource.Entry
+  alias ExContentful.Resource.Entry
   alias MyApp.BlogPost
   alias MyApp.Comment
 

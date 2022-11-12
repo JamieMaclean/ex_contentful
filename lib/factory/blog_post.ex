@@ -1,8 +1,8 @@
-defmodule Content.Factory.BlogPost do
+defmodule ExContentful.Factory.BlogPost do
   @moduledoc false
 
-  alias Content.Integration.BlogPost
-  alias Content.Factory.RichText
+  alias ExContentful.Integration.BlogPost
+  alias ExContentful.Factory.RichText
 
   def build(node, args \\ %{})
 

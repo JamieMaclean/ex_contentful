@@ -1,17 +1,17 @@
-defmodule Content.Resource.ContentType do
+defmodule ExContentful.Resource.ContentType do
   @moduledoc """
   ContentType is one of the Contentful base resources. This struct can be used in conjunction with any of the `Query` modules to access and update any of your ContentTypes in Contentful
   """
   defstruct [:fields, :sys, :metadata]
 
-  @type t :: %Content.Resource.ContentType{
+  @type t :: %ExContentful.Resource.ContentType{
           fields: list(map()),
           sys: map(),
           metadata: map()
         }
 
-  alias Content.Resource.ContentType
-  alias Content.Resource.Link
+  alias ExContentful.Resource.ContentType
+  alias ExContentful.Resource.Link
 
   @doc false
   def build_from_response(response) do
@@ -64,9 +64,9 @@ defmodule Content.Resource.ContentType do
     }
   end
 
-  defimpl Content.Resource do
+  defimpl ExContentful.Resource do
     def base_url(_content_type, :content_management) do
-      Content.ContentManagement.url() <> "/content_types"
+      ExContentful.ContentManagement.url() <> "/content_types"
     end
 
     def prepare_for_contentful(_content_type) do

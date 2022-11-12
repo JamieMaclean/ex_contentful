@@ -1,4 +1,4 @@
-defmodule Content.Field.RichText.Node.Text do
+defmodule ExContentful.Field.RichText.Node.Text do
   @moduledoc """
   Text node is the lowest level...
   """
@@ -7,10 +7,10 @@ defmodule Content.Field.RichText.Node.Text do
   defstruct data: %{}, value: "", marks: [], node_type: "text"
 
   alias __MODULE__
-  alias Content.Field.RichText.Node.Constraints
-  alias Content.Field.RichText.ValidationError
+  alias ExContentful.Field.RichText.Node.Constraints
+  alias ExContentful.Field.RichText.ValidationError
 
-  defimpl Content.Field.RichText.Node do
+  defimpl ExContentful.Field.RichText.Node do
     @valid_marks Map.values(Constraints.marks())
 
     def prepare_for_contentful(node) do

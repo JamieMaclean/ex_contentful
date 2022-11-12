@@ -1,4 +1,4 @@
-defmodule Content.Schema.FieldArray do
+defmodule ExContentful.Schema.FieldArray do
   @moduledoc false
 
   defstruct [

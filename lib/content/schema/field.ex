@@ -1,4 +1,4 @@
-defmodule Content.Schema.Field do
+defmodule ExContentful.Schema.Field do
   @moduledoc false
 
   defstruct [
@@ -10,7 +10,7 @@ defmodule Content.Schema.Field do
     omitted: false
   ]
 
-  @type t :: %Content.Schema.Field{
+  @type t :: %ExContentful.Schema.Field{
           name: String.t(),
           type: String.t(),
           id: String.t(),
@@ -19,8 +19,8 @@ defmodule Content.Schema.Field do
           omitted: boolean()
         }
 
-  alias Content.Field.RichText.Node
-  alias Content.Field.RichText.Node.Document
+  alias ExContentful.Field.RichText.Node
+  alias ExContentful.Field.RichText.Node.Document
 
   def prepare_for_contentful(parent, field_name) do
     value =

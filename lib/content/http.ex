@@ -1,4 +1,4 @@
-defmodule Content.HTTP do
+defmodule ExContentful.HTTP do
   @moduledoc false
   def access_token(:content_management_token),
     do: Application.get_env(:content, :content_management_token)

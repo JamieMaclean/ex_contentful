@@ -1,5 +1,5 @@
-defmodule Content.Integration.RichTextEmptyAdapter do
+defmodule ExContentful.Integration.RichTextEmptyAdapter do
   @moduledoc false
 
-  use Content.RichText.Adapter
+  use ExContentful.RichText.Adapter
 end

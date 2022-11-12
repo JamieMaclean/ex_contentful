@@ -1,6 +1,6 @@
-defmodule Content.RichText.Transformer do
-  alias Content.Field.RichText.Node.Custom
-  alias Content.Field.RichText.Node.Text
+defmodule ExContentful.RichText.Transformer do
+  alias ExContentful.Field.RichText.Node.Custom
+  alias ExContentful.Field.RichText.Node.Text
 
   def transform(%{content: content} = node) do
     content =

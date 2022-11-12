@@ -1,4 +1,4 @@
-defmodule Content.Field.Number do
+defmodule ExContentful.Field.Number do
   @moduledoc false
 
   defstruct [
@@ -12,7 +12,7 @@ defmodule Content.Field.Number do
     omitted: false
   ]
 
-  @type t :: %Content.Field.Number{
+  @type t :: %ExContentful.Field.Number{
           id: String.t(),
           available_options: list(String.t()),
           contentful_type: String.t(),
