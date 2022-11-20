@@ -44,7 +44,6 @@ defmodule ExContentful.HTTP do
 
   # TODO Handle errors gracefully
   defp process_error(%{"sys" => %{"id" => "ValidationFailed"}, "details" => %{"errors" => errors}}) do
-    IO.inspect(errors)
     errors
   end
 end

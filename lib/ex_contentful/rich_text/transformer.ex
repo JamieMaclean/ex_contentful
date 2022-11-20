@@ -1,4 +1,6 @@
 defmodule ExContentful.RichText.Transformer do
+  @moduledoc false
+
   alias ExContentful.Field.RichText.Node.Custom
   alias ExContentful.Field.RichText.Node.Text
 
