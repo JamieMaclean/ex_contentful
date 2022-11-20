@@ -179,7 +179,11 @@ defmodule ExContentful.ContentManagement.Query.ContentTypeTest do
                      ],
                      metadata: %{tags: []},
                      sys: %{
-                       content_type: %ExContentful.Resource.Link{id: nil, link_type: nil, type: nil},
+                       content_type: %ExContentful.Resource.Link{
+                         id: nil,
+                         link_type: nil,
+                         type: nil
+                       },
                        created_at: _,
                        created_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",
@@ -233,7 +237,11 @@ defmodule ExContentful.ContentManagement.Query.ContentTypeTest do
                      ],
                      metadata: %{tags: []},
                      sys: %{
-                       content_type: %ExContentful.Resource.Link{id: nil, link_type: nil, type: nil},
+                       content_type: %ExContentful.Resource.Link{
+                         id: nil,
+                         link_type: nil,
+                         type: nil
+                       },
                        created_at: _,
                        created_by: %ExContentful.Resource.Link{
                          id: "5J5TUlcInAPSw6zfv557d7",

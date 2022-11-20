@@ -3,7 +3,16 @@ defmodule ExContentful.Field.RichText.Node.HeadingTest do
 
   alias ExContentful.Field.RichText.ValidationError
   alias ExContentful.Field.RichText.Node
-  alias ExContentful.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
+
+  alias ExContentful.Field.RichText.Node.{
+    Heading1,
+    Heading2,
+    Heading3,
+    Heading4,
+    Heading5,
+    Heading6
+  }
+
   alias ExContentful.Field.RichText.Node.Paragraph
   alias ExContentful.Field.RichText.Node.Text
 

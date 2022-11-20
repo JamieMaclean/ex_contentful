@@ -3,7 +3,7 @@ defmodule ExContentful.Integration.SchemaTest do
 
   alias ExContentful.Integration.BlogPost
 
-  test "Correctly transforms short_text to be sent as an entry" do
+  test "Creates the content model to be sent to contentful" do
     assert BlogPost.__contentful_schema__() ==
              %{
                fields: [
@@ -38,7 +38,16 @@ defmodule ExContentful.Integration.SchemaTest do
                    omitted: false,
                    required: false,
                    type: "Array",
-                   items: %{type: "Symbol", validations: []}
+                   items: %{type: "Symbol"}
+                 },
+                 %{
+                   id: "author",
+                   linkType: "Entry",
+                   localized: false,
+                   name: "Author",
+                   omitted: false,
+                   required: false,
+                   type: "Link"
                  },
                  %{
                    type: "RichText",

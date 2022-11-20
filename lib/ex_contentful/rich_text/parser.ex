@@ -5,7 +5,15 @@ defmodule ExContentful.RichText.Parser do
   alias ExContentful.Field.RichText.Node.Blockquote
   alias ExContentful.Field.RichText.Node.OrderedList
   alias ExContentful.Field.RichText.Node.ListItem
-  alias ExContentful.Field.RichText.Node.{Heading1, Heading2, Heading3, Heading4, Heading5, Heading6}
+
+  alias ExContentful.Field.RichText.Node.{
+    Heading1,
+    Heading2,
+    Heading3,
+    Heading4,
+    Heading5,
+    Heading6
+  }
 
   def search_adapter([first], rest, adapter) do
     match = adapter.html_block([first])
