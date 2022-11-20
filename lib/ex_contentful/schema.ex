@@ -316,7 +316,6 @@ defmodule ExContentful.Schema do
 
         props
         |> Map.from_struct()
-        |> IO.inspect()
         |> add_contetful_specific_props(name, opts, type, :one)
         |> remove_unused_props_for_contentful()
 
