@@ -53,12 +53,16 @@ defmodule ExContentful.Schema do
   defmacro add_schema(_) do
     quote do
       def __contentful_schema__() do
-        %{
+        base = %{
           name: @content_type_name,
           id: @content_type_id,
-          displayField: Atom.to_string(@content_display_field),
           fields: @contentful_field
         }
+
+        case @content_display_field do
+          nil -> base
+          value -> Map.put(base, :displayField, Atom.to_string(value))
+        end
       end
 
       defimpl ExContentful.Resource do

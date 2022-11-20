@@ -1,1 +1,1 @@
-alias ExContentful.Integration.{Comment, BlogPost}
+alias ExContentful.Integration.{Author, BlogPost}

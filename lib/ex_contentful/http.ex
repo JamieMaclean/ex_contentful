@@ -38,6 +38,13 @@ defmodule ExContentful.HTTP do
     case response do
       {:ok, %{status_code: 200, body: body}} -> Jason.decode!(body)
       {:ok, %{status_code: 201, body: body}} -> Jason.decode!(body)
+      {:ok, %{status_code: 422, body: body}} -> process_error(Jason.decode!(body))
     end
+  end
+
+  # TODO Handle errors gracefully
+  defp process_error(%{"sys" => %{"id" => "ValidationFailed"}, "details" => %{"errors" => errors}}) do
+    IO.inspect(errors)
+    errors
   end
 end
