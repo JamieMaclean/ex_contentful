@@ -59,9 +59,9 @@ defmodule ExContentful.Schema do
           fields: @contentful_field
         }
 
-        case @content_display_field do
-          nil -> base
-          value -> Map.put(base, :displayField, Atom.to_string(value))
+        case Atom.to_string(@content_display_field) do
+          "nil" -> base
+          value -> Map.put(base, :displayField, value)
         end
       end
 

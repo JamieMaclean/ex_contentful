@@ -66,7 +66,7 @@ defmodule ExContentful.Integration.SchemaTest do
                    required: false
                  }
                ],
-               displayField: "nil",
+               displayField: "title",
                id: "blog_post",
                name: "Blog Post"
              }

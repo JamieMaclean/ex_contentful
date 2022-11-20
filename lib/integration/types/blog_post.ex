@@ -4,7 +4,7 @@ defmodule ExContentful.Integration.BlogPost do
 
   alias ExContentful.Integration.Author
 
-  content_type :blog_post do
+  content_type :blog_post, display_field: :title do
     content_field(:title, :short_text)
     content_field(:content, :rich_text)
     content_field(:author, Author)
