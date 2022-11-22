@@ -16,6 +16,15 @@ defmodule ExContentful.Integration.SchemaTest do
                    required: true
                  },
                  %{
+                   id: "feature_image",
+                   linkType: "Asset",
+                   localized: false,
+                   name: "Feature Image",
+                   omitted: false,
+                   required: false,
+                   type: "Link"
+                 },
+                 %{
                    type: "Integer",
                    id: "views",
                    localized: false,
