@@ -8,6 +8,6 @@ config :ex_contentful,
   content_delivery_token: "S7Qe5OTySNRWsoHIUD_FLHs0qoVczNCt3_fuO0W3bjw",
   content_types: [
     ExContentful.Integration.BlogPost,
-    ExContentful.Integration.Comment
+    ExContentful.Integration.Author
   ],
   attributes_module: ExContentful.Integration.Attributes

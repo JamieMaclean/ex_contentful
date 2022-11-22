@@ -6,7 +6,7 @@ defmodule ExContentful.ContentManagement.EntryTest do
   alias ExContentful.Resource.Link
   alias ExContentful.Error
   alias ExContentful.Integration.BlogPost
-  alias ExContentful.Integration.Comment
+  alias ExContentful.Integration.Author
   alias ExContentful.ContentManagement
   alias ExContentful.Factory.RichText
 
@@ -116,7 +116,7 @@ defmodule ExContentful.ContentManagement.EntryTest do
 
     test "returns a content type mismatch content type is not expected" do
       use_cassette "entry" do
-        expected_type = Comment.__contentful_schema__().id
+        expected_type = Author.__contentful_schema__().id
         received_type = BlogPost.__contentful_schema__().id
 
         assert %Error{
@@ -126,7 +126,7 @@ defmodule ExContentful.ContentManagement.EntryTest do
                    received: ^received_type,
                    response: _response
                  }
-               } = ContentManagement.get(%Comment{}, "1ovcGJESEykRotOaKuTRtE")
+               } = ContentManagement.get(%Author{}, "1ovcGJESEykRotOaKuTRtE")
       end
     end
   end

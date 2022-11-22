@@ -19,7 +19,8 @@ defmodule ExContentful.ResourceTest do
                "legacy_field" => %{"en-US" => "A legacy field"},
                "title" => %{"en-US" => "A long piece of text"},
                "views" => %{"en-US" => 287},
-               "rating" => %{"en-US" => 4.7}
+               "rating" => %{"en-US" => 4.7},
+               "author" => %{"en-US" => nil}
              }
            }
   end

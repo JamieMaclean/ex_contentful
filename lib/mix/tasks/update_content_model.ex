@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.ExContentful.UpdateContentModel do
-  @moduledoc "The hello mix task: `mix help hello`"
+  @moduledoc false
   use Mix.Task
 
   @requirements ["app.config"]
@@ -8,12 +8,12 @@ defmodule Mix.Tasks.ExContentful.UpdateContentModel do
 
   @doc "Updates the content model on Contentful"
   def run([]) do
-    Application.ensure_all_started(:content)
+    Application.ensure_all_started(:ex_contentful)
     ContentManagement.migrate_content_model()
   end
 
   def run(["--publish"]) do
-    Application.ensure_all_started(:content)
+    Application.ensure_all_started(:ex_contentful)
     ContentManagement.migrate_content_model(:publish)
   end
 end

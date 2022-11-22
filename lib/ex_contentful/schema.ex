@@ -53,12 +53,16 @@ defmodule ExContentful.Schema do
   defmacro add_schema(_) do
     quote do
       def __contentful_schema__() do
-        %{
+        base = %{
           name: @content_type_name,
           id: @content_type_id,
-          displayField: Atom.to_string(@content_display_field),
           fields: @contentful_field
         }
+
+        case Atom.to_string(@content_display_field) do
+          "nil" -> base
+          value -> Map.put(base, :displayField, value)
+        end
       end
 
       defimpl ExContentful.Resource do
@@ -272,6 +276,7 @@ defmodule ExContentful.Schema do
     rich_text: ExContentful.Field.RichText
   }
   defmacro content_field(name, {:array, type}, opts) do
+    type = Macro.expand(type, __CALLER__)
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :many))
     field_module = get_field_type(type)
     struct = struct(field_module)
@@ -288,8 +293,9 @@ defmodule ExContentful.Schema do
   end
 
   defmacro content_field(name, type, opts) do
+    type = Macro.expand(type, __CALLER__)
     props_field = prepare_props_field(name, type, opts |> Keyword.put(:cardinality, :one))
-    field_module = Map.get(@field_modules, type)
+    field_module = get_field_type(type)
     struct = struct(field_module)
 
     default_value = get_default_value(struct.ecto_type)
@@ -309,30 +315,58 @@ defmodule ExContentful.Schema do
   def prepare_props_field(name, type, opts) do
     case Keyword.get(opts, :cardinality) do
       :one ->
-        field_module = Map.get(@field_modules, type)
+        field_module = get_field_type(type)
         props = struct(field_module, opts)
 
         props
         |> Map.from_struct()
-        |> Map.delete(:type)
-        |> Map.delete(:cardinality)
-        |> Map.delete(:items)
-        |> Map.delete(:contentful_type)
-        |> Map.delete(:ecto_type)
-        |> Map.delete(:available_options)
-        |> Map.put(:type, props.contentful_type)
-        |> Map.put(:name, get_default_display_name(name, opts))
-        |> Map.put(:id, Atom.to_string(name))
+        |> add_contetful_specific_props(name, opts, type, :one)
+        |> remove_unused_props_for_contentful()
 
       :many ->
         struct(FieldArray, opts)
         |> Map.from_struct()
-        |> Map.delete(:contentful_type)
-        |> Map.delete(:cardinality)
-        |> Map.delete(:available_options)
-        |> Map.put(:name, get_default_display_name(name, opts))
-        |> Map.put(:id, Atom.to_string(name))
-        |> Map.put(:items, %{type: "Symbol", validations: []})
+        |> add_contetful_specific_props(name, opts, type, :many)
+        |> remove_unused_props_for_contentful()
+    end
+  end
+
+  defp remove_unused_props_for_contentful(props) do
+    props
+    |> Map.delete(:cardinality)
+    |> Map.delete(:contentful_type)
+    |> Map.delete(:ecto_type)
+    |> Map.delete(:available_options)
+  end
+
+  defp add_contetful_specific_props(props, name, opts, field_module, :one) do
+    props
+    |> Map.put(:name, get_default_display_name(name, opts))
+    |> Map.put(:id, Atom.to_string(name))
+    |> Map.merge(get_type_spec(props, field_module))
+  end
+
+  defp add_contetful_specific_props(props, name, opts, field_module, :many) do
+    props
+    |> Map.put(:name, get_default_display_name(name, opts))
+    |> Map.put(:id, Atom.to_string(name))
+    |> Map.put(:items, get_type_spec(props, field_module))
+  end
+
+  def get_type_spec(_, type) do
+    field_module = get_field_type(type)
+
+    case field_module do
+      ExContentful.Field.Link ->
+        %{
+          type: "Link",
+          linkType: "Entry"
+        }
+
+      other ->
+        %{
+          type: struct(other).contentful_type
+        }
     end
   end
 
@@ -362,7 +396,7 @@ defmodule ExContentful.Schema do
 
   defp get_field_type(type) do
     case Map.get(@field_modules, type) do
-      nil -> type
+      nil -> ExContentful.Field.Link
       module -> module
     end
   end

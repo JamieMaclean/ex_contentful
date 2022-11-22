@@ -5,7 +5,7 @@ defmodule ExContentful.ContentDelivery.EntryTest do
   alias ExContentful.Resource.Link
   alias ExContentful.Error
   alias ExContentful.Integration.BlogPost
-  alias ExContentful.Integration.Comment
+  alias ExContentful.Integration.Author
   alias ExContentful.ContentDelivery
 
   describe "get/2" do
@@ -46,7 +46,7 @@ defmodule ExContentful.ContentDelivery.EntryTest do
 
     test "returns a content type mismatch content type is not expected" do
       use_cassette "content_delivery_get_with_error" do
-        expected_type = Comment.__contentful_schema__().id
+        expected_type = Author.__contentful_schema__().id
         received_type = BlogPost.__contentful_schema__().id
 
         assert %Error{
@@ -56,7 +56,7 @@ defmodule ExContentful.ContentDelivery.EntryTest do
                    received: ^received_type,
                    response: _response
                  }
-               } = ContentDelivery.get(%Comment{}, "6KxUwJQ8bTaKOrLJNrJ8Hl")
+               } = ContentDelivery.get(%Author{}, "6KxUwJQ8bTaKOrLJNrJ8Hl")
       end
     end
   end
