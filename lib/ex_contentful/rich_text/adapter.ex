@@ -1,6 +1,5 @@
 defmodule ExContentful.RichText.Adapter do
   @moduledoc false
-  
   # coveralls-ignore-start
 
   defmacro __using__(_) do

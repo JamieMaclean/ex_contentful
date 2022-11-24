@@ -273,7 +273,8 @@ defmodule ExContentful.Schema do
     long_text: ExContentful.Field.LongText,
     number: ExContentful.Field.Number,
     integer: ExContentful.Field.Integer,
-    rich_text: ExContentful.Field.RichText
+    rich_text: ExContentful.Field.RichText,
+    asset: ExContentful.Field.Asset
   }
   defmacro content_field(name, {:array, type}, opts) do
     type = Macro.expand(type, __CALLER__)
@@ -361,6 +362,12 @@ defmodule ExContentful.Schema do
         %{
           type: "Link",
           linkType: "Entry"
+        }
+
+      ExContentful.Field.Asset ->
+        %{
+          type: "Link",
+          linkType: "Asset"
         }
 
       other ->

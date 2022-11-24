@@ -20,7 +20,8 @@ defmodule ExContentful.ResourceTest do
                "title" => %{"en-US" => "A long piece of text"},
                "views" => %{"en-US" => 287},
                "rating" => %{"en-US" => 4.7},
-               "author" => %{"en-US" => nil}
+               "author" => %{"en-US" => ""},
+               "feature_image" => %{"en-US" => ""}
              }
            }
   end
