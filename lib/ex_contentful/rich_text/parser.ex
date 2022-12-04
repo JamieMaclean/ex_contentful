@@ -39,7 +39,7 @@ defmodule ExContentful.RichText.Parser do
 
   def default_html(%Paragraph{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"p", [], content}
+    "<p>#{content}</p>"
   end
 
   def default_html(%Blockquote{} = node, adapter) do
@@ -88,27 +88,27 @@ defmodule ExContentful.RichText.Parser do
   end
 
   def default_html(%Custom{node_type: "br"}, _adapter) do
-    {"br", [], []}
+  "<br/>"
   end
 
   def default_html(%Text{marks: [%{type: "code"} | rest]} = node, adapter) do
     text = struct(node, %{marks: rest})
-    {"pre", [], [{"code", [], [default_html(text, adapter)]}]}
+    "<pre><code>#{default_html(text, adapter)}</code></pre>"
   end
 
   def default_html(%Text{marks: [%{type: "bold"} | rest]} = node, adapter) do
     text = struct(node, %{marks: rest})
-    {"b", [], [default_html(text, adapter)]}
+    "<b>#{default_html(text, adapter)}</b>"
   end
 
   def default_html(%Text{marks: [%{type: "italic"} | rest]} = node, adapter) do
     text = struct(node, %{marks: rest})
-    {"em", [], [default_html(text, adapter)]}
+           "<em>#{default_html(text, adapter)}</em>"
   end
 
   def default_html(%Text{marks: [%{type: "underline"} | rest]} = node, adapter) do
     text = struct(node, %{marks: rest})
-    {"u", [], [default_html(text, adapter)]}
+    "<u>#{default_html(text, adapter)}</u>"
   end
 
   def default_html(%Text{marks: [], value: value}, _), do: value

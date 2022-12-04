@@ -30,8 +30,7 @@ defmodule ExContentful.MixProject do
     [
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},
-      {:ecto, "~> 3.8"},
-      {:floki, "~> 0.33.1"}
+      {:ecto, "~> 3.8"}
     ] ++ dev_deps()
   end
 

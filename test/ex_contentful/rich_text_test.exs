@@ -14,7 +14,7 @@ defmodule ExContentful.RichTextTest do
           ]
         })
 
-      assert EmptyAdapter.parse_content([node]) == [{"p", [], ["just a paragraph"]}]
+      assert EmptyAdapter.parse_content([node]) == "<p>just a paragraph</p>"
     end
 
     test "returns a value with remainder" do
@@ -25,7 +25,7 @@ defmodule ExContentful.RichTextTest do
           ]
         })
 
-      assert EmptyAdapter.parse_content([node]) == [{"p", [], ["Text in a paragraph"]}]
+      assert EmptyAdapter.parse_content([node]) == "<p>Text in a paragraph</p>"
     end
   end
 
