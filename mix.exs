@@ -28,14 +28,20 @@ defmodule ExContentful.MixProject do
 
   defp deps do
     [
-      {:exvcr, "~> 0.11", runtime: false},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},
-      {:excoveralls, "~> 0.10", only: :test},
       {:ecto, "~> 3.8"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:floki, "~> 0.33.1"}
+    ] ++ dev_deps()
+  end
+
+  defp dev_deps do
+    [
+      {:exvcr, "~> 0.11", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.10", only: :test},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:phoenix_live_view, "~> 0.18", only: [:dev, :test]},
     ]
   end
 

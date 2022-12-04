@@ -30,17 +30,14 @@ defmodule ExContentful.RichText.Adapter do
 
         parse_content(content)
         |> Transformer.transform()
-        |> Floki.raw_html()
       end
 
       def to_html(content) when is_list(content) do
         parse_content(content)
-        |> Floki.raw_html()
       end
 
       def to_html(content) do
         parse_content([content])
-        |> Floki.raw_html()
       end
 
       def parse_content([]) do
