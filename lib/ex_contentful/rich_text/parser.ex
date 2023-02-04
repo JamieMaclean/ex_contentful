@@ -44,51 +44,51 @@ defmodule ExContentful.RichText.Parser do
 
   def default_html(%Blockquote{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"blockquote", [], content}
+    "<blockquote>#{content}</blockquote>"
   end
 
   def default_html(%OrderedList{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"ol", [], content}
+    "<ol>#{content}</ol>"
   end
 
   def default_html(%ListItem{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"li", [], content}
+    "<li>#{content}</li>"
   end
 
   def default_html(%Heading1{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h1", [], content}
+    "<h1>#{content}</h1>"
   end
 
   def default_html(%Heading2{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h2", [], content}
+    "<h2>#{content}</h2>"
   end
 
   def default_html(%Heading3{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h3", [], content}
+    "<h3>#{content}</h3>"
   end
 
   def default_html(%Heading4{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h4", [], content}
+    "<h4>#{content}</h4>"
   end
 
   def default_html(%Heading5{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h5", [], content}
+    "<h5>#{content}</h5>"
   end
 
   def default_html(%Heading6{} = node, adapter) do
     content = adapter.parse_content(node.content)
-    {"h6", [], content}
+    "<h6>#{content}</h6>"
   end
 
   def default_html(%Custom{node_type: "br"}, _adapter) do
-  "<br/>"
+    "<br/>"
   end
 
   def default_html(%Text{marks: [%{type: "code"} | rest]} = node, adapter) do
@@ -103,7 +103,7 @@ defmodule ExContentful.RichText.Parser do
 
   def default_html(%Text{marks: [%{type: "italic"} | rest]} = node, adapter) do
     text = struct(node, %{marks: rest})
-           "<em>#{default_html(text, adapter)}</em>"
+    "<em>#{default_html(text, adapter)}</em>"
   end
 
   def default_html(%Text{marks: [%{type: "underline"} | rest]} = node, adapter) do

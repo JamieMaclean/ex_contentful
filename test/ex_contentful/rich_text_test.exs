@@ -108,6 +108,7 @@ defmodule ExContentful.RichTextTest do
                "<b><u><em><pre><code>Some text</code></pre></em></u></b>"
     end
 
+    @tag :only
     test "headings are parsed correctly" do
       rich_text =
         Factory.build(:document, %{
@@ -161,7 +162,8 @@ defmodule ExContentful.RichTextTest do
           ]
         })
 
-      assert Adapter.to_html(node) == "<p><b>Change me to bold</b></p>"
+      assert %Phoenix.LiveView.Rendered{static: ["<div>inside sigil H</div>"]} =
+               Adapter.to_html(node)
     end
 
     test "returns custom matched text when embedded in other html" do
