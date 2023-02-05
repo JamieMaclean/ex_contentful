@@ -30,6 +30,7 @@ defmodule ExContentful.MixProject do
     [
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.8.0", override: true},
+      {:phoenix_live_view, "~> 0.18"},
       {:ecto, "~> 3.8"}
     ] ++ dev_deps()
   end
@@ -40,7 +41,7 @@ defmodule ExContentful.MixProject do
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:phoenix_live_view, "~> 0.18", only: [:dev, :test]}
+      #{:phoenix_live_view, "~> 0.18", only: [:dev, :test]}
     ]
   end
 

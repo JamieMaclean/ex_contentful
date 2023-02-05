@@ -11,3 +11,5 @@ config :ex_contentful,
     ExContentful.Integration.Author
   ],
   attributes_module: ExContentful.Integration.Attributes
+
+config :phoenix, :json_library, Jason
