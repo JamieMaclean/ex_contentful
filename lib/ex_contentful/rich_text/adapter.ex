@@ -29,6 +29,7 @@ defmodule ExContentful.RichText.Adapter do
         %Document{content: content} = Transformer.transform(node)
 
         parse_content(content)
+        |> IO.inspect(label: "content")
         |> Transformer.transform()
       end
 
@@ -46,10 +47,12 @@ defmodule ExContentful.RichText.Adapter do
 
       def parse_content(content) do
         case Parser.search_adapter(Enum.reverse(content), [], __MODULE__) do
-          {html, []} -> html
-          {html, rest} when is_list(html) -> html <> parse_content(rest)
-          {html, rest} -> html <> parse_content(rest)
+          {html, []} -> [html]
+          {html, rest} when is_list(html) -> [html, parse_content(rest)]
+          {html, rest} -> [html, parse_content(rest)]
         end
+        |> List.flatten()
+        |> IO.inspect()
       end
     end
   end
